@@ -1,8 +1,8 @@
 from Bio import Entrez
 import time
 
-Entrez.email = "balathepharmacist@gmail.com"
-Entrez.api_key = "781f12bc04105f7d5536a510520cd74cbf08"
+Entrez.email = "your_email.com"
+Entrez.api_key = "your_API_Key"
 
 def search_pubmed(query, max_results=5):
     handle = Entrez.esearch(db="pubmed", term=query, retmax=max_results)
