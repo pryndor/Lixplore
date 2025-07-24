@@ -4,8 +4,8 @@ from Bio import Entrez
 import time
 
 # Set Entrez credentials
-Entrez.email = "balathepharmacist@gmail.com"
-Entrez.api_key = "781f12bc04105f7d5536a510520cd74cbf08"
+Entrez.email = "Your_Email.com"
+Entrez.api_key = "Your_API"
 
 def search_pubmed(query, max_results=5, mindate=None, maxdate=None, country=None):
     # Prepare search arguments
