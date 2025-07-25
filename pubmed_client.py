@@ -5,8 +5,8 @@ import time
 import requests
 
 # Set Entrez credentials
-Entrez.email = "balathepharmacist@gmail.com"
-Entrez.api_key = "781f12bc04105f7d5536a510520cd74cbf08"
+Entrez.email = "Email@gmail.com"
+Entrez.api_key = "Your_API_Key"
 
 def search_pubmed(query, max_results=5, mindate=None, maxdate=None, country=None):
     # Prepare search arguments
