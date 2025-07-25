@@ -5,8 +5,8 @@ import time
 import requests
 
 # Set Entrez credentials
-Entrez.email = "Your_email.com"
-Entrez.api_key = "Your_API_Key"
+Entrez.email = "balathepharmacist@gmail.com"
+Entrez.api_key = "781f12bc04105f7d5536a510520cd74cbf08"
 
 def search_pubmed(query, max_results=5, mindate=None, maxdate=None, country=None):
     # Prepare search arguments
@@ -76,6 +76,10 @@ def search_pubmed(query, max_results=5, mindate=None, maxdate=None, country=None
     return results
 
 import requests
+from Bio import Entrez
+
+def get_pdf_url_from_pmcid(pmcid):
+    return f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/pdf"
 
 def fetch_pmc_pdf(pmid: str):
     """
@@ -91,9 +95,10 @@ def fetch_pmc_pdf(pmid: str):
             print("⚠️ No PMC full-text found for this PMID.")
             return
 
-        pmc_id = linksets[0]["Link"][0]["Id"]
-        pdf_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC{pmc_id}/pdf/"
-        filename = f"PMC{pmc_id}.pdf"
+        pmcid_numeric = linksets[0]["Link"][0]["Id"]
+        pmcid = f"PMC{pmcid_numeric}"
+        pdf_url = get_pdf_url_from_pmcid(pmcid)
+        filename = f"{pmcid}.pdf"
 
         r = requests.get(pdf_url, stream=True, timeout=10)
         if r.status_code == 200 and "application/pdf" in r.headers.get("Content-Type", ""):
@@ -105,7 +110,6 @@ def fetch_pmc_pdf(pmid: str):
             print(f"❌ PDF not available. HTTP status: {r.status_code}")
     except Exception as e:
         print(f"❌ Error fetching PDF: {e}")
-
 
 
 

@@ -1,6 +1,7 @@
 # main.py
 
 from pubmed_client import search_pubmed
+from pdf_fetcher import fetch_pmc_pdf
 from crossref.crossref_client import get_sample_crossref_result
 
 def main():
@@ -12,9 +13,6 @@ def main():
     print("[4] DOI")
 
     search_type = input("Choose option [1-4]: ").strip()
-
-    # Choose search type
-   # search_type = input("Search by: [1] Keyword  [2] DOI  [3] PMID : ").strip()
 
     if search_type == "2":
         author = input("Enter Author Name (e.g., Smith): ").strip()
@@ -34,15 +32,13 @@ def main():
         else:
             query = " ".join([k.strip() for k in keywords.split(",")])
 
-
-   # Optional filters
+    # Optional filters
     from_year = input("From year (optional): ").strip()
     to_year = input("To year (optional): ").strip()
     country = input("Country filter (optional): ").strip()
 
     print(f"\n🔍 Searching PubMed for: {query}\n")
 
-    # Fetch more than needed to allow rejections (say 20)
     results = search_pubmed(
         query,
         max_results=20,
@@ -73,6 +69,15 @@ def main():
         choice = input("\nDo you want to keep this article? [Y/n]: ").strip().lower()
         if choice in ["", "y", "yes"]:
             accepted += 1
+
+            # Prompt to download the PDF
+            download_choice = input("📥 Do you want to download the PDF for this article? [Y/n]: ").strip().lower()
+            if download_choice in ["", "y", "yes"]:
+                pmid = article.get("pmid")
+                if pmid:
+                    fetch_pmc_pdf(pmid)
+                else:
+                    print("⚠️ PMID not available. Cannot download PDF.")
         else:
             print("⏭️ Skipped.")
 
@@ -85,3 +90,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
