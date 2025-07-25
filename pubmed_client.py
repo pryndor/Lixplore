@@ -2,10 +2,11 @@
 
 from Bio import Entrez
 import time
+import requests
 
 # Set Entrez credentials
-Entrez.email = "Your_Email.com"
-Entrez.api_key = "Your_API"
+Entrez.email = "Your_email.com"
+Entrez.api_key = "Your_API_Key"
 
 def search_pubmed(query, max_results=5, mindate=None, maxdate=None, country=None):
     # Prepare search arguments
@@ -73,6 +74,37 @@ def search_pubmed(query, max_results=5, mindate=None, maxdate=None, country=None
             })
 
     return results
+
+import requests
+
+def fetch_pmc_pdf(pmid: str):
+    """
+    Given a PMID, fetch and download the PMC full-text PDF if available.
+    """
+    try:
+        link_handle = Entrez.elink(dbfrom="pubmed", db="pmc", id=pmid)
+        link_result = Entrez.read(link_handle)
+        link_handle.close()
+
+        linksets = link_result[0].get("LinkSetDb")
+        if not linksets:
+            print("⚠️ No PMC full-text found for this PMID.")
+            return
+
+        pmc_id = linksets[0]["Link"][0]["Id"]
+        pdf_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC{pmc_id}/pdf/"
+        filename = f"PMC{pmc_id}.pdf"
+
+        r = requests.get(pdf_url, stream=True, timeout=10)
+        if r.status_code == 200 and "application/pdf" in r.headers.get("Content-Type", ""):
+            with open(filename, "wb") as f:
+                for chunk in r.iter_content(1024):
+                    f.write(chunk)
+            print(f"✅ PDF downloaded: {filename}")
+        else:
+            print(f"❌ PDF not available. HTTP status: {r.status_code}")
+    except Exception as e:
+        print(f"❌ Error fetching PDF: {e}")
 
 
 

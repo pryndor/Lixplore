@@ -1,31 +1,41 @@
 # main.py
 
-
 from pubmed_client import search_pubmed
 from crossref.crossref_client import get_sample_crossref_result
 
 def main():
     print("🔍 PubMed Literature Search Tool\n")
+    print("Search by:")
+    print("[1] Keywords (default)")
+    print("[2] Author Name")
+    print("[3] Article Title")
+    print("[4] DOI")
+
+    search_type = input("Choose option [1-4]: ").strip()
 
     # Choose search type
-    search_type = input("Search by: [1] Keyword  [2] DOI  [3] PMID : ").strip()
+   # search_type = input("Search by: [1] Keyword  [2] DOI  [3] PMID : ").strip()
 
     if search_type == "2":
+        author = input("Enter Author Name (e.g., Smith): ").strip()
+        query = f"{author}[Author]"
+    elif search_type == "3":
+        title = input("Enter Article Title (or part of it): ").strip()
+        query = f"{title}[Title]"
+    elif search_type == "4":
         doi = input("Enter DOI: ").strip()
         query = f"{doi}[DOI]"
-    elif search_type == "3":
-        pmid = input("Enter PMID: ").strip()
-        query = f"{pmid}[PMID]"
     else:
-        # Default to keyword search
         keywords = input("Enter keywords (comma-separated): ").strip()
         operator = input("Choose operator [AND/OR/NOT] (optional, press Enter to skip): ").strip().upper()
+
         if operator in ["AND", "OR", "NOT"]:
             query = f" {operator} ".join([k.strip() for k in keywords.split(",")])
         else:
             query = " ".join([k.strip() for k in keywords.split(",")])
 
-    # Optional filters
+
+   # Optional filters
     from_year = input("From year (optional): ").strip()
     to_year = input("To year (optional): ").strip()
     country = input("Country filter (optional): ").strip()
@@ -75,4 +85,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
