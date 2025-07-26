@@ -1,6 +1,6 @@
 Project Status: Initial Development Phase
 Start Date: July 2025
-Maintainer: Bala Periannan
+Maintainer: Balasubramanian Periannan
 
 ## About This Project
 This tool is being developed to streamline literature search, review, and article extraction, with a strong focus on biomedical and life sciences domains. While it initially supports PubMed, our long-term goal is to integrate with multiple platforms and sources of scientific literature to make literature management more accessible and efficient.
