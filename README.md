@@ -7,7 +7,7 @@ This tool is being developed to streamline literature search, review, and articl
 
 The project is in its early stages and will be updated frequently. We aim to build a fully functional and user-friendly tool that can assist researchers, healthcare professionals, and students in:
 
-Searching academic literature by keyword, PMID, DOI, Keywords, Dates and country and many morefilters
+Searching academic literature by keyword, PMID, DOI, Keywords, Dates and country and many more filters
 
 Downloading open-access articles (when available)
 
