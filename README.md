@@ -20,6 +20,9 @@ Eventually integrating features like metadata parsing, tagging, annotation, and 
 
 Ongoing – Regular improvements, code optimization, and source integrations
 
+### Current Requirement: 
+I need assistance with downloading PDFs from PubMed.
+
 ## Future Plans:
 
 Add support for Springer, CrossRef, Google Scholar, and more
