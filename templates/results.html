@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>{{ source }} Results</h1>
+
+    {% if results %}
+        {% for article in results %}
+            <div style="border: 1px solid black; margin-bottom: 10px; padding: 10px;">
+                <h3>{{ article.title }}</h3>
+                <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
+                {% if source == "Crossref" %}
+                    <p><strong>DOI:</strong> {{ article.doi }}</p>
+                {% else %}
+                    <p><strong>PMID:</strong> {{ article.pmid }}</p>
+                    <p><strong>DOI:</strong> {{ article.doi or 'Not available' }}</p>
+                    <p><strong>Abstract:</strong> {{ article.abstract }}</p>
+                    <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
+                {% endif %}
+                <p><strong>URL:</strong> <a href="{{ article.url }}" target="_blank">{{ article.url }}</a></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>⚠ No results found.</p>
+    {% endif %}
+
+    <br>
+    <a href="/">🔙 Back to Search</a>
+</body>
+</html>
+

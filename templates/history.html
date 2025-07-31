@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search History</title>
+</head>
+<body>
+    <h1>📜 Search History</h1>
+
+    {% if history %}
+        {% for h in history %}
+            <p>[{{ h[3] }}] <strong>{{ h[1] }}</strong> — Query: {{ h[2] }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No search history available.</p>
+    {% endif %}
+
+    <br>
+    <a href="/">🔙 Back to Search</a>
+</body>
+</html>
+

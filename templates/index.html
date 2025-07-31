@@ -1,0 +1,88 @@
+
+
+{% extends "base.html" %}
+{% block content %}
+<section class="search-box">
+    <form action="{{ url_for('home') }}" method="post">
+        <label for="source">Select Source:</label>
+        <select name="source" id="source">
+            <option value="" disabled selected>Select Source</option>
+            <option value="pubmed">PubMed</option>
+            <option value="crossref">Crossref</option>
+            <option value="springer">Springer</option>
+            <option value="europepmc_publications">Europe PMC - Publications</option>
+            <option value="europepmc_grants">Europe PMC - Grants</option>
+        </select>
+
+        <label for="query">Search Query:</label>
+        <input type="text" id="query" name="query" placeholder="Enter keyword, DOI, or author">
+
+        <!-- 📅 Date Range Picker -->
+        <div class="date-range">
+            <label for="start_date">From:</label>
+            <input type="date" id="start_date" name="start_date">
+
+            <label for="end_date">To:</label>
+            <input type="date" id="end_date" name="end_date">
+        </div>
+
+        <button type="submit">Search</button>
+    </form>
+</section>
+
+{% if results %}
+<section class="results-box">
+    <h2>Search Results</h2>
+    {% for article in results %}
+    <div class="result-card">
+        <h3>{{ article.title }}</h3>
+        <p><strong>Authors:</strong> {{ article.authors|join(', ') if article.authors else 'Not available' }}</p>
+        <p><strong>DOI:</strong> {{ article.doi if article.doi else 'Not available' }}</p>
+        {% if article.pmid %}<p><strong>PMID:</strong> {{ article.pmid }}</p>{% endif %}
+        <p><strong>Abstract:</strong> {{ article.abstract if article.abstract else 'Not available' }}</p>
+        <p><strong>URL:</strong> 
+            {% if article.url %}
+                <a href="{{ article.url }}" target="_blank">{{ article.url }}</a>
+            {% else %}
+                Not available
+            {% endif %}
+        </p>
+        {% if article.oa_pdf_path %}
+            <p><strong>OA PDF:</strong> <a href="{{ article.oa_pdf_path }}" target="_blank">Download</a></p>
+        {% endif %}
+        <hr>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+<style>
+.date-range {
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+input[type="date"], select, input[type="text"] {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+button {
+    margin-top: 10px;
+    padding: 7px 15px;
+    border: none;
+    background: #007acc;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background: #005ea3;
+}
+.result-card {
+    margin-bottom: 15px;
+}
+</style>
+{% endblock %}
+

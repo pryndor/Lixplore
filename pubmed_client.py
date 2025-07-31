@@ -2,116 +2,102 @@
 
 from Bio import Entrez
 import time
-import requests
+#import requests
 
 # Set Entrez credentials
-Entrez.email = "Email@gmail.com"
-Entrez.api_key = "Your_API_Key"
+Entrez.email = "Your_example_email.com"
+Entrez.api_key = "Your_API"
 
-def search_pubmed(query, max_results=5, mindate=None, maxdate=None, country=None):
-    # Prepare search arguments
-    search_args = {
-        "db": "pubmed",
-        "term": query,
-        "retmax": max_results,
-        "retmode": "xml"
-    }
 
-    if mindate:
-        search_args["mindate"] = mindate
-    if maxdate:
-        search_args["maxdate"] = maxdate
+# ✅ Throttle: NCBI recommends <= 3 requests/sec (0.34s delay for safety)
+THROTTLE_DELAY = 0.34
 
-    # Execute search
-    handle = Entrez.esearch(**search_args)
+
+def search_pubmed(query, author=None, start_year=None, end_year=None, country=None, max_results=10):
+    """
+    PubMed: Search articles with keyword/boolean/DOI + filters (author/year/country).
+    Returns full details including DOI, PMID, Abstract, Authors, Affiliations.
+    """
+
+    # ✅ Build search query
+    search_query = query.strip()
+
+    # Author filter
+    if author:
+        search_query += f' AND {author}[Author]'
+
+    # Year range filter
+    if start_year or end_year:
+        start = start_year or "1800"
+        end = end_year or "3000"
+        search_query += f' AND ("{start}"[Date - Publication] : "{end}"[Date - Publication])'
+
+    # Country filter (via affiliations)
+    if country:
+        search_query += f' AND {country}[Affiliation]'
+
+    # ✅ Search PubMed IDs
+    handle = Entrez.esearch(db="pubmed", term=search_query, retmax=max_results)
     record = Entrez.read(handle)
-    handle.close()
     ids = record.get("IdList", [])
+    time.sleep(THROTTLE_DELAY)
+
+    if not ids:
+        return []
+
+    # ✅ Fetch details for IDs
+    handle = Entrez.efetch(db="pubmed", id=",".join(ids), rettype="medline", retmode="xml")
+    papers = Entrez.read(handle)
+    time.sleep(THROTTLE_DELAY)
 
     results = []
+    for paper in papers.get("PubmedArticle", []):
+        article_data = paper.get("MedlineCitation", {}).get("Article", {})
 
-    for pmid in ids:
-        time.sleep(0.1)  # Respect NCBI rate limits
-        fetch_handle = Entrez.efetch(db="pubmed", id=pmid, rettype="medline", retmode="xml")
-        fetch_record = Entrez.read(fetch_handle)
-        fetch_handle.close()
+        # Title
+        title = article_data.get("ArticleTitle", "No title")
 
-        for article in fetch_record.get("PubmedArticle", []):
-            citation = article.get("MedlineCitation", {})
-            article_data = citation.get("Article", {})
+        # Authors
+        authors_data = article_data.get("AuthorList", [])
+        authors = [
+            f"{a.get('ForeName', '')} {a.get('LastName', '')}".strip()
+            for a in authors_data if a.get("ForeName") or a.get("LastName")
+        ]
 
-            title = article_data.get("ArticleTitle", "No title available")
+        # Affiliations
+        affiliations = []
+        for author_entry in authors_data:
+            for aff in author_entry.get("AffiliationInfo", []):
+                aff_text = aff.get("Affiliation", "").strip()
+                if aff_text:
+                    affiliations.append(aff_text)
 
-            # Handle abstract as string (join parts if needed)
-            abstract_parts = article_data.get("Abstract", {}).get("AbstractText", [])
-            if isinstance(abstract_parts, list):
-                abstract = " ".join(abstract_parts)
-            else:
-                abstract = abstract_parts or "No abstract available"
+        # DOI
+        doi = None
+        article_ids = paper.get("PubmedData", {}).get("ArticleIdList", [])
+        for article_id in article_ids:
+            if article_id.attributes.get("IdType") == "doi":
+                doi = str(article_id)
 
-            # Extract affiliations
-            affiliations = []
-            authors = article_data.get("AuthorList", [])
-            for author in authors:
-                affs = author.get("AffiliationInfo", [])
-                for aff in affs:
-                    aff_text = aff.get("Affiliation")
-                    if aff_text:
-                        affiliations.append(aff_text)
+        # Abstract
+        abstract_list = article_data.get("Abstract", {}).get("AbstractText", [])
+        abstract_text = " ".join(abstract_list) if abstract_list else "No abstract available"
 
-            # Filter by country if specified
-            if country:
-                country_lower = country.lower().strip()
-                matched = any(country_lower in (aff or "").lower() for aff in affiliations)
-                if not matched:
-                    continue  # Skip this article
+        # PMID & URL
+        pmid = paper.get("MedlineCitation", {}).get("PMID", "")
+        url = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/"
 
-            # Add result
-            results.append({
-                "title": title,
-                "abstract": abstract,
-                "affiliations": affiliations
-            })
+        # ✅ Append result in DB-compatible format
+        results.append({
+            "title": title,
+            "authors": authors,
+            "abstract": abstract_text,
+            "affiliations": affiliations,
+            "pmid": pmid,
+            "doi": doi,
+            "url": url,
+            "source": "PubMed"
+        })
 
     return results
-
-import requests
-from Bio import Entrez
-
-def get_pdf_url_from_pmcid(pmcid):
-    return f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/pdf"
-
-def fetch_pmc_pdf(pmid: str):
-    """
-    Given a PMID, fetch and download the PMC full-text PDF if available.
-    """
-    try:
-        link_handle = Entrez.elink(dbfrom="pubmed", db="pmc", id=pmid)
-        link_result = Entrez.read(link_handle)
-        link_handle.close()
-
-        linksets = link_result[0].get("LinkSetDb")
-        if not linksets:
-            print("⚠️ No PMC full-text found for this PMID.")
-            return
-
-        pmcid_numeric = linksets[0]["Link"][0]["Id"]
-        pmcid = f"PMC{pmcid_numeric}"
-        pdf_url = get_pdf_url_from_pmcid(pmcid)
-        filename = f"{pmcid}.pdf"
-
-        r = requests.get(pdf_url, stream=True, timeout=10)
-        if r.status_code == 200 and "application/pdf" in r.headers.get("Content-Type", ""):
-            with open(filename, "wb") as f:
-                for chunk in r.iter_content(1024):
-                    f.write(chunk)
-            print(f"✅ PDF downloaded: {filename}")
-        else:
-            print(f"❌ PDF not available. HTTP status: {r.status_code}")
-    except Exception as e:
-        print(f"❌ Error fetching PDF: {e}")
-
-
-
-
 

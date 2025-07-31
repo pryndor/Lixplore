@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Search Results</h1>
+
+    {% if results %}
+        {% for article in results %}
+            <div class="article">
+                <h2>{{ article.title }}</h2>
+                <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
+                <p><strong>DOI:</strong> 
+                    {% if article.doi %}
+                        <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a>
+                    {% else %}
+                        Not available
+                    {% endif %}
+                </p>
+                {% if article.pmid %}
+                    <p><strong>PMID:</strong> {{ article.pmid }}</p>
+                {% endif %}
+                <p><strong>Abstract:</strong> {{ article.abstract if article.abstract else 'Not available' }}</p>
+                {% if article.affiliations %}
+                    <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') }}</p>
+                {% endif %}
+                <p><a href="{{ article.url }}" target="_blank">Read more</a></p>
+                <hr>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+
+</body>
+</html>
+
