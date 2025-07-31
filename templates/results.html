@@ -1,14 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Search Results</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ source }} Results</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #222;
+        }
+
+        /* Sticky search/filter section */
+        .filters {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            z-index: 100;
+        }
+
+        /* Scrollable results */
+        .results-container {
+            max-height: calc(100vh - 100px); /* Leaves space for filters */
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .result-card {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: #fff;
+            border-radius: 5px;
+        }
+
+        a {
+            color: #007acc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>{{ source }} Results</h1>
 
+<!-- Sticky Filters Section -->
+<div class="filters">
+    <h1>{{ source }} Results</h1>
+    <a href="/">🔙 Back to Search</a>
+</div>
+
+<!-- Scrollable Results Section -->
+<div class="results-container">
     {% if results %}
         {% for article in results %}
-            <div style="border: 1px solid black; margin-bottom: 10px; padding: 10px;">
+            <div class="result-card">
                 <h3>{{ article.title }}</h3>
                 <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
                 {% if source == "Crossref" %}
@@ -25,9 +76,8 @@
     {% else %}
         <p>⚠ No results found.</p>
     {% endif %}
+</div>
 
-    <br>
-    <a href="/">🔙 Back to Search</a>
 </body>
 </html>
 

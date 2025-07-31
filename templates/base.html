@@ -5,11 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title if title else "Literature Search Tool" }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Full height for sticky footer */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background: #f9f9f9;
+            color: #222;
+        }
+
+        /* Header: Title left, nav centered */
+        header {
+            position: relative; /* Allows nav absolute centering */
+            background: #fff;
+            padding: 0.5rem 2rem;
+            border-bottom: 1px solid #ddd;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Title on left */
+        header h1 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: #000;
+        }
+
+        /* Nav centered horizontally */
+        nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1.5rem;
+        }
+
+       nav a {
+   	 color: #000 !important; /* Force black so it's visible */
+   	 text-decoration: none;
+   	 font-weight: 500;
+   	 font-size: 1rem;
+	}
+
+	nav a:hover {
+   	 color: #007acc; /* Blue hover */
+	}
+
+        /* Main pushes footer */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 900px;
+            margin: auto;
+            width: 100%;
+        }
+
+        /* Footer fixed bottom */
+        footer {
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
 
 <header>
+    <!-- Title on left -->
     <h1>📚 Literature Search Tool</h1>
+
+    <!-- Links centered horizontally -->
     <nav>
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('history') }}">History</a>
