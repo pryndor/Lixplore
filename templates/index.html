@@ -1,10 +1,8 @@
-
-
-
-
 {% extends "base.html" %}
 {% block content %}
-<section class="search-box">
+
+<!-- Sticky Search Section -->
+<section class="search-box sticky-filters">
     <form action="{{ url_for('home') }}" method="post">
         <label for="source">Select Source:</label>
         <select name="source" id="source">
@@ -32,6 +30,7 @@
     </form>
 </section>
 
+<!-- Scrollable Results Section -->
 {% if results %}
 <section class="results-box">
     <h2>Search Results</h2>
@@ -42,7 +41,7 @@
         <p><strong>DOI:</strong> {{ article.doi if article.doi else 'Not available' }}</p>
         {% if article.pmid %}<p><strong>PMID:</strong> {{ article.pmid }}</p>{% endif %}
         <p><strong>Abstract:</strong> {{ article.abstract if article.abstract else 'Not available' }}</p>
-        <p><strong>URL:</strong> 
+        <p><strong>Full text:</strong> 
             {% if article.url %}
                 <a href="{{ article.url }}" target="_blank">{{ article.url }}</a>
             {% else %}
@@ -59,17 +58,29 @@
 {% endif %}
 
 <style>
+/* Sticky filter styles */
+.sticky-filters {
+    position: sticky;
+    top: 0;
+    background: #fff;       /* Prevent overlap text */
+    z-index: 10;            /* Keep above results */
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
 .date-range {
     margin: 10px 0;
     display: flex;
     gap: 10px;
     align-items: center;
 }
+
 input[type="date"], select, input[type="text"] {
     padding: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
 button {
     margin-top: 10px;
     padding: 7px 15px;
@@ -82,9 +93,9 @@ button {
 button:hover {
     background: #005ea3;
 }
+
 .result-card {
     margin-bottom: 15px;
 }
 </style>
 {% endblock %}
-
