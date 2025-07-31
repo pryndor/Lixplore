@@ -3,7 +3,7 @@ import requests
 import os
 
 # 🔑 Springer API key (can also set via environment variable)
-API_KEY = os.getenv("SPRINGER_API_KEY", "2849e4acd5190c3992f9a1a8ebe82692")
+API_KEY = os.getenv("SPRINGER_API_KEY", "Your_API")
 
 # 📂 Folder to save PDFs
 SAVE_FOLDER = "springer_pdfs"
