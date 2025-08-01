@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title if title else "Literature Search Tool" }}</title>
+    <title>{{ title if title else "Lixplore" }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         /* Full height for sticky footer */
@@ -19,41 +19,86 @@
 
         /* Header: Title left, nav centered */
         header {
-            position: relative; /* Allows nav absolute centering */
+            position: relative;
             background: #fff;
             padding: 1.5rem 2rem;
             border-bottom: 1px solid #ddd;
+	    height: auto; /* Auto height instead of fixed 90px */
             height: 90px;
             display: flex;
+            width: 100%; /* Full width */binwidth: 100%; /* Full width */
             align-items: center;
+            justify-content: space-between;
+	    box-sizing: border-box; /* Prevent overflow */
         }
 
-        /* Title on left */
+        /* Title */
         header h1 {
             margin: 0;
             font-size: 1.3rem;
             color: #000;
         }
 
-        /* Nav centered horizontally */
+        /* Navigation links (desktop) */
         nav {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             display: flex;
             gap: 1.5rem;
         }
 
-       nav a {
-   	 color: #000 !important; /* Force black so it's visible */
-   	 text-decoration: none;
-   	 font-weight: 500;
-   	 font-size: 1rem;
-	}
+        nav a {
+            color: #000 !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
 
-	nav a:hover {
-   	 color: #007acc; /* Blue hover */
-	}
+        nav a:hover {
+            color: #007acc;
+        }
+
+        /* Hamburger styles (hidden on desktop) */
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+	    position: absolute;
+	    right: 2rem;
+	    color: #000; /* 🔥 Makes icon black */
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            /* Hide desktop nav */
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 90px;
+                right: 0;
+                background: #fff;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 10px;
+                width: 150px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+
+            /* Show nav when checked */
+            .menu-toggle:checked + .menu-icon + nav {
+                display: flex;
+            }
+
+            /* Show hamburger icon */
+            .menu-icon {
+                display: block;
+            }
+        }
 
         /* Main pushes footer */
         main {
@@ -64,24 +109,28 @@
             width: 100%;
         }
 
-        /* Footer fixed bottom */
-        footer {
-            background: #fff;
-            border-top: 1px solid #ddd;
-            text-align: center;
-            padding: 1rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
-    </style>
+       footer {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    padding: 1rem 2rem; /* ✅ Match horizontal padding */
+    font-size: 0.9rem;
+    color: #666;
+    box-sizing: border-box;
+}
+</style>
 </head>
 <body>
 
 <header>
-    <!-- Title on left -->
-    <h1>📚 Literature Search Tool</h1>
+    <!-- Title -->
+    <h1>Lixplore</h1>
 
-    <!-- Links centered horizontally -->
+    <!-- Hamburger toggle -->
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+    <!-- Navigation -->
     <nav>
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('history') }}">History</a>

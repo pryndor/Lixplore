@@ -5,26 +5,51 @@ from pubmed_client import search_pubmed
 from crossref.crossref_client import search_crossref
 from springer.springer_client import search_springer
 from europepmc.europepmc_client import search_epmc_publications, search_epmc_grants
+from clinicaltrials_client import search_clinical_trials  # ✅ ClinicalTrials.gov
 from database.database import get_archive
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Required for flash messages
 
+
+# ✅ Helper function to format citation text
+def format_citation(article):
+    authors = ", ".join(article.get("authors", [])) if article.get("authors") else "Unknown Author"
+    year = article.get("year", "n.d.")
+    title = article.get("title", "No title available")
+    doi = article.get("doi")
+    url = article.get("url")
+
+    citation = f"{authors} ({year}). {title}."
+    if doi:
+        citation += f" https://doi.org/{doi}"
+    elif url:
+        citation += f" {url}"
+    return citation
+
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     results = []
+    source = ""
+    query = ""
+    status_filter = None  # ✅ For ClinicalTrials.gov
 
     if request.method == "POST":
         source = request.form.get("source")
         query = request.form.get("query", "").strip()
 
-        # Validate inputs
+        # ✅ ClinicalTrials.gov requires optional status filter
+        if source == "clinicaltrials":
+            status_filter = request.form.get("status", "").strip() or None
+
+        # ✅ Validate input
         if not source or not query:
             flash("⚠ Please select a source and enter a search query.", "error")
-            return render_template("index.html", results=[])
+            return render_template("index.html", results=[], source=source, query=query)
 
         try:
-            # Route search based on source
+            # ✅ Route search based on source
             if source == "pubmed":
                 results = search_pubmed(query)
 
@@ -39,17 +64,29 @@ def home():
 
             elif source == "europepmc_grants":
                 grant_data = search_epmc_grants(query)
-                # Europe PMC grants may need custom display
                 results = grant_data.get("grants", []) if isinstance(grant_data, dict) else []
+
+            elif source == "clinicaltrials":
+                results = search_clinical_trials(query, status_filter)
 
             else:
                 flash("⚠ Unknown source selected.", "error")
+
+            # ✅ Add citation to each article (for Citation button in UI)
+            for article in results:
+                article["citation"] = format_citation(article)
 
         except Exception as e:
             flash(f"❌ An error occurred while searching: {str(e)}", "error")
             results = []
 
-    return render_template("index.html", results=results)
+    return render_template(
+        "index.html",
+        results=results,
+        source=source,
+        query=query,
+        status=status_filter
+    )
 
 
 @app.route("/history")
@@ -64,5 +101,5 @@ def history():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
 

@@ -1,5 +1,6 @@
 # main.py
 
+import json
 from pubmed_client import search_pubmed
 # from pdf_fetcher import fetch_pmc_pdf
 from crossref.crossref_client import search_crossref
@@ -7,14 +8,9 @@ from database.database import init_db, save_search, get_archive
 #from database.database import init_db, save_search  # ✅ Added database imports
 # from scholarly_client import search_scholar  # Optional for later
 from springer.springer_client import search_springer   # ✅ Added Springer import
-from database.database import init_db, save_search, get_archive
-
-from pubmed_client import search_pubmed
-from crossref.crossref_client import search_crossref
-from springer.springer_client import search_springer
 from europepmc.europepmc_client import search_epmc_publications, search_epmc_grants
-from database.database import init_db, save_search, get_archive
-import json
+from clinicaltrials_client import search_clinical_trials  # ClinicalTrials.gov added
+
 
 
 def main():
@@ -22,7 +18,7 @@ def main():
     init_db()
 
     while True:
-        print("\n🔍 Literature Search Tool\n")
+        print("\n🔍 Lixplore\n")
         print("Select Option:")
         print("1. Crossref (Keyword search only: Metadata)")
         print("2. PubMed (Keyword / Boolean / Author / DOI search: Full data)")
@@ -30,7 +26,9 @@ def main():
         print("4. Europe PMC (Publications & Grants)")
         print("5. View Search History")
         print("6. Exit")
-        choice = input("Enter choice (1-6): ").strip()
+        print("7. ClinicalTrials.gov (Keyword search: Studies & Status)")
+
+        choice = input("Enter choice (1-7): ").strip()
 
         if choice == "6":
             print("\n👋 Exiting tool. Goodbye!")
@@ -39,6 +37,7 @@ def main():
         filters = {}
         results = []
         source_name = ""
+        query = ""
 
         # ✅ View Search History
         if choice == "5":
@@ -56,6 +55,14 @@ def main():
                         filt_text = str(filt)
                     print(f"[{timestamp}] Source: {source} | Query: {query} | Filters: {filt_text}")
             continue
+
+        # ✅ Crossref Search
+        elif choice == "1":
+            query = input("Enter keyword: ").strip()
+            results = search_crossref(query)
+            results = [r for r in results if isinstance(r, dict)]
+            filters["note"] = "Keyword search only (Crossref metadata)"
+            source_name = "Crossref"
 
         # ✅ PubMed Search
         elif choice == "2":
@@ -86,14 +93,6 @@ def main():
 
             results = search_pubmed(query, None, start_year, end_year, country)
             source_name = "PubMed"
-
-        # ✅ Crossref Search
-        elif choice == "1":
-            query = input("Enter keyword: ").strip()
-            results = search_crossref(query)
-            results = [r for r in results if isinstance(r, dict)]
-            filters["note"] = "Keyword search only (Crossref metadata)"
-            source_name = "Crossref"
 
         # ✅ Springer Search
         elif choice == "3":
@@ -139,6 +138,13 @@ def main():
                 print("\n⚠ Invalid choice for Europe PMC.")
                 continue
 
+        # ✅ ClinicalTrials.gov Search
+        elif choice == "7":
+            query = input("Enter keyword: ").strip()
+            status = input("Status filter (optional e.g. RECRUITING, COMPLETED): ").strip() or None
+            results = search_clinical_trials(query, status)  # ✅ Correct function name
+            source_name = "ClinicalTrials.gov"
+
         else:
             print("\n⚠ Invalid choice. Try again.")
             continue
@@ -155,18 +161,36 @@ def main():
 
         # ✅ Display results
         print(f"\n✅ Found {len(results)} results:")
-        for idx, article in enumerate(results, start=1):
+        for idx, item in enumerate(results, start=1):
             print(f"\nResult {idx} ({source_name})")
-            print(f"Title: {article.get('title', 'Not available')}")
-            print(f"Authors: {', '.join(article.get('authors', [])) if article.get('authors') else 'Not available'}")
-            print(f"DOI: {article.get('doi', 'Not available')}")
+            print(f"Title: {item.get('title', 'Not available')}")
+
             if source_name == "PubMed":
-                print(f"PMID: {article.get('pmid', 'Not available')}")
-            print(f"Abstract: {article.get('abstract', 'Not available')}")
-            print(f"Affiliations: {', '.join(article.get('affiliations', [])) if article.get('affiliations') else 'Not available'}")
-            print(f"URL: {article.get('url', 'Not available')}")
-            if article.get("oa_pdf_path"):
-                print(f"OA PDF Path: {article['oa_pdf_path']}")
+                print(f"PMID: {item.get('pmid', 'Not available')}")
+                print(f"Authors: {', '.join(item.get('authors', [])) if item.get('authors') else 'Not available'}")
+                print(f"DOI: {item.get('doi', 'Not available')}")
+                print(f"Abstract: {item.get('abstract', 'Not available')}")
+                print(f"Affiliations: {', '.join(item.get('affiliations', [])) if item.get('affiliations') else 'Not available'}")
+                print(f"URL: {item.get('url', 'Not available')}")
+
+            elif source_name == "ClinicalTrials.gov":
+                print(f"NCT ID: {item.get('nct_id', 'Not available')}")
+                print(f"Status: {item.get('status', 'Not available')}")
+                print(f"Conditions: {', '.join(item.get('conditions', [])) if item.get('conditions') else 'Not available'}")
+                print(f"Start Date: {item.get('start_date', 'Not available')}")
+                print(f"Completion Date: {item.get('completion_date', 'Not available')}")
+                print(f"Sponsor: {item.get('sponsor', 'Not available')}")
+                print(f"Summary: {item.get('summary', 'Not available')}")
+                print(f"URL: {item.get('url', 'Not available')}")
+
+            else:  # Crossref, Springer, Europe PMC
+                print(f"Authors: {', '.join(item.get('authors', [])) if item.get('authors') else 'Not available'}")
+                print(f"DOI: {item.get('doi', 'Not available')}")
+                print(f"Abstract: {item.get('abstract', 'Not available')}")
+                print(f"URL: {item.get('url', 'Not available')}")
+                if item.get("oa_pdf_path"):
+                    print(f"OA PDF Path: {item['oa_pdf_path']}")
+
             print("-" * 50)
 
 

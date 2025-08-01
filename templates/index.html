@@ -1,55 +1,110 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- Sticky Search Section -->
+<!-- 🔍 Sticky Search Section -->
 <section class="search-box sticky-filters">
-    <form action="{{ url_for('home') }}" method="post">
+    <form action="{{ url_for('home') }}" method="post" class="search-form">
+        
+        <!-- Source Selector -->
         <label for="source">Select Source:</label>
-        <select name="source" id="source">
+        <select name="source" id="source" required>
             <option value="" disabled selected>Select Source</option>
             <option value="pubmed">PubMed</option>
             <option value="crossref">Crossref</option>
             <option value="springer">Springer</option>
             <option value="europepmc_publications">Europe PMC - Publications</option>
             <option value="europepmc_grants">Europe PMC - Grants</option>
+            <option value="clinicaltrials">ClinicalTrials.gov</option>
         </select>
 
-        <label for="query">Search Query:</label>
-        <input type="text" id="query" name="query" placeholder="Enter keyword, DOI, or author">
-
-        <!-- 📅 Date Range Picker -->
-        <div class="date-range">
-            <label for="start_date">From:</label>
-            <input type="date" id="start_date" name="start_date">
-
-            <label for="end_date">To:</label>
-            <input type="date" id="end_date" name="end_date">
+        <!-- Status Filter (only for ClinicalTrials.gov) -->
+        <div id="statusFilter" style="display:none; width:100%;">
+            <label for="status">Status (optional):</label>
+            <input type="text" id="status" name="status" placeholder="e.g., RECRUITING, COMPLETED">
         </div>
 
+        <!-- Query Input -->
+        <label for="query">Search Query:</label>
+        <input type="text" id="query" name="query" placeholder="Enter keyword, DOI, or author" required>
+
+        <!-- 📅 Date Range -->
+        <div class="date-range">
+            <div>
+                <label for="start_date">From:</label>
+                <input type="date" id="start_date" name="start_date">
+            </div>
+            <div>
+                <label for="end_date">To:</label>
+                <input type="date" id="end_date" name="end_date">
+            </div>
+        </div>
+
+        <!-- Search Button -->
         <button type="submit">Search</button>
     </form>
 </section>
 
-<!-- Scrollable Results Section -->
+<!-- 📄 Search Results -->
 {% if results %}
 <section class="results-box">
     <h2>Search Results</h2>
     {% for article in results %}
     <div class="result-card">
         <h3>{{ article.title }}</h3>
-        <p><strong>Authors:</strong> {{ article.authors|join(', ') if article.authors else 'Not available' }}</p>
-        <p><strong>DOI:</strong> {{ article.doi if article.doi else 'Not available' }}</p>
-        {% if article.pmid %}<p><strong>PMID:</strong> {{ article.pmid }}</p>{% endif %}
-        <p><strong>Abstract:</strong> {{ article.abstract if article.abstract else 'Not available' }}</p>
-        <p><strong>Full text:</strong> 
-            {% if article.url %}
-                <a href="{{ article.url }}" target="_blank">{{ article.url }}</a>
-            {% else %}
-                Not available
-            {% endif %}
-        </p>
+        
+        {% if article.abstract %}
+            <p><strong>Abstract:</strong> {{ article.abstract }}</p>
+        {% endif %}
+
+        {% if article.authors %}
+            <p><strong>Authors:</strong> {{ article.authors|join(', ') }}</p>
+        {% else %}
+            <p><strong>Authors:</strong> Not available</p>
+        {% endif %}
+
+        {% if article.pmid %}
+            <p><strong>PMID:</strong> {{ article.pmid }}</p>
+        {% endif %}
+
+        {% if article.doi %}
+            <p><strong>DOI:</strong> {{ article.doi }}</p>
+        {% endif %}
+
+        {% if article.affiliations %}
+            <p><strong>Affiliations:</strong> {{ article.affiliations|join(', ') }}</p>
+        {% endif %}
+
+       <!-- Citation + Full Text Section -->
+	<div class="link-section">
+   	<div class="fulltext-left">
+        {% if article.url %}
+            <a href="{{ article.url }}" target="_blank" class="fulltext-link">Full Text</a>
+        {% else %}
+            <span class="fulltext-link disabled">Full Text Not Available</span>
+        {% endif %}
+   	 </div>
+
+  	  <div class="citation-right">
+        {% if article.citation %}
+            <a href="#" class="citation-link" onclick="showCitation(`{{ article.citation }}`)">Cite this article</a>
+        {% else %}
+            <span class="citation-link disabled">Citation N/A</span>
+        {% endif %}
+   	 </div>
+	</div>
+
         {% if article.oa_pdf_path %}
             <p><strong>OA PDF:</strong> <a href="{{ article.oa_pdf_path }}" target="_blank">Download</a></p>
+        {% endif %}
+
+        {% if article.nct_id %}
+            <p><strong>NCT ID:</strong> {{ article.nct_id }}</p>
+            <p><strong>Status:</strong> {{ article.status }}</p>
+            <p><strong>Conditions:</strong> {{ article.conditions|join(', ') if article.conditions else 'Not available' }}</p>
+            <p><strong>Start Date:</strong> {{ article.start_date }}</p>
+            <p><strong>Completion Date:</strong> {{ article.completion_date }}</p>
+            <p><strong>Sponsor:</strong> {{ article.sponsor }}</p>
+            <p><strong>Summary:</strong> {{ article.summary }}</p>
         {% endif %}
         <hr>
     </div>
@@ -57,45 +112,123 @@
 </section>
 {% endif %}
 
+<!-- 📱 Mobile-Friendly CSS -->
 <style>
-/* Sticky filter styles */
-.sticky-filters {
+/* Sticky search area */
+.sticky-filters {    
     position: sticky;
     top: 0;
-    background: #fff;       /* Prevent overlap text */
-    z-index: 10;            /* Keep above results */
-    padding: 10px;
+    background: #fff;
+    z-index: 10;
+    padding: 12px 2rem;
     border-bottom: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.date-range {
-    margin: 10px 0;
+/* Search form layout */
+.search-form {
     display: flex;
-    gap: 10px;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-input[type="date"], select, input[type="text"] {
-    padding: 5px;
+/* Inputs & selects */
+.search-form label {
+    width: 100%;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.search-form select,
+.search-form input[type="text"],
+.search-form input[type="date"] {
+    width: 100%;
+    padding: 7px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
+/* Date range styling */
+.date-range {
+    display: flex;
+    gap: 8px;
+    width: 98%;
+}
+.date-range div {
+    flex: 1;
+}
+
+/* Button styling */
 button {
-    margin-top: 10px;
-    padding: 7px 15px;
-    border: none;
+    width: 100%;
+    padding: 10px;
     background: #007acc;
     color: white;
     border-radius: 5px;
+    border: none;
     cursor: pointer;
 }
 button:hover {
     background: #005ea3;
 }
 
+/* Results */
+.results-box {
+    margin-top: 20px;
+}
 .result-card {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+.result-card h3 {
+    margin-bottom: 5px;
+}
+
+/* Link section for Citation + Full Text */
+.link-section {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin: 5px 0;
+}
+.citation-link, .fulltext-link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #007acc;
+}
+.citation-link:hover, .fulltext-link:hover {
+    text-decoration: underline;
+}
+.citation-link.disabled, .fulltext-link.disabled {
+    color: #999;
+    pointer-events: none;
+}
+
+/* 📱 Mobile adjustments */
+@media (max-width: 768px) {
+    .search-form {
+        flex-direction: column;
+    }
+    .date-range {
+        flex-direction: column;
+    }
 }
 </style>
+
+<!-- Script to show status filter only for ClinicalTrials.gov -->
+<script>
+document.getElementById('source').addEventListener('change', function () {
+    document.getElementById('statusFilter').style.display =
+        this.value === 'clinicaltrials' ? 'block' : 'none';
+});
+
+// Function to display citation
+function showCitation(citationText) {
+    alert("Citation:\n\n" + citationText);
+}
+</script>
+
 {% endblock %}
+
