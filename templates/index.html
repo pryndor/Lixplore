@@ -15,6 +15,7 @@
             <option value="europepmc_publications">Europe PMC - Publications</option>
             <option value="europepmc_grants">Europe PMC - Grants</option>
             <option value="clinicaltrials">ClinicalTrials.gov</option>
+            <option value="doaj">DOAJ (Directory of Open Access Journals)</option> <!-- ✅ Added DOAJ -->
         </select>
 
         <!-- Status Filter (only for ClinicalTrials.gov) -->
@@ -74,24 +75,24 @@
             <p><strong>Affiliations:</strong> {{ article.affiliations|join(', ') }}</p>
         {% endif %}
 
-       <!-- Citation + Full Text Section -->
-	<div class="link-section">
-   	<div class="fulltext-left">
-        {% if article.url %}
-            <a href="{{ article.url }}" target="_blank" class="fulltext-link">Full Text</a>
-        {% else %}
-            <span class="fulltext-link disabled">Full Text Not Available</span>
-        {% endif %}
-   	 </div>
+        <!-- Citation + Full Text Section -->
+        <div class="link-section">
+            <div class="fulltext-left">
+                {% if article.url %}
+                    <a href="{{ article.url }}" target="_blank" class="fulltext-link">Full Text</a>
+                {% else %}
+                    <span class="fulltext-link disabled">Full Text Not Available</span>
+                {% endif %}
+            </div>
 
-  	  <div class="citation-right">
-        {% if article.citation %}
-            <a href="#" class="citation-link" onclick="showCitation(`{{ article.citation }}`)">Cite this article</a>
-        {% else %}
-            <span class="citation-link disabled">Citation N/A</span>
-        {% endif %}
-   	 </div>
-	</div>
+            <div class="citation-right">
+                {% if article.citation %}
+                    <a href="#" class="citation-link" onclick="showCitation(`{{ article.citation }}`)">Cite this article</a>
+                {% else %}
+                    <span class="citation-link disabled">Citation N/A</span>
+                {% endif %}
+            </div>
+        </div>
 
         {% if article.oa_pdf_path %}
             <p><strong>OA PDF:</strong> <a href="{{ article.oa_pdf_path }}" target="_blank">Download</a></p>
@@ -124,6 +125,18 @@
     border-bottom: 1px solid #ccc;
     width: 100%;
     box-sizing: border-box;
+}
+
+/* Body slight offset for mobile */
+body {
+    margin: 0;
+    padding: 0;
+}
+@media (max-width: 768px) {
+    body {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 }
 
 /* Search form layout */

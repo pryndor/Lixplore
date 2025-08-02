@@ -10,23 +10,58 @@
     {% if results %}
         {% for article in results %}
             <div class="article">
+                <!-- ====== Title ====== -->
                 <h2>{{ article.title }}</h2>
-                <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
-                <p><strong>DOI:</strong> 
+
+                <!-- ====== Authors ====== -->
+                <p><strong>Authors:</strong>
+                    {{ article.authors | join(', ') if article.authors else 'Not available' }}
+                </p>
+
+                <!-- ====== DOI ====== -->
+                <p><strong>DOI:</strong>
                     {% if article.doi %}
                         <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a>
                     {% else %}
                         Not available
                     {% endif %}
                 </p>
+
+                <!-- ====== PMID (PubMed only) ====== -->
                 {% if article.pmid %}
                     <p><strong>PMID:</strong> {{ article.pmid }}</p>
                 {% endif %}
-                <p><strong>Abstract:</strong> {{ article.abstract if article.abstract else 'Not available' }}</p>
+
+                <!-- ====== Abstract ====== -->
+                <p><strong>Abstract:</strong>
+                    {{ article.abstract if article.abstract else 'Not available' }}
+                </p>
+
+                <!-- ====== Affiliations ====== -->
                 {% if article.affiliations %}
-                    <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') }}</p>
+                    <p><strong>Affiliations:</strong>
+                        {{ article.affiliations | join(', ') }}
+                    </p>
                 {% endif %}
-                <p><a href="{{ article.url }}" target="_blank">Read more</a></p>
+
+                <!-- ====== DOAJ Specific Fields ====== -->
+                {% if article.publisher %}
+                    <p><strong>Publisher:</strong> {{ article.publisher }}</p>
+                {% endif %}
+
+                {% if article.journal %}
+                    <p><strong>Journal:</strong> {{ article.journal }}</p>
+                {% endif %}
+
+                {% if article.license %}
+                    <p><strong>License:</strong> <a href="{{ article.license }}" target="_blank">{{ article.license }}</a></p>
+                {% endif %}
+
+                <!-- ====== URL ====== -->
+                {% if article.url %}
+                    <p><a href="{{ article.url }}" target="_blank">Read more</a></p>
+                {% endif %}
+
                 <hr>
             </div>
         {% endfor %}

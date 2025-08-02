@@ -7,6 +7,7 @@ from springer.springer_client import search_springer
 from europepmc.europepmc_client import search_epmc_publications, search_epmc_grants
 from clinicaltrials_client import search_clinical_trials  # ✅ ClinicalTrials.gov
 from database.database import get_archive
+from doaj_client import search_doaj
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Required for flash messages
@@ -68,6 +69,9 @@ def home():
 
             elif source == "clinicaltrials":
                 results = search_clinical_trials(query, status_filter)
+
+            elif source == "doaj":
+                results = search_doaj(query)
 
             else:
                 flash("⚠ Unknown source selected.", "error")
