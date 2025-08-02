@@ -2,20 +2,84 @@
 <html>
 <head>
     <title>Search History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f7f7f7;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #007acc;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            background: #007acc;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .back-link:hover {
+            background: #005ea3;
+        }
+    </style>
 </head>
 <body>
+
     <h1>📜 Search History</h1>
 
     {% if history %}
-        {% for h in history %}
-            <p>[{{ h[3] }}] <strong>{{ h[1] }}</strong> — Query: {{ h[2] }}</p>
-        {% endfor %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Query</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in history %}
+                <tr>
+                    <td>{{ h[1] }}</td> <!-- Source -->
+                    <td>{{ h[2] }}</td> <!-- Query -->
+                    <td>{{ h[3] }}</td> <!-- Date -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% else %}
         <p>No search history available.</p>
     {% endif %}
 
-    <br>
-    <a href="/">🔙 Back to Search</a>
+    <a class="back-link" href="/">🔙 Back to Search</a>
+
 </body>
 </html>
 
