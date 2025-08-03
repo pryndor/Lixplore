@@ -1,11 +1,18 @@
-body {
-    font-family: Arial, sans-serif;
+/* ===== Base Reset ===== */
+html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: Arial, sans-serif;
     background: #f9f9f9;
     color: #333;
 }
 
+/* ===== Header ===== */
 header {
     background: #818181;
     color: white;
@@ -13,18 +20,34 @@ header {
     text-align: center;
 }
 
+/* Header Navigation Links */
+header nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center links on desktop */
+    gap: 15px;
+}
+
 header nav a {
-    margin: 0 10px;
     color: white;
     text-decoration: none;
 }
 
-main {
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
+/* ===== Main Layout ===== */
+.container {
+    max-width: 1000px; /* Keeps it aligned on large screens */
+    margin: 0 auto;    /* Centers content horizontally */
+    padding: 0 10px;   /* Equal left & right padding for mobile */
+    box-sizing: border-box;
 }
 
+/* ===== Main Content Area ===== */
+main {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ===== Search Box ===== */
 .search-box {
     background: white;
     padding: 20px;
@@ -32,6 +55,7 @@ main {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+/* ===== Form Elements ===== */
 input, select, button {
     width: 100%;
     padding: 8px;
@@ -44,5 +68,82 @@ button {
     background: #2a9d8f;
     color: white;
     cursor: pointer;
+}
+
+/* ===== Responsive Header Alignment ===== */
+@media (max-width: 768px) {
+    header nav {
+        justify-content: flex-start; /* Normal layout on mobile */
+    }
+}
+
+/* ===== Base Header ===== */
+header {
+    background: #818181;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 2000; /* Keep header above everything */
+}
+
+/* ===== Header Title ===== */
+header h1 {
+    margin: 0;
+}
+
+/* ===== Menu Toggle (Hamburger) ===== */
+.menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 2001; /* Ensure icon is above search box */
+}
+
+/* Hide the checkbox itself */
+.menu-toggle {
+    display: none;
+}
+
+/* ===== Navigation ===== */
+header nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* ===== Mobile Styles ===== */
+@media (max-width: 768px) {
+    /* Show hamburger icon on mobile */
+    .menu-icon {
+        display: block;
+    }
+
+    /* Hide nav by default */
+    header nav {
+        display: none;
+        flex-direction: column;
+        background: #fcfcfcff;
+        position: absolute;
+        top: 100%; /* Push menu below header but above search box */
+        right: 20px;
+        width: 150px;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: left;
+        z-index: 2000; /* Keep menu above search box */
+    }
+
+    /* Show nav when checkbox is checked */
+    .menu-toggle:checked ~ nav {
+        display: flex;
+    }
+
+    header nav a {
+        padding: 5px 0;
+    }
 }
 
