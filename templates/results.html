@@ -4,50 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ source }} Results</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f9f9f9;
-            color: #222;
-        }
-
-        /* Sticky search/filter section */
-        .filters {
-            position: sticky;
-            top: 0;
-            background: #fff;
-            padding: 1rem;
-            border-bottom: 1px solid #ddd;
-            z-index: 100;
-        }
-
-        /* Scrollable results */
-        .results-container {
-            max-height: calc(100vh - 100px); /* Leaves space for filters */
-            overflow-y: auto;
-            padding: 1rem;
-        }
-
-        .result-card {
-            border: 1px solid #ddd;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background: #fff;
-            border-radius: 5px;
-        }
-
-        a {
-            color: #007acc;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="results-page">
 
 <!-- Sticky Filters Section -->
 <div class="filters">
@@ -60,23 +19,35 @@
     {% if results %}
         {% for article in results %}
             <div class="result-card">
-                <h3>{{ article.title }}</h3>
-                <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
-                {% if source == "Crossref" %}
-                    <p><strong>DOI:</strong> {{ article.doi }}</p>
-                {% else %}
-                    <p><strong>PMID:</strong> {{ article.pmid }}</p>
-                    <p><strong>DOI:</strong> {{ article.doi or 'Not available' }}</p>
-                    <p><strong>Abstract:</strong> {{ article.abstract }}</p>
-                    <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
-                {% endif %}
-                <p><strong>URL:</strong> <a href="{{ article.url }}" target="_blank">{{ article.url }}</a></p>
+                <!-- Title clickable -->
+                <h3 onclick="toggleDetails(this)">{{ article.title }}</h3>
+
+                <!-- Hidden details -->
+                <div class="result-details">
+                    {% if source == "Crossref" %}
+                        <p><strong>DOI:</strong> {{ article.doi }}</p>
+                    {% else %}
+                        <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
+                        <p><strong>PMID:</strong> {{ article.pmid }}</p>
+                        <p><strong>DOI:</strong> {{ article.doi or 'Not available' }}</p>
+                        <p><strong>Abstract:</strong> {{ article.abstract }}</p>
+                        <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
+                    {% endif %}
+                    <p><strong>URL:</strong> <a href="{{ article.url }}" target="_blank">{{ article.url }}</a></p>
+                </div>
             </div>
         {% endfor %}
     {% else %}
         <p>⚠ No results found.</p>
     {% endif %}
 </div>
+
+<!-- JavaScript for toggle -->
+<script>
+function toggleDetails(element) {
+    element.parentElement.classList.toggle("open");
+}
+</script>
 
 </body>
 </html>
