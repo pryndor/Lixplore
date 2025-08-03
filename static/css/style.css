@@ -1,9 +1,12 @@
-/* ===== Base Reset ===== */
+/* =====================
+   Base Reset & Body
+===================== */
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     overflow-x: hidden;
+    height: 100%;
 }
 
 body {
@@ -12,19 +15,34 @@ body {
     color: #333;
 }
 
-/* ===== Header ===== */
+/* =====================
+   Header
+===================== */
 header {
     background: #818181;
     color: white;
     padding: 10px 20px;
     text-align: center;
+    position: relative;
+    z-index: 2000; /* Ensure header stays above */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-/* Header Navigation Links */
+header h1 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+/* =====================
+   Navigation
+===================== */
 header nav {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Center links on desktop */
+    justify-content: center;
     gap: 15px;
 }
 
@@ -33,66 +51,17 @@ header nav a {
     text-decoration: none;
 }
 
-/* ===== Main Layout ===== */
-.container {
-    max-width: 1000px; /* Keeps it aligned on large screens */
-    margin: 0 auto;    /* Centers content horizontally */
-    padding: 0 10px;   /* Equal left & right padding for mobile */
-    box-sizing: border-box;
+header nav a:hover {
+    text-decoration: underline;
 }
 
-/* ===== Main Content Area ===== */
-main {
-    padding: 20px;
-    box-sizing: border-box;
+/* =====================
+   Hamburger Menu
+===================== */
+.menu-toggle {
+    display: none; /* Hide checkbox */
 }
 
-/* ===== Search Box ===== */
-.search-box {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-/* ===== Form Elements ===== */
-input, select, button {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button {
-    background: #2a9d8f;
-    color: white;
-    cursor: pointer;
-}
-
-/* ===== Responsive Header Alignment ===== */
-@media (max-width: 768px) {
-    header nav {
-        justify-content: flex-start; /* Normal layout on mobile */
-    }
-}
-
-/* ===== Base Header ===== */
-header {
-    background: #818181;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    position: relative;
-    z-index: 2000; /* Keep header above everything */
-}
-
-/* ===== Header Title ===== */
-header h1 {
-    margin: 0;
-}
-
-/* ===== Menu Toggle (Hamburger) ===== */
 .menu-icon {
     display: none;
     font-size: 24px;
@@ -100,54 +69,60 @@ header h1 {
     position: absolute;
     right: 20px;
     top: 15px;
-    z-index: 2001; /* Ensure icon is above search box */
+    z-index: 2001; /* Above everything */
 }
 
-/* Hide the checkbox itself */
-.menu-toggle {
-    display: none;
+/* =====================
+   Main Layout Container
+===================== */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
-/* ===== Navigation ===== */
-header nav {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+main {
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-/* ===== Mobile Styles ===== */
-@media (max-width: 768px) {
-    /* Show hamburger icon on mobile */
-    .menu-icon {
-        display: block;
-    }
-
-    /* Hide nav by default */
-    header nav {
-        display: none;
-        flex-direction: column;
-        background: #fcfcfcff;
-        position: absolute;
-        top: 100%; /* Push menu below header but above search box */
-        right: 20px;
-        width: 150px;
-        border-radius: 5px;
-        padding: 10px;
-        text-align: left;
-        z-index: 2000; /* Keep menu above search box */
-    }
-
-    /* Show nav when checkbox is checked */
-    .menu-toggle:checked ~ nav {
-        display: flex;
-    }
-
-    header nav a {
-        padding: 5px 0;
-    }
+/* =====================
+   Search Box
+===================== */
+.search-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-/* ===== Results Page Layout ===== */
+/* =====================
+   Form Elements
+===================== */
+input, select, button {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background: #2a9d8f;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+
+button:hover {
+    background: #21867a;
+}
+
+/* =====================
+   Results Page Layout
+===================== */
 .results-page {
     display: flex;
     flex-direction: column;
@@ -171,7 +146,9 @@ header nav {
     background: #f9f9f9;
 }
 
-/* ===== Collapsible Results ===== */
+/* =====================
+   Result Cards
+===================== */
 .result-card {
     border: 1px solid #ddd;
     margin-bottom: 1rem;
@@ -196,7 +173,69 @@ header nav {
 }
 
 .result-card.open .result-details {
-    max-height: 500px; /* Enough for details */
+    max-height: 500px;
     padding: 1rem;
+}
+
+/* =====================
+   Abstract Preview
+===================== */
+.abstract-preview {
+    position: relative;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.read-toggle {
+    display: block;
+    font-size: 0.85rem;
+    color: #007acc;
+    margin-top: 5px;
+}
+
+.abstract-preview.expanded {
+    -webkit-line-clamp: unset;
+    overflow: visible;
+}
+
+/* =====================
+   Responsive Styles
+===================== */
+@media (max-width: 768px) {
+    /* Hamburger visible */
+    .menu-icon {
+        display: block;
+    }
+
+    /* Hide nav by default */
+    header nav {
+        display: none;
+        flex-direction: column;
+        background: #fcfcfc;
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        width: 150px;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: left;
+        z-index: 2000;
+    }
+
+    /* Show nav when toggled */
+    .menu-toggle:checked ~ nav {
+        display: flex;
+    }
+
+    header nav a {
+        padding: 5px 0;
+        color: black;
+    }
 }
 

@@ -19,10 +19,18 @@
     {% if results %}
         {% for article in results %}
             <div class="result-card">
-                <!-- Title clickable -->
-                <h3 onclick="toggleDetails(this)">{{ article.title }}</h3>
+                <!-- Title -->
+                <h3>{{ article.title }}</h3>
 
-                <!-- Hidden details -->
+                <!-- Abstract preview with Read more -->
+                {% if article.abstract %}
+                <p class="abstract-preview" onclick="toggleAbstract(this)">
+                    {{ article.abstract }}
+                    <span class="read-toggle">▼ Read more</span>
+                </p>
+                {% endif %}
+
+                <!-- Full details -->
                 <div class="result-details">
                     {% if source == "Crossref" %}
                         <p><strong>DOI:</strong> {{ article.doi }}</p>
@@ -30,7 +38,6 @@
                         <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
                         <p><strong>PMID:</strong> {{ article.pmid }}</p>
                         <p><strong>DOI:</strong> {{ article.doi or 'Not available' }}</p>
-                        <p><strong>Abstract:</strong> {{ article.abstract }}</p>
                         <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
                     {% endif %}
                     <p><strong>URL:</strong> <a href="{{ article.url }}" target="_blank">{{ article.url }}</a></p>
@@ -42,10 +49,16 @@
     {% endif %}
 </div>
 
-<!-- JavaScript for toggle -->
+<!-- Toggle Script -->
 <script>
-function toggleDetails(element) {
-    element.parentElement.classList.toggle("open");
+function toggleAbstract(el) {
+    el.classList.toggle('expanded');
+    const toggleText = el.querySelector('.read-toggle');
+    if (el.classList.contains('expanded')) {
+        toggleText.textContent = '▲ Read less';
+    } else {
+        toggleText.textContent = '▼ Read more';
+    }
 }
 </script>
 
