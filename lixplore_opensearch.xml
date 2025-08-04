@@ -7,7 +7,7 @@
   <Url type="text/html" method="GET"
        xmlns:rft="info:ofi/fmt:kev:mtx:journal"
        xmlns:z="http://www.zotero.org/namespaces/openSearch#"
-       template="https://hub.drugvigil.com/search?title={z:title?}&amp;author={rft:aulast?}&amp;year={z:year?}&amp;doi={rft_id?}">
+       template="https://lixplore.com/search?title={z:title?}&amp;author={rft:aulast?}&amp;year={z:year?}&amp;doi={rft_id?}">
   </Url>
 </OpenSearchDescription>
 
