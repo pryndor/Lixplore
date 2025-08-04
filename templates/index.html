@@ -8,25 +8,25 @@
         <!-- Source Selector -->
         <label for="source">Select Source:</label>
         <select name="source" id="source" required>
-            <option value="" disabled selected>Select Source</option>
-            <option value="pubmed">PubMed</option>
-            <option value="crossref">Crossref</option>
-            <option value="springer">Springer</option>
-            <option value="europepmc_publications">Europe PMC - Publications</option>
-            <option value="europepmc_grants">Europe PMC - Grants</option>
-            <option value="clinicaltrials">ClinicalTrials.gov</option>
-            <option value="doaj">DOAJ (Directory of Open Access Journals)</option> <!-- ✅ Added DOAJ -->
+            <option value="" disabled {% if not source %}selected{% endif %}>Select Source</option>
+            <option value="pubmed" {% if source=='pubmed' %}selected{% endif %}>PubMed</option>
+            <option value="crossref" {% if source=='crossref' %}selected{% endif %}>Crossref</option>
+            <option value="springer" {% if source=='springer' %}selected{% endif %}>Springer</option>
+            <option value="europepmc_publications" {% if source=='europepmc_publications' %}selected{% endif %}>Europe PMC - Publications</option>
+            <option value="europepmc_grants" {% if source=='europepmc_grants' %}selected{% endif %}>Europe PMC - Grants</option>
+            <option value="clinicaltrials" {% if source=='clinicaltrials' %}selected{% endif %}>ClinicalTrials.gov</option>
+            <option value="doaj" {% if source=='doaj' %}selected{% endif %}>DOAJ (Directory of Open Access Journals)</option>
         </select>
 
         <!-- Status Filter (only for ClinicalTrials.gov) -->
-        <div id="statusFilter" style="display:none; width:100%;">
+        <div id="statusFilter" style="display: {% if source=='clinicaltrials' %}block{% else %}none{% endif %}; width:100%;">
             <label for="status">Status (optional):</label>
-            <input type="text" id="status" name="status" placeholder="e.g., RECRUITING, COMPLETED">
+            <input type="text" id="status" name="status" placeholder="e.g., RECRUITING, COMPLETED" value="{{ status or '' }}">
         </div>
 
         <!-- Query Input -->
         <label for="query">Search Query:</label>
-        <input type="text" id="query" name="query" placeholder="Enter keyword, DOI, or author" required>
+        <input type="text" id="query" name="query" placeholder="Enter keyword, DOI, or author" required value="{{ query or '' }}">
 
         <!-- 📅 Date Range -->
         <div class="date-range">
@@ -40,8 +40,12 @@
             </div>
         </div>
 
-        <!-- Search Button -->
-        <button type="submit">Search</button>
+        <!-- Search Button (Centered) -->
+        <div style="width:100%; text-align:center; margin-top:10px;">
+            <button type="submit" style="width:40%; padding:10px; background:#007acc; color:white; border:none; border-radius:5px; cursor:pointer;">
+                Search
+            </button>
+        </div>
     </form>
 </section>
 
@@ -173,8 +177,6 @@ body {
 
 /* Button styling */
 button {
-    width: 100%;
-    padding: 10px;
     background: #007acc;
     color: white;
     border-radius: 5px;
@@ -242,13 +244,6 @@ function showCitation(citationText) {
     alert("Citation:\n\n" + citationText);
 }
 </script>
-
-<script>
-function toggleMenu() {
-    document.getElementById("menu").classList.toggle("show");
-}
-</script>
-
 
 {% endblock %}
 

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section style="text-align: center; padding: 2rem; max-width: 800px; margin: auto;">
+    <h1>Welcome to Lixplore</h1>
+    <p style="font-size: 1.2rem; color: #555;">
+        Lixplore is an open-source literature search and review tool for researchers and professionals.  
+        It connects to multiple sources like PubMed, CrossRef, Springer, Europe PMC, ClinicalTrials.gov, and more.
+    </p>
+
+    <hr style="margin: 2rem 0;">
+
+    <h2>How to Use</h2>
+    <ol style="text-align: left; max-width: 600px; margin: auto; font-size: 1rem; color: #444;">
+        <li>Select a data source from the dropdown (e.g., PubMed, CrossRef).</li>
+        <li>Enter your search keyword, DOI, author name, or topic.</li>
+        <li>Optionally filter by status or date range.</li>
+        <li>Click <strong>Search</strong> to view results with abstracts, DOIs, and citation formats.</li>
+        <li>Access your previous searches via the <strong>History</strong> page.</li>
+    </ol>
+
+    <hr style="margin: 2rem 0;">
+
+    <h2>Why Lixplore?</h2>
+    <ul style="text-align: left; max-width: 600px; margin: auto; font-size: 1rem; color: #444;">
+        <li>🌍 Unified search across multiple literature databases.</li>
+        <li>📂 Saved search history for easy revisits.</li>
+        <li>📑 Ready-to-use citations for quick referencing.</li>
+        <li>🆓 100% free and open source.</li>
+    </ul>
+
+    <div style="margin-top: 2rem;">
+        <a href="{{ url_for('home') }}" 
+           style="padding: 12px 20px; background: #007acc; color: white; border-radius: 5px; text-decoration: none;">
+           Start Searching →
+        </a>
+    </div>
+</section>
+
+{% endblock %}
+

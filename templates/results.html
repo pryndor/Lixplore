@@ -3,44 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ source }} Results</title>
+    <title>{{ source or "Search" }} Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="results-page">
 
-<!-- Sticky Filters Section -->
+<!-- Header / Navigation -->
 <div class="filters">
-    <h1>{{ source }} Results</h1>
-    <a href="/">🔙 Back to Search</a>
+    <h1>{{ source or "Search" }} Results</h1>
+    <a href="{{ url_for('home') }}">🔙 Back to Search</a>
 </div>
 
-<!-- Scrollable Results Section -->
+<!-- Results Container -->
 <div class="results-container">
     {% if results %}
         {% for article in results %}
             <div class="result-card">
+                
                 <!-- Title -->
-                <h3>{{ article.title }}</h3>
+                <h3>{{ article.title or "No title available" }}</h3>
 
-                <!-- Abstract preview with Read more -->
+                <!-- Abstract (toggle) -->
                 {% if article.abstract %}
-                <p class="abstract-preview" onclick="toggleAbstract(this)">
-                    {{ article.abstract }}
-                    <span class="read-toggle">▼ Read more</span>
-                </p>
+                    <p class="abstract-preview" onclick="toggleAbstract(this)">
+                        {{ article.abstract }}
+                        <span class="read-toggle">▼ Read more</span>
+                    </p>
+                {% else %}
+                    <p><em>No abstract available</em></p>
                 {% endif %}
 
-                <!-- Full details -->
+                <!-- Details -->
                 <div class="result-details">
-                    {% if source == "Crossref" %}
-                        <p><strong>DOI:</strong> {{ article.doi }}</p>
-                    {% else %}
-                        <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
-                        <p><strong>PMID:</strong> {{ article.pmid }}</p>
-                        <p><strong>DOI:</strong> {{ article.doi or 'Not available' }}</p>
-                        <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
+                    <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
+                    {% if article.pmid %}<p><strong>PMID:</strong> {{ article.pmid }}</p>{% endif %}
+                    <p><strong>DOI:</strong> 
+                        {% if article.doi %}
+                            <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a>
+                        {% else %}
+                            Not available
+                        {% endif %}
+                    </p>
+                    <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
+                    {% if article.url %}
+                        <p><strong>Full Text:</strong> <a href="{{ article.url }}" target="_blank">{{ article.url }}</a></p>
                     {% endif %}
-                    <p><strong>URL:</strong> <a href="{{ article.url }}" target="_blank">{{ article.url }}</a></p>
                 </div>
             </div>
         {% endfor %}
@@ -54,11 +61,7 @@
 function toggleAbstract(el) {
     el.classList.toggle('expanded');
     const toggleText = el.querySelector('.read-toggle');
-    if (el.classList.contains('expanded')) {
-        toggleText.textContent = '▲ Read less';
-    } else {
-        toggleText.textContent = '▼ Read more';
-    }
+    toggleText.textContent = el.classList.contains('expanded') ? '▲ Read less' : '▼ Read more';
 }
 </script>
 

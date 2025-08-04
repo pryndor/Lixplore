@@ -1,44 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
             background: #f7f7f7;
+            margin: 0;
         }
 
         h1 {
             text-align: center;
             margin-bottom: 20px;
+            color: #333;
         }
 
-        table {
+        .history-table {
             width: 100%;
             border-collapse: collapse;
             background: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow-x: auto;
         }
 
-        th, td {
+        .history-table th, .history-table td {
             padding: 10px;
             border-bottom: 1px solid #ddd;
             text-align: left;
+            font-size: 14px;
         }
 
-        th {
+        .history-table th {
             background: #007acc;
             color: white;
+            position: sticky;
+            top: 0;
         }
 
-        tr:nth-child(even) {
+        .history-table tr:nth-child(even) {
             background: #f9f9f9;
+        }
+
+        .action-link {
+            text-decoration: none;
+            color: #007acc;
+            font-weight: bold;
+        }
+
+        .action-link:hover {
+            color: #005ea3;
+            text-decoration: underline;
         }
 
         .back-link {
             display: inline-block;
-            margin-top: 15px;
+            margin-top: 20px;
             text-decoration: none;
             background: #007acc;
             color: white;
@@ -49,6 +69,14 @@
         .back-link:hover {
             background: #005ea3;
         }
+
+        /* 📱 Mobile Adjustments */
+        @media (max-width: 768px) {
+            .history-table th, .history-table td {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -56,29 +84,37 @@
     <h1>📜 Search History</h1>
 
     {% if history %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Source</th>
-                    <th>Query</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for h in history %}
-                <tr>
-                    <td>{{ h[1] }}</td> <!-- Source -->
-                    <td>{{ h[2] }}</td> <!-- Query -->
-                    <td>{{ h[3] }}</td> <!-- Date -->
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div style="overflow-x:auto;">
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Query</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for h in history %}
+                    <tr>
+                        <td>{{ h[1] }}</td> <!-- Source -->
+                        <td>
+                            <a class="action-link" href="{{ url_for('history_results', search_id=h[0]) }}">
+                                {{ h[2] }}
+                            </a>
+                        </td> <!-- Query -->
+                        <td>{{ h[4] }}</td> <!-- Timestamp -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
-        <p>No search history available.</p>
+        <p style="text-align:center;">⚠ No search history available.</p>
     {% endif %}
 
-    <a class="back-link" href="/">🔙 Back to Search</a>
+    <div style="text-align:center;">
+        <a class="back-link" href="{{ url_for('home') }}">🔙 Back to Search</a>
+    </div>
 
 </body>
 </html>

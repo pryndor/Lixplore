@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results from History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f7f7f7;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .result-card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .result-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #007acc;
+        }
+
+        .result-meta {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .result-abstract {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .result-links a {
+            text-decoration: none;
+            color: #007acc;
+            font-size: 13px;
+            margin-right: 10px;
+        }
+
+        .result-links a:hover {
+            color: #005ea3;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: #007acc;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        .back-link:hover {
+            background: #005ea3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📂 Search Results from History</h1>
+
+    {% if articles %}
+        {% for article in articles %}
+        <div class="result-card">
+            <div class="result-title">{{ article.title or "No title available" }}</div>
+            <div class="result-meta">
+                {{ ", ".join(article.authors) if article.authors else "Unknown Author" }}<br>
+                DOI: {{ article.doi or "N/A" }} | PMID: {{ article.pmid or "N/A" }}
+            </div>
+            <div class="result-abstract">
+                {{ article.abstract or "No abstract available." }}
+            </div>
+            <div class="result-links">
+                {% if article.url %}
+                    <a href="{{ article.url }}" target="_blank">🔗 View Article</a>
+                {% endif %}
+                {% if article.oa_pdf_path %}
+                    <a href="{{ article.oa_pdf_path }}" target="_blank">📄 Open PDF</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No articles found for this search.</p>
+    {% endif %}
+
+    <a class="back-link" href="/history">🔙 Back to History</a>
+
+</body>
+</html>
+
