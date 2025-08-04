@@ -1,0 +1,13 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>Lixplore</ShortName>
+  <Description>Lixplore — An open-access search tool for discovering scholarly articles and generating citations.</Description>
+  <Image width="16" height="16" type="image/x-icon">
+    https://hub.drugvigil.com/static/favicon.ico
+  </Image>
+  <Url type="text/html" method="GET"
+       xmlns:rft="info:ofi/fmt:kev:mtx:journal"
+       xmlns:z="http://www.zotero.org/namespaces/openSearch#"
+       template="https://hub.drugvigil.com/search?title={z:title?}&amp;author={rft:aulast?}&amp;year={z:year?}&amp;doi={rft_id?}">
+  </Url>
+</OpenSearchDescription>
+
