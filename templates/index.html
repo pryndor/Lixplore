@@ -42,7 +42,7 @@
 
         <!-- Search Button -->
         <div style="width:100%; text-align:center; margin-top:10px;">
-            <button type="submit" style="width:40%; padding:10px;">Search</button>
+            <button type="submit" class="search-btn">Search</button>
         </div>
     </form>
 </section>
@@ -81,7 +81,7 @@
 
             {% if article.citation %}
                 <a href="#" class="citation-link"
-                   onclick="openCitationModal({{ article.citation|escape }}, {{ article.title|escape }}, {{ article.authors|join('; ')|escape }}, {{ article.year or '' }}, {{ article.doi or '' }})">
+                   onclick="openCitationModal(`{{ article.citation|escape }}`, `{{ article.title|escape }}`, `{{ article.authors|join('; ')|escape }}`, `{{ article.year or '' }}`, `{{ article.doi or '' }}`)">
                    Cite this article
                 </a>
             {% else %}
@@ -96,15 +96,36 @@
 
 <!-- 📱 Styles -->
 <style>
-.sticky-filters { position: sticky; top: 0; background: #fff; z-index: 10; padding: 12px 2rem; border-bottom: 1px solid #ccc; width: 100%; }
+/* Layout Fix */
+.sticky-filters { 
+    position: sticky; 
+    top: 0; 
+    background: #fff; 
+    z-index: 10; 
+    padding: 12px 1rem; 
+    border-bottom: 1px solid #ccc; 
+    max-width: 900px; 
+    margin: auto;
+}
 .search-form { display: flex; flex-wrap: wrap; gap: 8px; }
 .search-form label { width: 100%; font-weight: bold; margin-top: 5px; }
 .search-form select, .search-form input { width: 100%; padding: 7px; border-radius: 5px; border: 1px solid #ccc; }
 .date-range { display: flex; gap: 8px; width: 98%; }
 .date-range div { flex: 1; }
-button { background: #007acc; color: white; border-radius: 5px; border: none; cursor: pointer; }
-button:hover { background: #005ea3; }
-.result-card { margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 12px; }
+.search-btn { background: #007acc; color: white; border-radius: 5px; border: none; padding: 10px; width: 40%; cursor: pointer; }
+.search-btn:hover { background: #005ea3; }
+
+.results-box {
+    max-width: 900px;
+    margin: 20px auto;
+}
+.result-card { 
+    margin-bottom: 20px; 
+    padding: 15px; 
+    background: #f9f9f9; 
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 .link-section { display: flex; gap: 15px; align-items: center; }
 .citation-link { text-decoration: underline; color: #007acc; cursor: pointer; }
 .citation-link:hover { color: #005ea3; }
@@ -126,7 +147,7 @@ button:hover { background: #005ea3; }
     <button onclick="triggerDownload('ris')">RIS</button>
     <button onclick="triggerDownload('txt')">Plain Text</button>
     <button onclick="triggerDownload('xml_abs')">XML (Abstract)</button>
-    <button onclick="triggerDownload('xml_full'>XML (Full Text)</button>
+    <button onclick="triggerDownload('xml_full')">XML (Full Text)</button>
     <button style="background:#ccc; color:#000;" onclick="closeCitationModal()">Close</button>
 </div>
 
@@ -156,45 +177,45 @@ document.getElementById("copyCitationBtn").onclick = function() {
 function triggerDownload(format) {
     let content="", filename="";
     if (format==="bibtex") {
-        content=@article{${currentAuthors.split(' ')[0]}_${currentYear},
+        content=`@article{${currentAuthors.split(' ')[0]}_${currentYear},
   title={${currentTitle}},
   author={${currentAuthors}},
   year={${currentYear}},
   doi={${currentDOI}}
-};
+}`;
         filename="citation.bib";
     }
     else if (format==="ris") {
-        content=TY  - JOUR
+        content=`TY  - JOUR
 TI  - ${currentTitle}
 AU  - ${currentAuthors}
 PY  - ${currentYear}
 DO  - ${currentDOI}
-ER  -;
+ER  -`;
         filename="citation.ris";
     }
     else if (format==="txt") {
-        content=${currentAuthors} (${currentYear}). ${currentTitle}. DOI: ${currentDOI};
+        content=`${currentAuthors} (${currentYear}). ${currentTitle}. DOI: ${currentDOI}`;
         filename="citation.txt";
     }
     else if (format==="xml_abs") {
-        content=<abstract>
+        content=`<abstract>
 <title>${currentTitle}</title>
 <authors>${currentAuthors}</authors>
 <year>${currentYear}</year>
 <doi>${currentDOI}</doi>
 <abstractText>${currentCitation}</abstractText>
-</abstract>;
+</abstract>`;
         filename="citation_abstract.xml";
     }
     else if (format==="xml_full") {
-        content=<fulltext>
+        content=`<fulltext>
 <title>${currentTitle}</title>
 <authors>${currentAuthors}</authors>
 <year>${currentYear}</year>
 <doi>${currentDOI}</doi>
 <fullText>${currentCitation}</fullText>
-</fulltext>;
+</fulltext>`;
         filename="citation_full.xml";
     }
     const blob=new Blob([content],{type:"text/plain"});
@@ -207,3 +228,4 @@ ER  -;
 </script>
 
 {% endblock %}
+
