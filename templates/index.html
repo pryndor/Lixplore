@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- 🔍 Sticky Search Section -->
+<!-- 🔍 Search Section -->
 <section class="search-box sticky-filters">
     <form action="{{ url_for('home') }}" method="post" class="search-form">
         
@@ -15,10 +15,10 @@
             <option value="europepmc_publications" {% if source=='europepmc_publications' %}selected{% endif %}>Europe PMC - Publications</option>
             <option value="europepmc_grants" {% if source=='europepmc_grants' %}selected{% endif %}>Europe PMC - Grants</option>
             <option value="clinicaltrials" {% if source=='clinicaltrials' %}selected{% endif %}>ClinicalTrials.gov</option>
-            <option value="doaj" {% if source=='doaj' %}selected{% endif %}>DOAJ (Directory of Open Access Journals)</option>
+            <option value="doaj" {% if source=='doaj' %}selected{% endif %}>DOAJ</option>
         </select>
 
-        <!-- Status Filter (only for ClinicalTrials.gov) -->
+        <!-- Status Filter -->
         <div id="statusFilter" style="display: {% if source=='clinicaltrials' %}block{% else %}none{% endif %}; width:100%;">
             <label for="status">Status (optional):</label>
             <input type="text" id="status" name="status" placeholder="e.g., RECRUITING, COMPLETED" value="{{ status or '' }}">
@@ -40,16 +40,14 @@
             </div>
         </div>
 
-        <!-- Search Button (Centered) -->
+        <!-- Search Button -->
         <div style="width:100%; text-align:center; margin-top:10px;">
-            <button type="submit" style="width:40%; padding:10px; background:#007acc; color:white; border:none; border-radius:5px; cursor:pointer;">
-                Search
-            </button>
+            <button type="submit" style="width:40%; padding:10px;">Search</button>
         </div>
     </form>
 </section>
 
-<!-- 📄 Search Results -->
+<!-- 📄 Results -->
 {% if results %}
 <section class="results-box">
     <h2>Search Results</h2>
@@ -63,8 +61,6 @@
 
         {% if article.authors %}
             <p><strong>Authors:</strong> {{ article.authors|join(', ') }}</p>
-        {% else %}
-            <p><strong>Authors:</strong> Not available</p>
         {% endif %}
 
         {% if article.pmid %}
@@ -75,175 +71,139 @@
             <p><strong>DOI:</strong> {{ article.doi }}</p>
         {% endif %}
 
-        {% if article.affiliations %}
-            <p><strong>Affiliations:</strong> {{ article.affiliations|join(', ') }}</p>
-        {% endif %}
-
-        <!-- Citation + Full Text Section -->
+        <!-- Citation + Full Text -->
         <div class="link-section">
-            <div class="fulltext-left">
-                {% if article.url %}
-                    <a href="{{ article.url }}" target="_blank" class="fulltext-link">Full Text</a>
-                {% else %}
-                    <span class="fulltext-link disabled">Full Text Not Available</span>
-                {% endif %}
-            </div>
+            {% if article.url %}
+                <a href="{{ article.url }}" target="_blank" class="fulltext-link">Full Text</a>
+            {% else %}
+                <span class="fulltext-link disabled">Full Text N/A</span>
+            {% endif %}
 
-            <div class="citation-right">
-                {% if article.citation %}
-                    <a href="#" class="citation-link" onclick="showCitation(`{{ article.citation }}`)">Cite this article</a>
-                {% else %}
-                    <span class="citation-link disabled">Citation N/A</span>
-                {% endif %}
-            </div>
+            {% if article.citation %}
+                <a href="#" class="citation-link"
+                   onclick="openCitationModal({{ article.citation|escape }}, {{ article.title|escape }}, {{ article.authors|join('; ')|escape }}, {{ article.year or '' }}, {{ article.doi or '' }})">
+                   Cite this article
+                </a>
+            {% else %}
+                <span class="citation-link disabled">Citation N/A</span>
+            {% endif %}
         </div>
-
-        {% if article.oa_pdf_path %}
-            <p><strong>OA PDF:</strong> <a href="{{ article.oa_pdf_path }}" target="_blank">Download</a></p>
-        {% endif %}
-
-        {% if article.nct_id %}
-            <p><strong>NCT ID:</strong> {{ article.nct_id }}</p>
-            <p><strong>Status:</strong> {{ article.status }}</p>
-            <p><strong>Conditions:</strong> {{ article.conditions|join(', ') if article.conditions else 'Not available' }}</p>
-            <p><strong>Start Date:</strong> {{ article.start_date }}</p>
-            <p><strong>Completion Date:</strong> {{ article.completion_date }}</p>
-            <p><strong>Sponsor:</strong> {{ article.sponsor }}</p>
-            <p><strong>Summary:</strong> {{ article.summary }}</p>
-        {% endif %}
         <hr>
     </div>
     {% endfor %}
 </section>
 {% endif %}
 
-<!-- 📱 Mobile-Friendly CSS -->
+<!-- 📱 Styles -->
 <style>
-/* Sticky search area */
-.sticky-filters {    
-    position: sticky;
-    top: 0;
-    background: #fff;
-    z-index: 10;
-    padding: 12px 2rem;
-    border-bottom: 1px solid #ccc;
-    width: 100%;
-    box-sizing: border-box;
-}
+.sticky-filters { position: sticky; top: 0; background: #fff; z-index: 10; padding: 12px 2rem; border-bottom: 1px solid #ccc; width: 100%; }
+.search-form { display: flex; flex-wrap: wrap; gap: 8px; }
+.search-form label { width: 100%; font-weight: bold; margin-top: 5px; }
+.search-form select, .search-form input { width: 100%; padding: 7px; border-radius: 5px; border: 1px solid #ccc; }
+.date-range { display: flex; gap: 8px; width: 98%; }
+.date-range div { flex: 1; }
+button { background: #007acc; color: white; border-radius: 5px; border: none; cursor: pointer; }
+button:hover { background: #005ea3; }
+.result-card { margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 12px; }
+.link-section { display: flex; gap: 15px; align-items: center; }
+.citation-link { text-decoration: underline; color: #007acc; cursor: pointer; }
+.citation-link:hover { color: #005ea3; }
 
-/* Body slight offset for mobile */
-body {
-    margin: 0;
-    padding: 0;
-}
-@media (max-width: 768px) {
-    body {
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-}
-
-/* Search form layout */
-.search-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-/* Inputs & selects */
-.search-form label {
-    width: 100%;
-    font-weight: bold;
-    margin-top: 5px;
-}
-.search-form select,
-.search-form input[type="text"],
-.search-form input[type="date"] {
-    width: 100%;
-    padding: 7px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-/* Date range styling */
-.date-range {
-    display: flex;
-    gap: 8px;
-    width: 98%;
-}
-.date-range div {
-    flex: 1;
-}
-
-/* Button styling */
-button {
-    background: #007acc;
-    color: white;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-button:hover {
-    background: #005ea3;
-}
-
-/* Results */
-.results-box {
-    margin-top: 20px;
-}
-.result-card {
-    margin-bottom: 20px;
-    padding: 10px;
-    background: #f9f9f9;
-    border-radius: 8px;
-}
-.result-card h3 {
-    margin-bottom: 5px;
-}
-
-/* Link section for Citation + Full Text */
-.link-section {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    margin: 5px 0;
-}
-.citation-link, .fulltext-link {
-    text-decoration: none;
-    font-weight: bold;
-    color: #007acc;
-}
-.citation-link:hover, .fulltext-link:hover {
-    text-decoration: underline;
-}
-.citation-link.disabled, .fulltext-link.disabled {
-    color: #999;
-    pointer-events: none;
-}
-
-/* 📱 Mobile adjustments */
-@media (max-width: 768px) {
-    .search-form {
-        flex-direction: column;
-    }
-    .date-range {
-        flex-direction: column;
-    }
-}
+/* Popup */
+.citation-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; }
+.citation-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border-radius: 10px; padding: 20px; width: 350px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.citation-modal h3 { margin-top: 0; text-align: center; }
+.citation-modal button { margin-top: 8px; padding: 8px; width: 100%; border: none; border-radius: 5px; background: #007acc; color: white; cursor: pointer; }
+.citation-modal button:hover { background: #005ea3; }
 </style>
 
-<!-- Script to show status filter only for ClinicalTrials.gov -->
-<script>
-document.getElementById('source').addEventListener('change', function () {
-    document.getElementById('statusFilter').style.display =
-        this.value === 'clinicaltrials' ? 'block' : 'none';
-});
+<!-- 📜 Popup -->
+<div id="citationOverlay" class="citation-overlay" onclick="closeCitationModal()"></div>
+<div id="citationModal" class="citation-modal">
+    <h3>Citation Options</h3>
+    <button id="copyCitationBtn">Copy Citation</button>
+    <button onclick="triggerDownload('bibtex')">BibTeX</button>
+    <button onclick="triggerDownload('ris')">RIS</button>
+    <button onclick="triggerDownload('txt')">Plain Text</button>
+    <button onclick="triggerDownload('xml_abs')">XML (Abstract)</button>
+    <button onclick="triggerDownload('xml_full'>XML (Full Text)</button>
+    <button style="background:#ccc; color:#000;" onclick="closeCitationModal()">Close</button>
+</div>
 
-// Function to display citation
-function showCitation(citationText) {
-    alert("Citation:\n\n" + citationText);
+<!-- 📜 Script -->
+<script>
+let currentCitation="", currentTitle="", currentAuthors="", currentYear="", currentDOI="";
+
+function openCitationModal(citation, title, authors, year, doi) {
+    currentCitation = citation;
+    currentTitle = title;
+    currentAuthors = authors;
+    currentYear = year;
+    currentDOI = doi;
+    document.getElementById("citationOverlay").style.display = "block";
+    document.getElementById("citationModal").style.display = "block";
+}
+function closeCitationModal() {
+    document.getElementById("citationOverlay").style.display = "none";
+    document.getElementById("citationModal").style.display = "none";
+}
+document.getElementById("copyCitationBtn").onclick = function() {
+    navigator.clipboard.writeText(currentCitation)
+        .then(()=>alert("Citation copied!"))
+        .catch(()=>alert("Failed to copy citation"));
+};
+
+function triggerDownload(format) {
+    let content="", filename="";
+    if (format==="bibtex") {
+        content=@article{${currentAuthors.split(' ')[0]}_${currentYear},
+  title={${currentTitle}},
+  author={${currentAuthors}},
+  year={${currentYear}},
+  doi={${currentDOI}}
+};
+        filename="citation.bib";
+    }
+    else if (format==="ris") {
+        content=TY  - JOUR
+TI  - ${currentTitle}
+AU  - ${currentAuthors}
+PY  - ${currentYear}
+DO  - ${currentDOI}
+ER  -;
+        filename="citation.ris";
+    }
+    else if (format==="txt") {
+        content=${currentAuthors} (${currentYear}). ${currentTitle}. DOI: ${currentDOI};
+        filename="citation.txt";
+    }
+    else if (format==="xml_abs") {
+        content=<abstract>
+<title>${currentTitle}</title>
+<authors>${currentAuthors}</authors>
+<year>${currentYear}</year>
+<doi>${currentDOI}</doi>
+<abstractText>${currentCitation}</abstractText>
+</abstract>;
+        filename="citation_abstract.xml";
+    }
+    else if (format==="xml_full") {
+        content=<fulltext>
+<title>${currentTitle}</title>
+<authors>${currentAuthors}</authors>
+<year>${currentYear}</year>
+<doi>${currentDOI}</doi>
+<fullText>${currentCitation}</fullText>
+</fulltext>;
+        filename="citation_full.xml";
+    }
+    const blob=new Blob([content],{type:"text/plain"});
+    const link=document.createElement("a");
+    link.href=URL.createObjectURL(blob);
+    link.download=filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
 }
 </script>
 
 {% endblock %}
-
