@@ -18,7 +18,8 @@ import json
 # Flask App Configuration
 # -------------------------------------------------
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # 🔴 Replace in production
+app.secret_key = "supersecretkey"  # 🔴 Replace with a secure key in production
+
 
 # -------------------------------------------------
 # Helper: Format citation
@@ -36,6 +37,7 @@ def format_citation(article):
     elif url:
         citation += f" {url}"
     return citation
+
 
 # -------------------------------------------------
 # Search Dispatcher with Cache
@@ -70,10 +72,12 @@ def search_with_cache(source, query, filters):
             save_search(source, query, filters, cached_results)
             return cached_results
 
+    # If not cached, fetch from API
     results = fetch_from_api(source, query, filters)
     if results:
         save_search(source, query, filters, results)
     return results
+
 
 def fetch_from_api(source, query, filters):
     try:
@@ -96,15 +100,20 @@ def fetch_from_api(source, query, filters):
         print(f"[API] ⚠ Error fetching from {source}: {e}")
     return []
 
+
 # -------------------------------------------------
 # Routes
 # -------------------------------------------------
+
+# Intro Page
 @app.route("/")
 def intro():
     return render_template("intro.html")
 
-@app.route("/", methods=["GET", "POST"])
-def home():
+
+# Search Page
+@app.route("/search", methods=["GET", "POST"])
+def search_page():
     results, source, query, status_filter = [], "", "", None
 
     if request.method == "POST":
@@ -126,7 +135,9 @@ def home():
 
     return render_template("index.html", results=results, source=source, query=query, status=status_filter)
 
-@app.route("/search", methods=["GET"])
+
+# Zotero Search (GET Parameters)
+@app.route("/zotero_search", methods=["GET"])
 def zotero_search():
     title = request.args.get("title", "")
     author = request.args.get("author", "")
@@ -144,6 +155,8 @@ def zotero_search():
 
     return render_template("index.html", results=results, source="crossref", query=search_term)
 
+
+# History Page
 @app.route("/history")
 def history():
     try:
@@ -153,6 +166,8 @@ def history():
         history_data = []
     return render_template("history.html", history=history_data)
 
+
+# History Results Page
 @app.route("/history/<int:search_id>")
 def history_results(search_id):
     try:
@@ -181,6 +196,7 @@ def history_results(search_id):
         flash(f"⚠ Could not load search results: {str(e)}", "error")
         articles = []
     return render_template("results.html", results=articles, source="History Search")
+
 
 # -------------------------------------------------
 # Main

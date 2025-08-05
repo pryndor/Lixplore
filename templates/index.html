@@ -2,23 +2,23 @@
 {% block content %}
 
 <!-- 🔍 Search Section -->
-<section class="search-box sticky-filters">
-    <form action="{{ url_for('home') }}" method="post" class="search-form">
+<section id="search-section" class="search-box sticky-filters">
+    <form method="POST" action="{{ url_for('search_page') }}" class="search-form">
         
         <!-- Source Selector -->
         <label for="source">Select Source:</label>
         <select name="source" id="source" required>
             <option value="" disabled {% if not source %}selected{% endif %}>Select Source</option>
             <option value="pubmed" {% if source=='pubmed' %}selected{% endif %}>PubMed</option>
-            <option value="crossref" {% if source=='crossref' %}selected{% endif %}>Crossref</option>
+            <option value="crossref" {% if source=='crossref' %}selected{% endif %}>CrossRef</option>
             <option value="springer" {% if source=='springer' %}selected{% endif %}>Springer</option>
-            <option value="europepmc_publications" {% if source=='europepmc_publications' %}selected{% endif %}>Europe PMC - Publications</option>
-            <option value="europepmc_grants" {% if source=='europepmc_grants' %}selected{% endif %}>Europe PMC - Grants</option>
-            <option value="clinicaltrials" {% if source=='clinicaltrials' %}selected{% endif %}>ClinicalTrials.gov</option>
+            <option value="europepmc_publications" {% if source=='europepmc_publications' %}selected{% endif %}>EuropePMC Publications</option>
+            <option value="europepmc_grants" {% if source=='europepmc_grants' %}selected{% endif %}>EuropePMC Grants</option>
+            <option value="clinicaltrials" {% if source=='clinicaltrials' %}selected{% endif %}>Clinical Trials</option>
             <option value="doaj" {% if source=='doaj' %}selected{% endif %}>DOAJ</option>
         </select>
 
-        <!-- Status Filter -->
+        <!-- Clinical Trials Status Filter -->
         <div id="statusFilter" style="display: {% if source=='clinicaltrials' %}block{% else %}none{% endif %}; width:100%;">
             <label for="status">Status (optional):</label>
             <input type="text" id="status" name="status" placeholder="e.g., RECRUITING, COMPLETED" value="{{ status or '' }}">
@@ -71,7 +71,7 @@
             <p><strong>DOI:</strong> {{ article.doi }}</p>
         {% endif %}
 
-        <!-- Citation + Full Text -->
+        <!-- Links -->
         <div class="link-section">
             {% if article.url %}
                 <a href="{{ article.url }}" target="_blank" class="fulltext-link">Full Text</a>
@@ -96,7 +96,6 @@
 
 <!-- 📱 Styles -->
 <style>
-/* Layout Fix */
 .sticky-filters { 
     position: sticky; 
     top: 0; 
@@ -138,7 +137,7 @@
 .citation-modal button:hover { background: #005ea3; }
 </style>
 
-<!-- 📜 Popup -->
+<!-- 📜 Citation Modal -->
 <div id="citationOverlay" class="citation-overlay" onclick="closeCitationModal()"></div>
 <div id="citationModal" class="citation-modal">
     <h3>Citation Options</h3>
