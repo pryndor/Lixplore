@@ -5,8 +5,8 @@ import time
 #import requests
 
 # Set Entrez credentials
-Entrez.email = "balathepharmacist@gmail.com"
-Entrez.api_key = "781f12bc04105f7d5536a510520cd74cbf08"
+Entrez.email = "Your_Email.com"
+Entrez.api_key = "Your_API_key"
 
 
 # ✅ Throttle: NCBI recommends <= 3 requests/sec (0.34s delay for safety)
