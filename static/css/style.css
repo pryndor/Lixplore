@@ -6,7 +6,7 @@ html, body {
     padding: 0;
     width: 100%;
     overflow-x: hidden;
-    height: 100%;
+   min-height: 100%;
 }
 
 body {
@@ -43,7 +43,7 @@ header nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
+    gap: 25px;
 }
 
 header nav a {
@@ -126,7 +126,7 @@ button:hover {
 .results-page {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .filters {

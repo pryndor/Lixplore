@@ -5,14 +5,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+    /* Use font without overriding base body scroll behavior */
     body {
         font-family: 'Inter', sans-serif;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(-45deg, #f3f9ff, #e7f4fc, #f9fbff, #eef7fd);
-        background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
-        overflow-x: hidden;
     }
 
     @keyframes gradientShift {
@@ -25,12 +20,13 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 200%;
-        height: 200%;
+        width: 100%;   /* Fixed width to avoid unnecessary overflow */
+        height: 100%;  /* Avoid 200% that caused scroll issues */
         background-image: radial-gradient(rgba(0, 122, 204, 0.05) 1px, transparent 1px);
         background-size: 50px 50px;
         animation: movePattern 60s linear infinite;
         z-index: -1;
+        pointer-events: none; /* Ensure it never blocks scroll */
     }
 
     @keyframes movePattern {

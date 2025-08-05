@@ -1,13 +1,12 @@
 # database.py
+
 import sqlite3
 import os
 import json
-from datetime import datetime
 
 # 📂 Database file path
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 DB_PATH = os.path.join(os.path.dirname(__file__), "literature_archive.db")
-
 
 
 # -------------------------------------------------
@@ -17,11 +16,9 @@ def init_db():
     """Initialize database with WAL mode and ensure schema is correct."""
     with sqlite3.connect(DB_PATH, timeout=10) as conn:
         cursor = conn.cursor()
-
-        # ✅ Enable WAL mode for better performance
         cursor.execute("PRAGMA journal_mode=WAL;")
 
-        # ✅ Create Searches Table
+        # Searches Table
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS searches (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,7 +29,7 @@ def init_db():
         )
         """)
 
-        # ✅ Create Articles Table
+        # Articles Table
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS articles (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,7 +54,6 @@ def init_db():
 # Connection Helper
 # -------------------------------------------------
 def get_connection():
-    """Return SQLite connection with WAL mode enabled."""
     conn = sqlite3.connect(DB_PATH, timeout=10)
     conn.execute("PRAGMA journal_mode=WAL;")
     return conn
@@ -67,30 +63,25 @@ def get_connection():
 # Save Search & Articles
 # -------------------------------------------------
 def save_search(source, query, filters, results):
-    """
-    Save search query and related articles to the database.
-    Filters are stored as JSON string with sorted keys for consistency.
-    """
+    """Save search query & results (even if results are empty)."""
     try:
         filters_str = json.dumps(filters or {}, sort_keys=True)
 
         with get_connection() as conn:
             cursor = conn.cursor()
 
-            # ✅ Insert search entry
+            # Save search always
             cursor.execute("""
                 INSERT INTO searches (source, query, filters) 
                 VALUES (?, ?, ?)
             """, (source, query, filters_str))
             search_id = cursor.lastrowid
-            print(f"[DB] ✅ Saved search ID={search_id}: {source} | {query}")
+            print(f"[DB] ✅ Search saved ID={search_id}: {source} | {query}")
 
-            # ✅ Insert all articles
-            for article in results:
+            # Save articles (only if present)
+            for article in (results or []):
                 if not isinstance(article, dict):
-                    print(f"[DB] ⚠ Skipping invalid article (not a dict): {article}")
                     continue
-
                 cursor.execute("""
                     INSERT INTO articles 
                     (search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path)
@@ -108,19 +99,16 @@ def save_search(source, query, filters, results):
                 ))
 
             conn.commit()
-            print(f"[DB] ✅ Saved {len(results)} articles for search ID={search_id}")
+            print(f"[DB] ✅ Articles saved for search ID={search_id}")
 
-    except sqlite3.Error as e:
-        print(f"[DB] ⚠ SQLite error while saving search: {e}")
     except Exception as e:
-        print(f"[DB] ⚠ Unexpected error while saving search: {e}")
+        print(f"[DB] ⚠ Error saving search: {e}")
 
 
 # -------------------------------------------------
 # Retrieve Search History
 # -------------------------------------------------
 def get_archive():
-    """Fetch all saved search history in descending order of timestamp."""
     try:
         with get_connection() as conn:
             cursor = conn.cursor()
@@ -129,11 +117,9 @@ def get_archive():
                 FROM searches 
                 ORDER BY timestamp DESC
             """)
-            history = cursor.fetchall()
-            print(f"[DB] 📜 Retrieved {len(history)} search history entries")
-            return history
-    except sqlite3.Error as e:
-        print(f"[DB] ⚠ Failed to retrieve search history: {e}")
+            return cursor.fetchall()
+    except Exception as e:
+        print(f"[DB] ⚠ Failed to retrieve history: {e}")
         return []
 
 
@@ -141,7 +127,6 @@ def get_archive():
 # Retrieve Results by Search ID
 # -------------------------------------------------
 def get_results_by_search_id(search_id):
-    """Fetch all articles related to a saved search ID."""
     try:
         with get_connection() as conn:
             cursor = conn.cursor()
@@ -150,10 +135,8 @@ def get_results_by_search_id(search_id):
                 FROM articles 
                 WHERE search_id=?
             """, (search_id,))
-            rows = cursor.fetchall()
-            print(f"[DB] 📜 Retrieved {len(rows)} articles for search ID={search_id}")
-            return rows
-    except sqlite3.Error as e:
-        print(f"[DB] ⚠ Failed to retrieve articles for search {search_id}: {e}")
+            return cursor.fetchall()
+    except Exception as e:
+        print(f"[DB] ⚠ Failed to retrieve results: {e}")
         return []
 

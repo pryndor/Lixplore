@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <style>
-    /* Full height for sticky footer */
     html, body {
         height: 100%;
         margin: 0;
@@ -24,10 +23,9 @@
         overflow-x: hidden;
     }
 
-    /* Header */
     header {
         background: #fff;
-        padding: 1.5rem 2rem;
+        padding: 2.0rem 2rem;
         border-bottom: 1px solid #ddd;
         display: flex;
         width: 100%;
@@ -46,7 +44,11 @@
 
     nav {
         display: flex;
-        gap: 1.5rem;
+        gap: 2.5rem;
+    }
+
+    nav a {
+    padding: 0.5rem 0; /* Optional: increases clickable vertical space */
     }
 
     nav a {
@@ -146,44 +148,35 @@
     .shape6 { width: 140px; height: 140px; top: 65%; left: 45%; background: rgba(100, 200, 255, 1); }
     .shape7 { width: 170px; height: 170px; top: 85%; left: 75%; background: rgba(255, 100, 180, 1); }
 
-    /* Floating icons with wobble effect */
+    /* Floating icons */
     .floating-icon {
         position: absolute;
         opacity: 0.08;
         animation: wobble 20s ease-in-out infinite;
     }
 
-    /* Old Icons */
+    /* Icons positions */
     .icon-paper1 { top: 15%; left: 5%; width: 60px; }
     .icon-paper2 { top: 45%; left: 20%; width: 60px; }
     .icon-paper3 { top: 75%; left: 70%; width: 60px; }
-
     .icon-dna1 { top: 25%; left: 40%; width: 55px; }
     .icon-dna2 { top: 65%; left: 50%; width: 55px; }
-
     .icon-zotero1 { top: 20%; left: 75%; width: 65px; }
     .icon-zotero2 { top: 70%; left: 85%; width: 65px; }
-
     .icon-ads1 { top: 30%; left: 15%; width: 55px; }
     .icon-ads2 { top: 80%; left: 60%; width: 55px; }
-
     .icon-citation1 { top: 40%; left: 35%; width: 50px; }
     .icon-citation2 { top: 85%; left: 40%; width: 50px; }
-
     .icon-books1 { top: 25%; left: 55%; width: 60px; }
     .icon-books2 { top: 60%; left: 10%; width: 60px; }
-
     .icon-crossref1 { top: 50%; left: 75%; width: 65px; }
     .icon-crossref2 { top: 90%; left: 25%; width: 65px; }
-
-    /* New Icons */
     .icon-diary { top: 15%; left: 30%; width: 55px; }
     .icon-doi { top: 35%; left: 85%; width: 55px; }
     .icon-openaccess { top: 55%; left: 5%; width: 55px; }
     .icon-opendata { top: 70%; left: 35%; width: 55px; }
     .icon-pubmed { top: 85%; left: 55%; width: 55px; }
 
-    /* Wobble Animation (gentle figure-eight) */
     @keyframes wobble {
         0%   { transform: translate(0px, 0px) rotate(0deg); }
         25%  { transform: translate(8px, -8px) rotate(2deg); }
@@ -191,13 +184,16 @@
         75%  { transform: translate(-8px, -8px) rotate(2deg); }
         100% { transform: translate(0px, 0px) rotate(0deg); }
     }
+
+    /* Pause animations helper */
+    .paused * {
+        animation-play-state: paused !important;
+    }
 </style>
 </head>
 <body>
 
-<!-- Background Layer -->
-<div class="background-layer">
-    <!-- Shapes -->
+<div class="background-layer" id="backgroundLayer">
     <div class="floating-shape shape1"></div>
     <div class="floating-shape shape2"></div>
     <div class="floating-shape shape3"></div>
@@ -206,30 +202,21 @@
     <div class="floating-shape shape6"></div>
     <div class="floating-shape shape7"></div>
 
-    <!-- Old Icons -->
     <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper1">
     <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper2">
     <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper3">
-
     <img src="{{ url_for('static', filename='images/dna.svg') }}" class="floating-icon icon-dna1">
     <img src="{{ url_for('static', filename='images/dna.svg') }}" class="floating-icon icon-dna2">
-
     <img src="{{ url_for('static', filename='images/zotero.svg') }}" class="floating-icon icon-zotero1">
     <img src="{{ url_for('static', filename='images/zotero.svg') }}" class="floating-icon icon-zotero2">
-
     <img src="{{ url_for('static', filename='images/Ads.svg') }}" class="floating-icon icon-ads1">
     <img src="{{ url_for('static', filename='images/Ads.svg') }}" class="floating-icon icon-ads2">
-
     <img src="{{ url_for('static', filename='images/citation.svg') }}" class="floating-icon icon-citation1">
     <img src="{{ url_for('static', filename='images/citation.svg') }}" class="floating-icon icon-citation2">
-
     <img src="{{ url_for('static', filename='images/books.svg') }}" class="floating-icon icon-books1">
     <img src="{{ url_for('static', filename='images/books.svg') }}" class="floating-icon icon-books2">
-
     <img src="{{ url_for('static', filename='images/Crossref.svg') }}" class="floating-icon icon-crossref1">
     <img src="{{ url_for('static', filename='images/Crossref.svg') }}" class="floating-icon icon-crossref2">
-
-    <!-- New Icons -->
     <img src="{{ url_for('static', filename='images/Diary.svg') }}" class="floating-icon icon-diary">
     <img src="{{ url_for('static', filename='images/Doi.svg') }}" class="floating-icon icon-doi">
     <img src="{{ url_for('static', filename='images/OpenAccess.svg') }}" class="floating-icon icon-openaccess">
@@ -243,8 +230,10 @@
     <label for="menu-toggle" class="menu-icon">&#9776;</label>
     <nav>
         <a href="{{ url_for('intro') }}">Home</a>
-	<a href="{{ url_for('search_page') }}">Search</a>
         <a href="{{ url_for('history') }}">History</a>
+        <a href="{{ url_for('donations') }}">Donations</a>
+        <a href="{{ url_for('blogs') }}">Blogs</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
     </nav>
 </header>
 
@@ -254,17 +243,40 @@
 
 <footer>
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 1rem;">
-        <div><strong>Support Our Project</strong><br><span style="color:#007acc;">Coming Soon</span></div>
-        <div><strong>Request a Feature</strong><br><span style="color:#007acc;">Coming Soon</span></div>
-        <div><strong>Contact</strong><br><span style="color:#007acc;">Coming Soon</span></div>
+        <div><strong>Support Our Project</strong><br><span style="color:#007acc;">Donate us</span></div>
+        <div><strong>Request a Feature</strong><br><span style="color:#007acc;">Write us</span></div>
+        <div><strong>Contact</strong><br><span style="color:#007acc;">Talk to us</span></div>
         <div><strong>Be a Contributor</strong><br><span style="color:#007acc;">Coming Soon</span></div>
         <div><strong>Release notes</strong><br><span style="color:#007acc;">Coming Soon</span></div>
-        <div><strong>Github</strong><br><span style="color:#007acc;">Coming Soon</span></div>
         <div><strong>Privacy</strong><br><span style="color:#007acc;">Coming Soon</span></div>
-        <div><strong>Blogs</strong><br><span style="color:#007acc;">Coming Soon</span></div>
+        <div><strong>Blogs</strong><br><span style="color:#007acc;">Read</span></div>
+
+	 <!-- GitHub link -->
+    <div>
+        <strong>
+            <a href="https://github.com/pryndor" target="_blank" style="color:#007acc; text-decoration:none;">
+                GitHub
+            </a>
+        </strong><br>
+        <span style="color:#007acc;">Visit Repo</span>
+    </div>
+</div>
+
     </div>
     <p>© 2025 Lixplore ➤ All rights reserved</p>
 </footer>
+
+<script>
+let scrollTimer;
+window.addEventListener('scroll', () => {
+    const bgLayer = document.getElementById('backgroundLayer');
+    bgLayer.classList.add('paused');
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+        bgLayer.classList.remove('paused');
+    }, 200);
+});
+</script>
 
 </body>
 </html>
