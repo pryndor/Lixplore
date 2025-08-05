@@ -6,137 +6,241 @@
       title="Lixplore"
       href="https://lixplore.com/lixplore_opensearch.xml">
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title if title else "Lixplore" }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title if title else "Lixplore" }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <style>
-        /* Full height for sticky footer */
-        html, body {
-            height: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            background: #f9f9f9;
-            color: #222;
-        }
+<style>
+    /* Full height for sticky footer */
+    html, body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        background: #f9f9f9;
+        color: #222;
+        overflow-x: hidden;
+    }
 
-        /* Header: Title left, nav centered */
-        header {
-            position: relative;
-            background: #fff;
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid #ddd;
-	    height: auto; /* Auto height instead of fixed 90px */
-            height: 90px;
-            display: flex;
-            width: 100%; /* Full width */binwidth: 100%; /* Full width */
-            align-items: center;
-            justify-content: space-between;
-	    box-sizing: border-box; /* Prevent overflow */
-        }
+    /* Header */
+    header {
+        background: #fff;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        z-index: 10;
+        position: relative;
+    }
 
-        /* Title */
-        header h1 {
-            margin: 0;
-            font-size: 1.3rem;
-            color: #000;
-        }
+    header h1 {
+        margin: 0;
+        font-size: 1.3rem;
+        color: #000;
+    }
 
-        /* Navigation links (desktop) */
+    nav {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    nav a {
+        color: #000 !important;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    nav a:hover {
+        color: #007acc;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .menu-icon {
+        display: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        position: absolute;
+        right: 2rem;
+        color: #000;
+    }
+
+    @media (max-width: 768px) {
         nav {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 90px;
+            right: 0;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            width: 150px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .menu-toggle:checked + .menu-icon + nav {
             display: flex;
-            gap: 1.5rem;
         }
-
-        nav a {
-            color: #000 !important;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-        }
-
-        nav a:hover {
-            color: #007acc;
-        }
-
-        /* Hamburger styles (hidden on desktop) */
-        .menu-toggle {
-            display: none;
-        }
-
         .menu-icon {
-            display: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-	    position: absolute;
-	    right: 2rem;
-	    color: #000; /* 🔥 Makes icon black */
+            display: block;
         }
+    }
 
-        /* Mobile styles */
-        @media (max-width: 768px) {
-            /* Hide desktop nav */
-            nav {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 90px;
-                right: 0;
-                background: #fff;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                padding: 10px;
-                width: 150px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            }
+    main {
+        flex: 1;
+        padding: 2rem;
+        max-width: 900px;
+        margin: auto;
+        width: 100%;
+        position: relative;
+        z-index: 5;
+    }
 
-            /* Show nav when checked */
-            .menu-toggle:checked + .menu-icon + nav {
-                display: flex;
-            }
+    footer {
+        background: #fff;
+        border-top: 1px solid #ddd;
+        text-align: center;
+        padding: 1rem 2rem;
+        font-size: 0.9rem;
+        color: #666;
+        box-sizing: border-box;
+        z-index: 10;
+        position: relative;
+    }
 
-            /* Show hamburger icon */
-            .menu-icon {
-                display: block;
-            }
-        }
+    /* Background Layer */
+    .background-layer {
+        position: fixed;
+        top: 120px;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 120px);
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+    }
 
-        /* Main pushes footer */
-        main {
-            flex: 1;
-            padding: 2rem;
-            max-width: 900px;
-            margin: auto;
-            width: 100%;
-        }
+    /* Floating shapes */
+    .floating-shape {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(30px);
+        opacity: 0.06;
+        animation: wobble 18s ease-in-out infinite;
+    }
 
-       footer {
-    background: #fff;
-    border-top: 1px solid #ddd;
-    text-align: center;
-    padding: 1rem 2rem; /* ✅ Match horizontal padding */
-    font-size: 0.9rem;
-    color: #666;
-    box-sizing: border-box;
-}
+    .shape1 { width: 200px; height: 200px; top: 10%; left: 10%; background: rgba(100, 100, 255, 1); }
+    .shape2 { width: 150px; height: 150px; top: 35%; left: 65%; background: rgba(255, 150, 100, 1); }
+    .shape3 { width: 180px; height: 180px; top: 75%; left: 25%; background: rgba(100, 255, 180, 1); }
+    .shape4 { width: 130px; height: 130px; top: 50%; left: 15%; background: rgba(180, 100, 255, 1); }
+    .shape5 { width: 160px; height: 160px; top: 20%; left: 55%; background: rgba(255, 220, 100, 1); }
+    .shape6 { width: 140px; height: 140px; top: 65%; left: 45%; background: rgba(100, 200, 255, 1); }
+    .shape7 { width: 170px; height: 170px; top: 85%; left: 75%; background: rgba(255, 100, 180, 1); }
+
+    /* Floating icons with wobble effect */
+    .floating-icon {
+        position: absolute;
+        opacity: 0.08;
+        animation: wobble 20s ease-in-out infinite;
+    }
+
+    /* Old Icons */
+    .icon-paper1 { top: 15%; left: 5%; width: 60px; }
+    .icon-paper2 { top: 45%; left: 20%; width: 60px; }
+    .icon-paper3 { top: 75%; left: 70%; width: 60px; }
+
+    .icon-dna1 { top: 25%; left: 40%; width: 55px; }
+    .icon-dna2 { top: 65%; left: 50%; width: 55px; }
+
+    .icon-zotero1 { top: 20%; left: 75%; width: 65px; }
+    .icon-zotero2 { top: 70%; left: 85%; width: 65px; }
+
+    .icon-ads1 { top: 30%; left: 15%; width: 55px; }
+    .icon-ads2 { top: 80%; left: 60%; width: 55px; }
+
+    .icon-citation1 { top: 40%; left: 35%; width: 50px; }
+    .icon-citation2 { top: 85%; left: 40%; width: 50px; }
+
+    .icon-books1 { top: 25%; left: 55%; width: 60px; }
+    .icon-books2 { top: 60%; left: 10%; width: 60px; }
+
+    .icon-crossref1 { top: 50%; left: 75%; width: 65px; }
+    .icon-crossref2 { top: 90%; left: 25%; width: 65px; }
+
+    /* New Icons */
+    .icon-diary { top: 15%; left: 30%; width: 55px; }
+    .icon-doi { top: 35%; left: 85%; width: 55px; }
+    .icon-openaccess { top: 55%; left: 5%; width: 55px; }
+    .icon-opendata { top: 70%; left: 35%; width: 55px; }
+    .icon-pubmed { top: 85%; left: 55%; width: 55px; }
+
+    /* Wobble Animation (gentle figure-eight) */
+    @keyframes wobble {
+        0%   { transform: translate(0px, 0px) rotate(0deg); }
+        25%  { transform: translate(8px, -8px) rotate(2deg); }
+        50%  { transform: translate(0px, -12px) rotate(-2deg); }
+        75%  { transform: translate(-8px, -8px) rotate(2deg); }
+        100% { transform: translate(0px, 0px) rotate(0deg); }
+    }
 </style>
 </head>
 <body>
 
-<header>
-    <!-- Title -->
-    <h1>Lixplore</h1>
+<!-- Background Layer -->
+<div class="background-layer">
+    <!-- Shapes -->
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    <div class="floating-shape shape3"></div>
+    <div class="floating-shape shape4"></div>
+    <div class="floating-shape shape5"></div>
+    <div class="floating-shape shape6"></div>
+    <div class="floating-shape shape7"></div>
 
-    <!-- Hamburger toggle -->
+    <!-- Old Icons -->
+    <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper1">
+    <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper2">
+    <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper3">
+
+    <img src="{{ url_for('static', filename='images/dna.svg') }}" class="floating-icon icon-dna1">
+    <img src="{{ url_for('static', filename='images/dna.svg') }}" class="floating-icon icon-dna2">
+
+    <img src="{{ url_for('static', filename='images/zotero.svg') }}" class="floating-icon icon-zotero1">
+    <img src="{{ url_for('static', filename='images/zotero.svg') }}" class="floating-icon icon-zotero2">
+
+    <img src="{{ url_for('static', filename='images/Ads.svg') }}" class="floating-icon icon-ads1">
+    <img src="{{ url_for('static', filename='images/Ads.svg') }}" class="floating-icon icon-ads2">
+
+    <img src="{{ url_for('static', filename='images/citation.svg') }}" class="floating-icon icon-citation1">
+    <img src="{{ url_for('static', filename='images/citation.svg') }}" class="floating-icon icon-citation2">
+
+    <img src="{{ url_for('static', filename='images/books.svg') }}" class="floating-icon icon-books1">
+    <img src="{{ url_for('static', filename='images/books.svg') }}" class="floating-icon icon-books2">
+
+    <img src="{{ url_for('static', filename='images/Crossref.svg') }}" class="floating-icon icon-crossref1">
+    <img src="{{ url_for('static', filename='images/Crossref.svg') }}" class="floating-icon icon-crossref2">
+
+    <!-- New Icons -->
+    <img src="{{ url_for('static', filename='images/Diary.svg') }}" class="floating-icon icon-diary">
+    <img src="{{ url_for('static', filename='images/Doi.svg') }}" class="floating-icon icon-doi">
+    <img src="{{ url_for('static', filename='images/OpenAccess.svg') }}" class="floating-icon icon-openaccess">
+    <img src="{{ url_for('static', filename='images/OpenDataSquare.svg') }}" class="floating-icon icon-opendata">
+    <img src="{{ url_for('static', filename='images/Pubmed.svg') }}" class="floating-icon icon-pubmed">
+</div>
+
+<header>
+    <h1>Lixplore</h1>
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
     <label for="menu-toggle" class="menu-icon">&#9776;</label>
-
-    <!-- Navigation -->
     <nav>
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('history') }}">History</a>
@@ -148,39 +252,15 @@
 </main>
 
 <footer>
-	<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 1rem;">
-        <div>
-            <strong>Support Our Project</strong><br>
-            <span style="color:#007acc; cursor:pointer;">Coming Soon</span>
-        </div>
-        <div>
-            <strong>Request a Feature</strong><br>
-            <span style="color:#007acc; cursor:pointer;">Coming Soon</span>
-        </div>
-        <div>
-            <strong>Contact</strong><br>
-            <span style="color:#007acc; cursor:pointer;">Coming Soon</span>
-        </div>
-        <div>
-            <strong>Be a Contributor</strong><br>
-            <span style="color:#007acc; cursor:pointer;">Coming Soon</span>
-        </div>
-	<div>
-            <strong>Release notes</strong><br>
-            <span style="color:#007acc; cursor:pointer;">Coming Soon</span>
-        </div>
-	<div>
-            <strong>Github</strong><br>
-            <span style="color:#007acc; cursor:pointer;">Coming Soon</span>
-        </div>
-	<div>
-            <strong>Privacy</strong><br>
-            <span style="color:#007acc; cursor:pointer;">Coming Soon</span>
-        </div>
-	<div>
-            <strong>Blogs</strong><br>
-            <span style="color:#007acc; cursor:pointer;">Coming Soon</span>
-        </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 1rem;">
+        <div><strong>Support Our Project</strong><br><span style="color:#007acc;">Coming Soon</span></div>
+        <div><strong>Request a Feature</strong><br><span style="color:#007acc;">Coming Soon</span></div>
+        <div><strong>Contact</strong><br><span style="color:#007acc;">Coming Soon</span></div>
+        <div><strong>Be a Contributor</strong><br><span style="color:#007acc;">Coming Soon</span></div>
+        <div><strong>Release notes</strong><br><span style="color:#007acc;">Coming Soon</span></div>
+        <div><strong>Github</strong><br><span style="color:#007acc;">Coming Soon</span></div>
+        <div><strong>Privacy</strong><br><span style="color:#007acc;">Coming Soon</span></div>
+        <div><strong>Blogs</strong><br><span style="color:#007acc;">Coming Soon</span></div>
     </div>
     <p>© 2025 Lixplore ➤ All rights reserved</p>
 </footer>

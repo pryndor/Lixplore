@@ -24,7 +24,6 @@ app.secret_key = "supersecretkey"  # 🔴 Replace in production
 # Helper: Format citation
 # -------------------------------------------------
 def format_citation(article):
-    """Generate formatted citation."""
     authors = ", ".join(article.get("authors", [])) if article.get("authors") else "Unknown Author"
     year = article.get("year", "n.d.")
     title = article.get("title", "No title available")
@@ -42,7 +41,6 @@ def format_citation(article):
 # Search Dispatcher with Cache
 # -------------------------------------------------
 def search_with_cache(source, query, filters):
-    """Fetch results from cache or API."""
     filters_str = json.dumps(filters, sort_keys=True) if isinstance(filters, (dict, list)) else str(filters)
 
     with get_connection() as conn:
@@ -53,7 +51,6 @@ def search_with_cache(source, query, filters):
         """, (source, query, filters_str))
         search = cursor.fetchone()
 
-        # ✅ Cache Hit
         if search:
             search_id = search[0]
             rows = get_results_by_search_id(search_id)
@@ -73,14 +70,12 @@ def search_with_cache(source, query, filters):
             save_search(source, query, filters, cached_results)
             return cached_results
 
-    # ❌ Cache Miss → Fetch from API
     results = fetch_from_api(source, query, filters)
     if results:
         save_search(source, query, filters, results)
     return results
 
 def fetch_from_api(source, query, filters):
-    """Route to correct API client."""
     try:
         if source == "pubmed":
             return search_pubmed(query)
@@ -104,9 +99,12 @@ def fetch_from_api(source, query, filters):
 # -------------------------------------------------
 # Routes
 # -------------------------------------------------
+@app.route("/")
+def intro():
+    return render_template("intro.html")
+
 @app.route("/", methods=["GET", "POST"])
 def home():
-    """Search page."""
     results, source, query, status_filter = [], "", "", None
 
     if request.method == "POST":
@@ -130,16 +128,11 @@ def home():
 
 @app.route("/search", methods=["GET"])
 def zotero_search():
-    """
-    Zotero/OpenSearch endpoint.
-    Accepts title, author, year, doi as query params.
-    """
     title = request.args.get("title", "")
     author = request.args.get("author", "")
     year = request.args.get("year", "")
     doi = request.args.get("doi", "")
 
-    # Build search query (Zotero sends pieces)
     search_term = doi or title or author
 
     if not search_term:
@@ -153,7 +146,6 @@ def zotero_search():
 
 @app.route("/history")
 def history():
-    """Search history."""
     try:
         history_data = get_archive()
     except Exception as e:
@@ -163,7 +155,6 @@ def history():
 
 @app.route("/history/<int:search_id>")
 def history_results(search_id):
-    """Specific history search results."""
     try:
         rows = get_results_by_search_id(search_id)
         articles = [
