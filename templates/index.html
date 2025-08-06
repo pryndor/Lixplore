@@ -49,7 +49,7 @@
 
 <!-- 📄 Results -->
 {% if results %}
-<section class="results-box">
+<section class="results-box" id="resultsContainer">
     <h2>Search Results</h2>
     {% for article in results %}
     <div class="result-card">
@@ -91,21 +91,23 @@
         <hr>
     </div>
     {% endfor %}
+
+    {% if results|length >= 20 %}
+    <div style="text-align:center; margin-top:20px;">
+        <button id="loadMoreBtn" 
+                data-source="{{ source }}" 
+                data-query="{{ query }}" 
+                style="padding: 10px 15px; background: #007acc; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Load More
+        </button>
+    </div>
+    {% endif %}
 </section>
 {% endif %}
 
 <!-- 📱 Styles -->
 <style>
-.sticky-filters { 
-    position: sticky; 
-    top: 0; 
-    background: #fff; 
-    z-index: 10; 
-    padding: 12px 1rem; 
-    border-bottom: 1px solid #ccc; 
-    max-width: 700px; 
-    margin: auto;
-}
+.sticky-filters { position: sticky; top: 0; background: #fff; z-index: 10; padding: 12px 1rem; border-bottom: 1px solid #ccc; max-width: 700px; margin: auto; }
 .search-form { display: flex; flex-wrap: wrap; gap: 7px; }
 .search-form label { width: 100%; font-weight: bold; margin-top: 5px; }
 .search-form select, .search-form input { width: 100%; padding: 7px; border-radius: 5px; border: 1px solid #ccc; }
@@ -114,22 +116,12 @@
 .search-btn { background: #007acc; color: white; border-radius: 5px; border: none; padding: 10px; width: 40%; cursor: pointer; }
 .search-btn:hover { background: #005ea3; }
 
-.results-box {
-    max-width: 700px;
-    margin: 20px auto;
-}
-.result-card { 
-    margin-bottom: 20px; 
-    padding: 15px; 
-    background: #f9f9f9; 
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+.results-box { max-width: 700px; margin: 20px auto; }
+.result-card { margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 .link-section { display: flex; gap: 15px; align-items: center; }
 .citation-link { text-decoration: underline; color: #007acc; cursor: pointer; }
 .citation-link:hover { color: #005ea3; }
 
-/* Popup */
 .citation-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; }
 .citation-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border-radius: 10px; padding: 20px; width: 350px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 .citation-modal h3 { margin-top: 0; text-align: center; }
@@ -150,16 +142,11 @@
     <button style="background:#ccc; color:#000;" onclick="closeCitationModal()">Close</button>
 </div>
 
-<!-- 📜 Script -->
+<!-- 📜 Scripts -->
 <script>
 let currentCitation="", currentTitle="", currentAuthors="", currentYear="", currentDOI="";
-
 function openCitationModal(citation, title, authors, year, doi) {
-    currentCitation = citation;
-    currentTitle = title;
-    currentAuthors = authors;
-    currentYear = year;
-    currentDOI = doi;
+    currentCitation = citation; currentTitle = title; currentAuthors = authors; currentYear = year; currentDOI = doi;
     document.getElementById("citationOverlay").style.display = "block";
     document.getElementById("citationModal").style.display = "block";
 }
@@ -168,61 +155,57 @@ function closeCitationModal() {
     document.getElementById("citationModal").style.display = "none";
 }
 document.getElementById("copyCitationBtn").onclick = function() {
-    navigator.clipboard.writeText(currentCitation)
-        .then(()=>alert("Citation copied!"))
-        .catch(()=>alert("Failed to copy citation"));
+    navigator.clipboard.writeText(currentCitation).then(()=>alert("Citation copied!")).catch(()=>alert("Failed to copy citation"));
 };
-
 function triggerDownload(format) {
     let content="", filename="";
-    if (format==="bibtex") {
-        content=`@article{${currentAuthors.split(' ')[0]}_${currentYear},
-  title={${currentTitle}},
-  author={${currentAuthors}},
-  year={${currentYear}},
-  doi={${currentDOI}}
-}`;
-        filename="citation.bib";
-    }
-    else if (format==="ris") {
-        content=`TY  - JOUR
-TI  - ${currentTitle}
-AU  - ${currentAuthors}
-PY  - ${currentYear}
-DO  - ${currentDOI}
-ER  -`;
-        filename="citation.ris";
-    }
-    else if (format==="txt") {
-        content=`${currentAuthors} (${currentYear}). ${currentTitle}. DOI: ${currentDOI}`;
-        filename="citation.txt";
-    }
-    else if (format==="xml_abs") {
-        content=`<abstract>
-<title>${currentTitle}</title>
-<authors>${currentAuthors}</authors>
-<year>${currentYear}</year>
-<doi>${currentDOI}</doi>
-<abstractText>${currentCitation}</abstractText>
-</abstract>`;
-        filename="citation_abstract.xml";
-    }
-    else if (format==="xml_full") {
-        content=`<fulltext>
-<title>${currentTitle}</title>
-<authors>${currentAuthors}</authors>
-<year>${currentYear}</year>
-<doi>${currentDOI}</doi>
-<fullText>${currentCitation}</fullText>
-</fulltext>`;
-        filename="citation_full.xml";
-    }
-    const blob=new Blob([content],{type:"text/plain"});
-    const link=document.createElement("a");
-    link.href=URL.createObjectURL(blob);
-    link.download=filename;
-    link.click();
-    URL.revokeObjectURL(link.href);
+    if (format==="bibtex") {content=`@article{${currentAuthors.split(' ')[0]}_${currentYear}, title={${currentTitle}}, author={${currentAuthors}}, year={${currentYear}}, doi={${currentDOI}}}`; filename="citation.bib";}
+    else if (format==="ris") {content=`TY  - JOUR\nTI  - ${currentTitle}\nAU  - ${currentAuthors}\nPY  - ${currentYear}\nDO  - ${currentDOI}\nER  -`; filename="citation.ris";}
+    else if (format==="txt") {content=`${currentAuthors} (${currentYear}). ${currentTitle}. DOI: ${currentDOI}`; filename="citation.txt";}
+    else if (format==="xml_abs") {content=`<abstract>\n<title>${currentTitle}</title>\n<authors>${currentAuthors}</authors>\n<year>${currentYear}</year>\n<doi>${currentDOI}</doi>\n<abstractText>${currentCitation}</abstractText>\n</abstract>`; filename="citation_abstract.xml";}
+    else if (format==="xml_full") {content=`<fulltext>\n<title>${currentTitle}</title>\n<authors>${currentAuthors}</authors>\n<year>${currentYear}</year>\n<doi>${currentDOI}</doi>\n<fullText>${currentCitation}</fullText>\n</fulltext>`; filename="citation_full.xml";}
+    const blob=new Blob([content],{type:"text/plain"}); const link=document.createElement("a");
+    link.href=URL.createObjectURL(blob); link.download=filename; link.click(); URL.revokeObjectURL(link.href);
+}
+
+// Load More Logic
+let currentStart = 20;
+const maxResults = 20;
+const loadMoreBtn = document.getElementById("loadMoreBtn");
+if (loadMoreBtn) {
+    loadMoreBtn.addEventListener("click", function () {
+        loadMoreBtn.textContent = "Loading...";
+        const source = this.dataset.source;
+        const query = this.dataset.query;
+        fetch(`/load_more?source=${source}&query=${encodeURIComponent(query)}&start=${currentStart}&max=${maxResults}`)
+            .then(r => r.json())
+            .then(data => {
+                if (data.results && data.results.length > 0) {
+                    const container = document.getElementById("resultsContainer");
+                    data.results.forEach(article => {
+                        const div = document.createElement("div");
+                        div.classList.add("result-card");
+                        div.innerHTML = `
+                            <h3>${article.title}</h3>
+                            ${article.abstract ? `<p><strong>Abstract:</strong> ${article.abstract}</p>` : ""}
+                            ${article.authors ? `<p><strong>Authors:</strong> ${article.authors.join(", ")}</p>` : ""}
+                            ${article.pmid ? `<p><strong>PMID:</strong> ${article.pmid}</p>` : ""}
+                            ${article.doi ? `<p><strong>DOI:</strong> ${article.doi}</p>` : ""}
+                            <div class="link-section">
+                                ${article.url ? `<a href="${article.url}" target="_blank" class="fulltext-link">Full Text</a>` : `<span class="fulltext-link disabled">Full Text N/A</span>`}
+                                ${article.citation ? `<a href="#" class="citation-link" onclick="openCitationModal(\`${article.citation.replace(/`/g, '\\`')}\`,\`${article.title.replace(/`/g, '\\`')}\`,\`${article.authors.join('; ').replace(/`/g, '\\`')}\`,\`${article.year || ''}\`,\`${article.doi || ''}\`)">Cite this article</a>` : `<span class="citation-link disabled">Citation N/A</span>`}
+                            </div>
+                            <hr>`;
+                        container.appendChild(div);
+                    });
+                    currentStart = data.next_start;
+                    loadMoreBtn.textContent = "Load More";
+                } else {
+                    loadMoreBtn.style.display = "none";
+                }
+            })
+            .catch(() => { alert("Failed to load more results."); loadMoreBtn.textContent = "Load More"; });
+    });
 }
 </script>
 

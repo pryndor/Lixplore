@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .intro-section {
+        text-align: center;
+        padding: 2rem;
+        max-width: 900px;
+        margin: 2rem auto;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        position: relative;
+        z-index: 1;
+    }
+
+    .intro-section h1 {
+        color: #007acc;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+    }
+
+    .intro-section p {
+        font-size: 1.05rem;
+        color: #444;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .contact-details {
+        margin: 1.5rem 0;
+        text-align: left;
+        color: #444;
+        line-height: 1.6;
+    }
+
+    .contact-form {
+        text-align: left;
+        margin-top: 2rem;
+    }
+
+    .contact-form label {
+        display: block;
+        font-weight: 600;
+        margin: 0.5rem 0 0.2rem;
+        color: #333;
+    }
+
+    .contact-form input, 
+    .contact-form textarea,
+    .contact-form select {
+        width: 100%;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-family: inherit;
+        box-sizing: border-box;
+    }
+
+    .contact-form textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .submit-btn {
+        background: #007acc;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background: #005f99;
+        transform: scale(1.05);
+    }
+</style>
+
+<section class="intro-section">
+    <h1>Contact Us</h1>
+    <p>
+        Have questions, feedback, or ideas?  
+        We'd love to hear from you! Fill out the form below or reach us directly through our contact details.
+    </p>
+
+    <div class="contact-details">
+        <p><strong>Email:</strong> support@lixplore.com</p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/pryndor" target="_blank" style="color:#007acc;">Be a Contributor</a></p>
+    </div>
+
+    <form class="contact-form" method="POST" action="{{ url_for('contact') }}">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="subject">Choose an Option</label>
+        <select id="subject" name="subject" required>
+            <option value="">-- Select an option --</option>
+            <option value="feature_request">Request a Feature</option>
+            <option value="general_inquiry">General Inquiry</option>
+            <option value="contribute">Contribute to Project</option>
+            <option value="support">Support</option>
+        </select>
+
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+
+        <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+</section>
+{% endblock %}
+

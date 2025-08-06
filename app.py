@@ -1,5 +1,3 @@
-#app.py
-
 # app.py
 from flask import Flask, render_template, request, flash, jsonify
 from pubmed_client import search_pubmed
@@ -18,11 +16,11 @@ from database.database import (
 import json
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # Change this in production
+app.secret_key = "supersecretkey"  # ⚠ Change in production
 
 
 # -------------------------------------------------
-# Format citation
+# Helper: Format citation
 # -------------------------------------------------
 def format_citation(article):
     authors = ", ".join(article.get("authors", [])) if article.get("authors") else "Unknown Author"
@@ -40,7 +38,7 @@ def format_citation(article):
 
 
 # -------------------------------------------------
-# Search Dispatcher (cache-first)
+# Helper: Search with cache
 # -------------------------------------------------
 def search_with_cache(source, query, filters):
     filters_str = json.dumps(filters or {}, sort_keys=True)
@@ -53,7 +51,6 @@ def search_with_cache(source, query, filters):
         """, (source, query, filters_str))
         search = cursor.fetchone()
 
-        # If cached, return saved articles
         if search:
             search_id = search[0]
             rows = get_results_by_search_id(search_id)
@@ -71,15 +68,15 @@ def search_with_cache(source, query, filters):
                 for r in rows
             ]
 
-    # Not cached — fetch from API
-    results = fetch_from_api(source, query, filters) or []
+    # Not cached → fetch fresh
+    results = fetch_from_api(source, query, filters)
     if results:
         save_search(source, query, filters, results)
     return results
 
 
 # -------------------------------------------------
-# API Fetcher
+# Helper: API fetcher
 # -------------------------------------------------
 def fetch_from_api(source, query, filters):
     try:
@@ -109,6 +106,40 @@ def fetch_from_api(source, query, filters):
 @app.route("/")
 def intro():
     return render_template("intro.html")
+
+@app.route("/load_more", methods=["GET"])
+def load_more():
+    try:
+        source = request.args.get("source")
+        query = request.args.get("query", "").strip()
+        start = int(request.args.get("start", 0))
+        max_results = int(request.args.get("max", 20))
+
+        if not source or not query:
+            return jsonify({"error": "Missing source or query"}), 400
+
+        # Call unified fetcher (handles all sources)
+        results = fetch_from_api(source, query, {"start": start, "max": max_results}) or []
+
+        # Add formatted citations
+        for article in results:
+            article["citation"] = format_citation(article)
+
+        return jsonify({"results": results, "next_start": start + max_results})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+@app.route("/privacy")
+def privacy():
+    return render_template("pandt.html")
+
+
+@app.route("/support")
+def support():
+    return render_template("support.html")
 
 
 @app.route("/search", methods=["GET", "POST"])

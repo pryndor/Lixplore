@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page-specific styles (matching intro.html style for consistency) -->
+<style>
+    .pandt-section {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        color: #333;
+        line-height: 1.6;
+        position: relative;
+        z-index: 1;
+    }
+
+    .pandt-section h1 {
+        text-align: center;
+        color: #007acc;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+    }
+
+    .pandt-section p {
+        color: #555;
+        margin-bottom: 1.2rem;
+        font-size: 1.05rem;
+    }
+
+    .pandt-section h2 {
+        color: #007acc;
+        margin-top: 2rem;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 0.3rem;
+        font-size: 1.4rem;
+    }
+
+    .pandt-section ul {
+        padding-left: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .pandt-section a {
+        color: #007acc;
+        text-decoration: none;
+    }
+
+    .pandt-section a:hover {
+        text-decoration: underline;
+    }
+
+    .pandt-footer {
+        background: #f1f1f1;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        color: #666;
+        border-radius: 6px;
+    }
+</style>
+
+<section class="pandt-section">
+    <h1>Privacy Policy & Terms of Use</h1>
+    <p><em>Effective Date: August 2025</em></p>
+
+    <h2 id="usage">1. Tool Usage</h2>
+    <ul>
+        <li>Lixplore is an <strong>open tool for everyone</strong> to use freely.</li>
+        <li>Please use the tool <strong>diligently and responsibly</strong>.</li>
+        <li>Avoid using the tool in a <strong>playful or excessive manner</strong> that could slow the system for others.</li>
+    </ul>
+
+    <h2 id="privacy">2. Privacy Commitment</h2>
+    <ul>
+        <li>We <strong>do not track your movements</strong>, search history, or personal activity.</li>
+        <li>We <strong>do not collect fingerprints</strong> or hidden identifiers.</li>
+        <li>No personally identifiable information is stored without your consent.</li>
+    </ul>
+
+    <h2 id="audits">3. Audits & Transparency</h2>
+    <ul>
+        <li>As of <strong>August 2025</strong>, <strong>no formal audits</strong> have been conducted.</li>
+        <li>We are open to <strong>independent audits</strong>—anyone interested is welcome to conduct one.</li>
+    </ul>
+
+    <h2 id="fees">4. Fees & Access</h2>
+    <ul>
+        <li>The tool is <strong>free to use</strong>—there are <strong>no charges</strong> for accessing its features.</li>
+    </ul>
+
+    <h2 id="bugs">5. Reporting Bugs & Issues</h2>
+    <ul>
+        <li>Users are encouraged to <strong>report bugs or issues</strong> anytime.</li>
+        <li>Reports can be submitted <strong>through any available communication channel</strong> (Email, GitHub, Contact Page, etc.).</li>
+    </ul>
+
+    <h2 id="disclaimer">6. Disclaimer</h2>
+    <ul>
+        <li>The tool is provided <strong>"as is"</strong> without warranties.</li>
+        <li>Use of the tool is at your own discretion and responsibility.</li>
+	<li>The tool is still evolving, and occasional bugs may occur. During beta sessions, you might experience temporary slowness, errors, or minor glitches as improvements are ongoing.</li>
+	<li>The terms and policies are subject to revision at any time.</li>
+
+    </ul>
+
+    <div class="pandt-footer">
+        <p>
+            <a href="#usage">Tool Usage</a> | 
+            <a href="#privacy">Privacy</a> | 
+            <a href="#audits">Audits</a> | 
+            <a href="#fees">Fees</a> | 
+            <a href="#bugs">Bugs</a> | 
+            <a href="#disclaimer">Disclaimer</a>
+        </p>
+    </div>
+</section>
+{% endblock %}
+

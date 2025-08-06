@@ -70,7 +70,7 @@
             background: #005ea3;
         }
 
-        /* 📱 Mobile Adjustments */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
             .history-table th, .history-table td {
                 font-size: 12px;
@@ -80,8 +80,11 @@
     </style>
 </head>
 <body>
+	 <div style="text-align:center;">
+        <a class="back-link" href="{{ url_for('search_page') }}">Back to Search</a>
+    </div>
 
-    <h1>📜 Search History</h1>
+    <h1>Search History</h1>
 
     {% if history %}
         <div style="overflow-x:auto;">
@@ -113,7 +116,7 @@
     {% endif %}
 
     <div style="text-align:center;">
-        <a class="back-link" href="{{ url_for('search_page') }}">🔙 Back to Search</a>
+        <a class="back-link" href="{{ url_for('search_page') }}">Back to Search</a>
     </div>
 
 </body>

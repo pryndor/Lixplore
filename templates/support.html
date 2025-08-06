@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Page-specific styles (reusing intro.html style for consistent look) -->
+<style>
+    .intro-section {
+        text-align: center;
+        padding: 2rem;
+        max-width: 900px;
+        margin: 2rem auto;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        position: relative;
+        z-index: 1;
+    }
+
+    .intro-section h1 {
+        color: #007acc;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+    }
+
+    .intro-section p {
+        font-size: 1.05rem;
+        color: #444;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .support-options {
+        margin-top: 1.5rem;
+    }
+
+    .option {
+        background: #f0f8ff;
+        padding: 1rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+
+    .option h2 {
+        margin: 0 0 0.5rem 0;
+        color: #333;
+    }
+
+    .donation-section {
+        margin-top: 2rem;
+        padding: 1.2rem;
+        background: #fff3e0; 
+        border-radius: 8px;
+        color: #444;
+        text-align: center;
+    }
+
+    .donation-section h3 {
+        margin-bottom: 0.5rem;
+        color: #333;
+    }
+
+    .button {
+        padding: 12px 20px;
+        margin: 10px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform 0.2s ease, background 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .donate-btn {
+        background: #ff9800;
+        color: white;
+    }
+
+    .donate-btn:hover {
+        background: #e68900;
+        transform: scale(1.05);
+    }
+</style>
+
+<section class="intro-section">
+    <h1>Support Our Project</h1>
+    <p>
+        Lixplore exists because of passionate people like you. 
+        Your support keeps our project alive, growing, and accessible to everyone. 
+        By supporting us, you help ensure this project continues to thrive and reach more users.
+    </p>
+
+    <div class="support-options">
+        <div class="option">
+            <h2>1. Be a Contributor</h2>
+            <p>
+                Join our mission! Contribute code, documentation, ideas, or feedback. 
+                Every contribution, big or small, shapes the future of Lixplore.
+            </p>
+        </div>
+
+        <div class="option">
+            <h2>2. Donate to Keep Us Running</h2>
+            <p>
+                Help sustain our infrastructure and ongoing development.
+                Your donations cover hosting, maintenance, and essential tools to keep the project alive for the long run.
+            </p>
+        </div>
+
+        <div class="option">
+            <h2>3. Spread the Word</h2>
+            <p>
+                Share Lixplore with your network.  
+                Awareness is powerful—each new person who discovers our project brings fresh opportunities and community growth.
+            </p>
+        </div>
+
+        <div class="donation-section">
+            <h3>❤️ Support Lixplore</h3>
+            <p>
+                Lixplore is free for everyone.  
+                If this tool helps you, please consider supporting its development.  
+                Every small contribution keeps it running.
+            </p>
+            <a href="https://buymeacoffee.com/yourlink" target="_blank" class="button donate-btn">
+                ☕ Buy Me a Coffee
+            </a>
+            <a href="https://opencollective.com/yourlink" target="_blank" class="button donate-btn">
+                💖 Donate on OpenCollective
+            </a>
+            <a href="https://en.liberapay.com/balathepharmacist/donate" target="_blank" class="button donate-btn">
+                💛 Donate on Liberapay
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

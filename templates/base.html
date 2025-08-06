@@ -1,196 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="search"
-      type="application/x-openurl-opensearchdescription+xml"
-      title="Lixplore"
-      href="https://lixplore.com/lixplore_opensearch.xml">
+    <link rel="search"
+          type="application/x-openurl-opensearchdescription+xml"
+          title="Lixplore"
+          href="https://lixplore.com/lixplore_opensearch.xml">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ title if title else "Lixplore" }}</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title if title else "Lixplore" }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background: #f9f9f9;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #fff;
+            padding: 2rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+            z-index: 10;
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: #000;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            padding: 0.5rem 0;
+            color: #000 !important;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        nav a:hover {
+            color: #007acc;
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            position: absolute;
+            right: 2rem;
+            color: #000;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 90px;
+                right: 0;
+                background: #fff;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 10px;
+                width: 150px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+            .menu-toggle:checked + .menu-icon + nav {
+                display: flex;
+            }
+            .menu-icon {
+                display: block;
+            }
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 900px;
+            margin: auto;
+            width: 100%;
+            position: relative;
+            z-index: 5;
+        }
+
+        footer {
+            background: #fff;
+            border-top: 1px solid #ddd;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            color: #666;
+            box-sizing: border-box;
+            z-index: 10;
+            position: relative;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-item strong a {
+            color: #007acc;
+            text-decoration: none;
+        }
+
+        .footer-item span {
+            color: #007acc;
+            display: block;
+            margin-top: 0.2rem;
+        }
+
+        .donation-section {
+            text-align: center;
+        }
+
+        /* Background Layer */
+        .background-layer {
+            position: fixed;
+            top: 120px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 120px);
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0.06;
+            animation: wobble 18s ease-in-out infinite;
+        }
+
+        .shape1 { width: 200px; height: 200px; top: 10%; left: 10%; background: rgba(100, 100, 255, 1); }
+        .shape2 { width: 150px; height: 150px; top: 35%; left: 65%; background: rgba(255, 150, 100, 1); }
+        .shape3 { width: 180px; height: 180px; top: 75%; left: 25%; background: rgba(100, 255, 180, 1); }
+        .shape4 { width: 130px; height: 130px; top: 50%; left: 15%; background: rgba(180, 100, 255, 1); }
+        .shape5 { width: 160px; height: 160px; top: 20%; left: 55%; background: rgba(255, 220, 100, 1); }
+        .shape6 { width: 140px; height: 140px; top: 65%; left: 45%; background: rgba(100, 200, 255, 1); }
+        .shape7 { width: 170px; height: 170px; top: 85%; left: 75%; background: rgba(255, 100, 180, 1); }
+
+        .floating-icon {
+            position: absolute;
+            opacity: 0.08;
+            animation: wobble 20s ease-in-out infinite;
+        }
+
+        .icon-paper1 { top: 15%; left: 5%; width: 60px; }
+        .icon-paper2 { top: 45%; left: 20%; width: 60px; }
+        .icon-paper3 { top: 75%; left: 70%; width: 60px; }
+        .icon-dna1 { top: 25%; left: 40%; width: 55px; }
+        .icon-dna2 { top: 65%; left: 50%; width: 55px; }
+        .icon-zotero1 { top: 20%; left: 75%; width: 65px; }
+        .icon-zotero2 { top: 70%; left: 85%; width: 65px; }
+        .icon-ads1 { top: 30%; left: 15%; width: 55px; }
+        .icon-ads2 { top: 80%; left: 60%; width: 55px; }
+        .icon-citation1 { top: 40%; left: 35%; width: 50px; }
+        .icon-citation2 { top: 85%; left: 40%; width: 50px; }
+        .icon-books1 { top: 25%; left: 55%; width: 60px; }
+        .icon-books2 { top: 60%; left: 10%; width: 60px; }
+        .icon-crossref1 { top: 50%; left: 75%; width: 65px; }
+        .icon-crossref2 { top: 90%; left: 25%; width: 65px; }
+        .icon-diary { top: 15%; left: 30%; width: 55px; }
+        .icon-doi { top: 35%; left: 85%; width: 55px; }
+        .icon-openaccess { top: 55%; left: 5%; width: 55px; }
+        .icon-opendata { top: 70%; left: 35%; width: 55px; }
+        .icon-pubmed { top: 85%; left: 55%; width: 55px; }
+
+        @keyframes wobble {
+            0%   { transform: translate(0px, 0px) rotate(0deg); }
+            25%  { transform: translate(8px, -8px) rotate(2deg); }
+            50%  { transform: translate(0px, -12px) rotate(-2deg); }
+            75%  { transform: translate(-8px, -8px) rotate(2deg); }
+            100% { transform: translate(0px, 0px) rotate(0deg); }
+        }
+
+        .paused * {
+            animation-play-state: paused !important;
+        }
+    </style>
+</head>
+
+<!-- 💡 Pro Tip Widget -->
+<div id="proTipBox" class="pro-tip-box">
+    <span id="proTipText">💡 Pro Tip: Use "AND", "OR", and quotes for precise searches.</span>
+</div>
 
 <style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        background: #f9f9f9;
-        color: #222;
-        overflow-x: hidden;
-    }
-
-    header {
-        background: #fff;
-        padding: 2.0rem 2rem;
-        border-bottom: 1px solid #ddd;
-        display: flex;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        box-sizing: border-box;
-        z-index: 10;
-        position: relative;
-    }
-
-    header h1 {
-        margin: 0;
-        font-size: 1.3rem;
-        color: #000;
-    }
-
-    nav {
-        display: flex;
-        gap: 2.5rem;
-    }
-
-    nav a {
-    padding: 0.5rem 0; /* Optional: increases clickable vertical space */
-    }
-
-    nav a {
-        color: #000 !important;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 1rem;
-    }
-
-    nav a:hover {
-        color: #007acc;
-    }
-
-    .menu-toggle {
-        display: none;
-    }
-
-    .menu-icon {
-        display: none;
-        font-size: 1.8rem;
-        cursor: pointer;
-        position: absolute;
-        right: 2rem;
-        color: #000;
-    }
-
-    @media (max-width: 768px) {
-        nav {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            top: 90px;
-            right: 0;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            width: 150px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .menu-toggle:checked + .menu-icon + nav {
-            display: flex;
-        }
-        .menu-icon {
-            display: block;
-        }
-    }
-
-    main {
-        flex: 1;
-        padding: 2rem;
-        max-width: 900px;
-        margin: auto;
-        width: 100%;
-        position: relative;
-        z-index: 5;
-    }
-
-    footer {
-        background: #fff;
-        border-top: 1px solid #ddd;
-        text-align: center;
-        padding: 1rem 2rem;
-        font-size: 0.9rem;
-        color: #666;
-        box-sizing: border-box;
-        z-index: 10;
-        position: relative;
-    }
-
-    /* Background Layer */
-    .background-layer {
-        position: fixed;
-        top: 120px;
-        left: 0;
-        width: 100%;
-        height: calc(100% - 120px);
-        z-index: 0;
-        pointer-events: none;
-        overflow: hidden;
-    }
-
-    /* Floating shapes */
-    .floating-shape {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(30px);
-        opacity: 0.06;
-        animation: wobble 18s ease-in-out infinite;
-    }
-
-    .shape1 { width: 200px; height: 200px; top: 10%; left: 10%; background: rgba(100, 100, 255, 1); }
-    .shape2 { width: 150px; height: 150px; top: 35%; left: 65%; background: rgba(255, 150, 100, 1); }
-    .shape3 { width: 180px; height: 180px; top: 75%; left: 25%; background: rgba(100, 255, 180, 1); }
-    .shape4 { width: 130px; height: 130px; top: 50%; left: 15%; background: rgba(180, 100, 255, 1); }
-    .shape5 { width: 160px; height: 160px; top: 20%; left: 55%; background: rgba(255, 220, 100, 1); }
-    .shape6 { width: 140px; height: 140px; top: 65%; left: 45%; background: rgba(100, 200, 255, 1); }
-    .shape7 { width: 170px; height: 170px; top: 85%; left: 75%; background: rgba(255, 100, 180, 1); }
-
-    /* Floating icons */
-    .floating-icon {
-        position: absolute;
-        opacity: 0.08;
-        animation: wobble 20s ease-in-out infinite;
-    }
-
-    /* Icons positions */
-    .icon-paper1 { top: 15%; left: 5%; width: 60px; }
-    .icon-paper2 { top: 45%; left: 20%; width: 60px; }
-    .icon-paper3 { top: 75%; left: 70%; width: 60px; }
-    .icon-dna1 { top: 25%; left: 40%; width: 55px; }
-    .icon-dna2 { top: 65%; left: 50%; width: 55px; }
-    .icon-zotero1 { top: 20%; left: 75%; width: 65px; }
-    .icon-zotero2 { top: 70%; left: 85%; width: 65px; }
-    .icon-ads1 { top: 30%; left: 15%; width: 55px; }
-    .icon-ads2 { top: 80%; left: 60%; width: 55px; }
-    .icon-citation1 { top: 40%; left: 35%; width: 50px; }
-    .icon-citation2 { top: 85%; left: 40%; width: 50px; }
-    .icon-books1 { top: 25%; left: 55%; width: 60px; }
-    .icon-books2 { top: 60%; left: 10%; width: 60px; }
-    .icon-crossref1 { top: 50%; left: 75%; width: 65px; }
-    .icon-crossref2 { top: 90%; left: 25%; width: 65px; }
-    .icon-diary { top: 15%; left: 30%; width: 55px; }
-    .icon-doi { top: 35%; left: 85%; width: 55px; }
-    .icon-openaccess { top: 55%; left: 5%; width: 55px; }
-    .icon-opendata { top: 70%; left: 35%; width: 55px; }
-    .icon-pubmed { top: 85%; left: 55%; width: 55px; }
-
-    @keyframes wobble {
-        0%   { transform: translate(0px, 0px) rotate(0deg); }
-        25%  { transform: translate(8px, -8px) rotate(2deg); }
-        50%  { transform: translate(0px, -12px) rotate(-2deg); }
-        75%  { transform: translate(-8px, -8px) rotate(2deg); }
-        100% { transform: translate(0px, 0px) rotate(0deg); }
-    }
-
-    /* Pause animations helper */
-    .paused * {
-        animation-play-state: paused !important;
-    }
+/* Pro Tip Box Styling */
+.pro-tip-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #7FC1E5;
+    color: black;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 9999;
+    max-width: 250px;
+    line-height: 1.4;
+    transition: opacity 1s ease-in-out;
+}
 </style>
-</head>
+
+<script>
+// ===========================
+// Pro Tip Rotator
+// ===========================
+const tips = [
+    '💡 Pro Tip: Use "AND", "OR", and quotes for precise searches.',
+    '💡 Pro Tip: Filter results by date using the From/To fields.',
+    '💡 Pro Tip: Search directly by DOI, Author, or Keyword.',
+    '💡 Pro Tip: Switch between sources (PubMed, CrossRef, etc.) to find unique results.',
+    '💡 Pro Tip: For Clinical Trials, filter by status (e.g., RECRUITING, COMPLETED).'
+];
+
+let tipIndex = 0;
+function showNextTip() {
+    const tipBox = document.getElementById('proTipText');
+    tipIndex = (tipIndex + 1) % tips.length;
+    tipBox.style.opacity = 0;
+    setTimeout(() => {
+        tipBox.textContent = tips[tipIndex];
+        tipBox.style.opacity = 1;
+    }, 500);
+}
+
+// Change tip every 6 seconds
+setInterval(showNextTip, 6000);
+</script>
+
 <body>
 
 <div class="background-layer" id="backgroundLayer">
@@ -231,8 +299,7 @@
     <nav>
         <a href="{{ url_for('intro') }}">Home</a>
         <a href="{{ url_for('history') }}">History</a>
-        <a href="{{ url_for('donations') }}">Donations</a>
-        <a href="{{ url_for('blogs') }}">Blogs</a>
+        <a href="{{ url_for('support') }}">Support Our Project</a>
         <a href="{{ url_for('contact') }}">Contact</a>
     </nav>
 </header>
@@ -242,26 +309,31 @@
 </main>
 
 <footer>
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 1rem;">
-        <div><strong>Support Our Project</strong><br><span style="color:#007acc;">Donate us</span></div>
-        <div><strong>Request a Feature</strong><br><span style="color:#007acc;">Write us</span></div>
-        <div><strong>Contact</strong><br><span style="color:#007acc;">Talk to us</span></div>
-        <div><strong>Be a Contributor</strong><br><span style="color:#007acc;">Coming Soon</span></div>
-        <div><strong>Release notes</strong><br><span style="color:#007acc;">Coming Soon</span></div>
-        <div><strong>Privacy</strong><br><span style="color:#007acc;">Coming Soon</span></div>
-        <div><strong>Blogs</strong><br><span style="color:#007acc;">Read</span></div>
-
-	 <!-- GitHub link -->
-    <div>
-        <strong>
-            <a href="https://github.com/pryndor" target="_blank" style="color:#007acc; text-decoration:none;">
-                GitHub
-            </a>
-        </strong><br>
-        <span style="color:#007acc;">Visit Repo</span>
-    </div>
-</div>
-
+    <div class="footer-links">
+        <div class="footer-item">
+            <strong><a href="{{ url_for('support') }}">Support Our Project</a></strong>
+            <span>Donate Us</span>
+        </div>
+        <div class="footer-item">
+            <strong><a href="https://github.com/pryndor" target="_blank">GitHub</a></strong>
+            <span>Be a Contributor</span>
+        </div>
+        <div class="footer-item">
+            <strong><a href="{{ url_for('contact') }}">Contact</a></strong>
+            <span>Talk to Us</span>
+        </div>
+        <div class="footer-item">
+            <strong>Release Notes</strong>
+            <span>Coming Soon</span>
+        </div>
+        <div class="footer-item">
+		<strong><a href="{{ url_for('privacy') }}">Privacy & Terms</a></strong>
+	 <span>Read Us</span>
+        </div>
+        <div class="footer-item">
+            <strong>Blogs</strong>
+            <span>Coming Soon</span>
+        </div>
     </div>
     <p>© 2025 Lixplore ➤ All rights reserved</p>
 </footer>
