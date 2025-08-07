@@ -9,4 +9,6 @@ __pycache__/
 *.pem
 /blog_posts/
 /release_notes/
+# Ignore all .db files in the database folder
+/database/*.db:
 
