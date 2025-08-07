@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .pandt-section {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        color: #333;
+        line-height: 1.6;
+        position: relative;
+        z-index: 1;
+    }
+
+    .pandt-section h1 {
+        text-align: center;
+        color: #007acc;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+    }
+
+    .release-item {
+        margin-bottom: 1.2rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .release-header {
+        background-color: #f5f5f5;
+        padding: 1rem;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #007acc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .release-header:hover {
+        background-color: #e0e0e0;
+    }
+
+    .release-content {
+        padding: 1rem;
+        display: none;
+        background: #fff;
+        border-top: 1px solid #eee;
+    }
+
+    .release-header .arrow {
+        transition: transform 0.3s ease;
+    }
+
+    .release-header.open .arrow {
+        transform: rotate(90deg);
+    }
+</style>
+
+<section class="pandt-section">
+    <h1>Release Notes</h1>
+    <p style="text-align: center;"><em>What's new, improved, or fixed — updated regularly</em></p>
+
+    <div class="release-notes-content">
+        {% for version, content in releases.items() %}
+        <div class="release-item">
+            <div class="release-header" onclick="toggleRelease(this)">
+                <span>{{ version }}</span>
+                <span class="arrow">&#9654;</span>  <!-- Right arrow -->
+            </div>
+            <div class="release-content">
+                {{ content | safe }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<script>
+    function toggleRelease(header) {
+        const content = header.nextElementSibling;
+        const isOpen = content.style.display === 'block';
+
+        // Close all other sections
+        document.querySelectorAll('.release-content').forEach(c => c.style.display = 'none');
+        document.querySelectorAll('.release-header').forEach(h => h.classList.remove('open'));
+
+        if (!isOpen) {
+            content.style.display = 'block';
+            header.classList.add('open');
+        }
+    }
+</script>
+{% endblock %}
+

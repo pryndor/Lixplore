@@ -1,5 +1,7 @@
 # app.py
 from flask import Flask, render_template, request, flash, jsonify
+import markdown
+import os
 from pubmed_client import search_pubmed
 from crossref.crossref_client import search_crossref
 from springer.springer_client import search_springer
@@ -106,6 +108,52 @@ def fetch_from_api(source, query, filters):
 @app.route("/")
 def intro():
     return render_template("intro.html")
+
+@app.route("/blog")
+def blog():
+    blog_dir = "blog_posts"
+    posts = {}
+
+    for filename in sorted(os.listdir(blog_dir), reverse=True):
+        if filename.endswith(".md"):
+            filepath = os.path.join(blog_dir, filename)
+            with open(filepath, "r", encoding="utf-8") as f:
+                md_content = f.read()
+                html_content = markdown.markdown(md_content)
+                title = filename.replace(".md", "").replace("-", " ").title()
+                posts[title] = html_content
+
+    return render_template("blog.html", posts=posts)
+
+
+@app.route("/release-notes")
+def show_release_notes():
+    base_dir = "release_notes"
+    releases = {}
+
+    if not os.path.exists(base_dir):
+        return "Release notes directory not found", 404
+
+    for folder in sorted(os.listdir(base_dir), reverse=True):
+        folder_path = os.path.join(base_dir, folder)
+
+        # Ensure only directories are considered
+        if not os.path.isdir(folder_path):
+            continue
+
+        note_file = os.path.join(folder_path, "notes.md")
+
+        if os.path.exists(note_file):
+            with open(note_file, "r", encoding="utf-8") as f:
+                md_content = f.read()
+                html_content = markdown.markdown(md_content)
+                releases[folder] = html_content
+
+    print("Releases loaded:", releases.keys())
+
+
+    return render_template("release_notes.html", releases=releases)
+
 
 @app.route("/load_more", methods=["GET"])
 def load_more():

@@ -239,3 +239,28 @@ button:hover {
     }
 }
 
+/* release_notes styling */ 
+.release-block {
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.toggle-btn {
+    font-weight: bold;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.toggle-btn:hover {
+    text-decoration: underline;
+}
+
+.release-content {
+    margin-top: 0.5rem;
+}
+

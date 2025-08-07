@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="pandt-section">
+    <h1>Blog</h1>
+    <p><em>Updates, announcements, and insights on Lixplore — your gateway to literature search across all domains</em></p>
+    <hr>
+
+    <div class="accordion" id="blogAccordion">
+        {% for title, content in posts.items() %}
+            {% set blog_id = loop.index %}
+            <div class="accordion-item" style="margin-bottom: 1rem;">
+                <h2 class="accordion-header" id="heading{{ blog_id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{ blog_id }}" aria-expanded="false"
+                            aria-controls="collapse{{ blog_id }}">
+                        {{ title }}
+                    </button>
+                </h2>
+                <div id="collapse{{ blog_id }}" class="accordion-collapse collapse"
+                     aria-labelledby="heading{{ blog_id }}" data-bs-parent="#blogAccordion">
+                    <div class="accordion-body">
+                        {{ content | safe }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

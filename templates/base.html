@@ -323,15 +323,15 @@ setInterval(showNextTip, 6000);
             <span>Talk to Us</span>
         </div>
         <div class="footer-item">
-            <strong>Release Notes</strong>
-            <span>Coming Soon</span>
+	    <strong><a href="{{ url_for('show_release_notes') }}">Release Notes</a></strong>          
+	    <span>Latest updates & changes</span>
         </div>
         <div class="footer-item">
 		<strong><a href="{{ url_for('privacy') }}">Privacy & Terms</a></strong>
 	 <span>Read Us</span>
         </div>
         <div class="footer-item">
-            <strong>Blogs</strong>
+            <strong><a href="{{ url_for('blog') }}">Blogs</a></strong>
             <span>Coming Soon</span>
         </div>
     </div>
