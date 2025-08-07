@@ -11,4 +11,5 @@ __pycache__/
 /release_notes/
 # Ignore all .db files in the database folder
 /database/*.db:
+blog.py
 
