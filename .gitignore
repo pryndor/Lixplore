@@ -1,15 +1,21 @@
-
-__pycache__/
+# Bytecode and cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Environment files and secrets
 .env
 *.key
 *.pem
+
+# Local content folders
 /blog_posts/
 /release_notes/
+
 # Ignore all .db files in the database folder
-/database/*.db:
+/database/*.db
+
+# Ignore helper script (optional)
 blog.py
 
