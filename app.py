@@ -1,24 +1,33 @@
 # app.py
+
 from flask import Flask, render_template, request, flash, jsonify
 import markdown
+import sqlite3
 import os
+import json
+from datetime import datetime
+
+from cache import get_cached_results, save_results_to_cache
 from pubmed_client import search_pubmed
 from crossref.crossref_client import search_crossref
 from springer.springer_client import search_springer
 from europepmc.europepmc_client import search_epmc_publications, search_epmc_grants
 from clinicaltrials_client import search_clinical_trials
 from doaj_client import search_doaj
+
 from database.database import (
     init_db,
     get_archive,
+    DB_PATH,
     get_connection,
     save_search,
-    get_results_by_search_id
+    get_results_by_search_id,
+    get_posts_by_tag
 )
-import json
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # ⚠ Change in production
+app.secret_key = "supersecretkey"  # Change in production
+
 
 
 # -------------------------------------------------
@@ -75,6 +84,127 @@ def search_with_cache(source, query, filters):
     if results:
         save_search(source, query, filters, results)
     return results
+
+def save_search_and_articles(source, query, filters, results):
+    filters_str = json.dumps(filters or {}, sort_keys=True)
+
+    with get_connection() as conn:
+        cursor = conn.cursor()
+
+        # Insert or get search_id
+        cursor.execute("""
+            SELECT id FROM searches WHERE source=? AND query=? AND filters=?
+        """, (source, query, filters_str))
+        row = cursor.fetchone()
+        if row:
+            search_id = row[0]
+        else:
+            cursor.execute("""
+                INSERT INTO searches (source, query, filters) VALUES (?, ?, ?)
+            """, (source, query, filters_str))
+            search_id = cursor.lastrowid
+
+        # Clear old articles for this search if any
+        cursor.execute("DELETE FROM articles WHERE search_id=?", (search_id,))
+
+        # Insert articles individually
+        for article in results:
+            authors_str = ", ".join(article.get("authors", [])) if article.get("authors") else None
+            affiliations_str = ", ".join(article.get("affiliations", [])) if article.get("affiliations") else None
+
+            cursor.execute("""
+                INSERT INTO articles (
+                    search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                search_id,
+                article.get("title"),
+                authors_str,
+                article.get("doi"),
+                article.get("pmid"),
+                article.get("url"),
+                article.get("abstract"),
+                affiliations_str,
+                article.get("oa_pdf_path"),
+            ))
+
+        # Optionally update cache table or ignore it if articles hold the data
+        # Commit transaction
+        conn.commit()
+
+def get_results_by_search_id(search_id):
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path
+            FROM articles
+            WHERE search_id=?
+        """, (search_id,))
+        return cursor.fetchall()
+
+
+
+def get_cached_results(source, query, filters):
+    filters_str = json.dumps(filters or {}, sort_keys=True)
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT id FROM searches
+            WHERE source=? AND query=? AND filters=?
+        """, (source, query, filters_str))
+        search = cursor.fetchone()
+        if search:
+            search_id = search[0]
+            cursor.execute("""
+                SELECT title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path
+                FROM results WHERE search_id=?
+            """, (search_id,))
+            rows = cursor.fetchall()
+            results = [
+                {
+                    "title": r[0],
+                    "authors": r[1].split(", ") if r[1] else [],
+                    "doi": r[2],
+                    "pmid": r[3],
+                    "url": r[4],
+                    "abstract": r[5],
+                    "affiliations": r[6].split(", ") if r[6] else [],
+                    "oa_pdf_path": r[7]
+                }
+                for r in rows
+            ]
+            return results, search_id
+    return None, None
+
+
+def save_results_to_cache(source, query, filters, results):
+    filters_str = json.dumps(filters or {}, sort_keys=True)
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO searches (source, query, filters) VALUES (?, ?, ?)
+        """, (source, query, filters_str))
+        search_id = cursor.lastrowid
+
+        for article in results:
+            authors = ", ".join(article.get("authors", []))
+            affiliations = ", ".join(article.get("affiliations", []))
+            cursor.execute("""
+                INSERT INTO results (search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                search_id,
+                article.get("title"),
+                authors,
+                article.get("doi"),
+                article.get("pmid"),
+                article.get("url"),
+                article.get("abstract"),
+                affiliations,
+                article.get("oa_pdf_path")
+            ))
+        conn.commit()
+
 
 
 # -------------------------------------------------

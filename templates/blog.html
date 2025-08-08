@@ -1,31 +1,148 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="pandt-section">
-    <h1>Blog</h1>
-    <p><em>Updates, announcements, and insights on Lixplore — your gateway to literature search across all domains</em></p>
-    <hr>
+<style>
+    .pandt-section {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        color: #333;
+        line-height: 1.6;
+    }
 
-    <div class="accordion" id="blogAccordion">
-        {% for title, content in posts.items() %}
-            {% set blog_id = loop.index %}
-            <div class="accordion-item" style="margin-bottom: 1rem;">
-                <h2 class="accordion-header" id="heading{{ blog_id }}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse{{ blog_id }}" aria-expanded="false"
-                            aria-controls="collapse{{ blog_id }}">
-                        {{ title }}
-                    </button>
-                </h2>
-                <div id="collapse{{ blog_id }}" class="accordion-collapse collapse"
-                     aria-labelledby="heading{{ blog_id }}" data-bs-parent="#blogAccordion">
-                    <div class="accordion-body">
-                        {{ content | safe }}
-                    </div>
+    .pandt-section h1 {
+        text-align: center;
+        color: #007acc;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+    }
+
+    .intro-text {
+        text-align: center;
+        font-style: italic;
+        margin-bottom: 2rem;
+    }
+
+    .blog-item {
+        margin-bottom: 1.5rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #fff;
+    }
+
+    .blog-header {
+        background-color: #f5f5f5;
+        padding: 1rem;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #007acc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .blog-header:hover {
+        background-color: #eaeaea;
+    }
+
+    .blog-content {
+        display: none;
+        padding: 1rem;
+        border-top: 1px solid #eee;
+    }
+
+    .blog-meta {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+    }
+
+    .tags {
+        margin-top: 0.5rem;
+    }
+
+    .tag {
+        display: inline-block;
+        background-color: #007acc;
+        color: white;
+        padding: 0.2rem 0.5rem;
+        margin: 0 0.3rem 0.3rem 0;
+        border-radius: 4px;
+        font-size: 0.75rem;
+    }
+
+    .arrow {
+        transition: transform 0.3s ease;
+    }
+
+    .blog-header.open .arrow {
+        transform: rotate(90deg);
+    }
+
+    @media (max-width: 600px) {
+        .blog-header {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+
+<section class="pandt-section">
+    <h1>Blog</h1>
+    <p class="intro-text">
+        Updates, announcements, and insights on Lixplore — your gateway to literature search across all domains
+    </p>
+
+    <div class="blog-content-wrapper">
+        {% for post in posts %}
+        <div class="blog-item">
+            <div class="blog-header" onclick="toggleBlog(this)">
+                <h2>{{ post.title }}</h2>
+            </div>
+            <div class="blog-content" style="display: none;">
+                <div class="blog-meta">
+                    By <strong>{{ post.author }}</strong> | {{ post.created_at }}
+                </div>
+
+                {% if post.tags %}
+                <div class="tags">
+                    {% for tag in post.tags.split(",") %}
+                        <span class="tag">{{ tag.strip() }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <hr>
+
+                <div class="blog-body">
+                    {{ post.content | safe }}
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
-</div>
+</section>
+
+<script>
+    function toggleBlog(header) {
+        const content = header.nextElementSibling;
+        const isOpen = content.style.display === 'block';
+
+        // Close all others
+        document.querySelectorAll('.blog-content').forEach(c => c.style.display = 'none');
+        document.querySelectorAll('.blog-header').forEach(h => h.classList.remove('open'));
+
+        // Toggle current
+        if (!isOpen) {
+            content.style.display = 'block';
+            header.classList.add('open');
+        }
+    }
+</script>
 {% endblock %}
 

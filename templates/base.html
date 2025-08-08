@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!-- Add in your <head> -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
     <link rel="search"
           type="application/x-openurl-opensearchdescription+xml"
           title="Lixplore"
@@ -293,9 +296,17 @@ setInterval(showNextTip, 6000);
 </div>
 
 <header>
-    <h1>Lixplore</h1>
+    <!-- Brand Logo + Name -->
+    <a href="{{ url_for('intro') }}" class="brand">
+        <img src="{{ url_for('static', filename='images/lixplore_logo.svg') }}" alt="Lixplore Logo" class="logo">
+        <h1 class="brand-name">Lixplore</h1>
+    </a>
+
+    <!-- Mobile Menu Toggle -->
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
     <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+    <!-- Navigation -->
     <nav>
         <a href="{{ url_for('intro') }}">Home</a>
         <a href="{{ url_for('history') }}">History</a>
@@ -303,6 +314,8 @@ setInterval(showNextTip, 6000);
         <a href="{{ url_for('contact') }}">Contact</a>
     </nav>
 </header>
+
+
 
 <main>
     {% block content %}{% endblock %}

@@ -1,94 +1,145 @@
 # pubmed_client.py
 
-from Bio import Entrez
+import requests
 import time
-#import requests
+import xml.etree.ElementTree as ET
+from datetime import datetime
 
-# Set Entrez credentials
-Entrez.email = "Your_Email.com"
-Entrez.api_key = "Your_API_Key"
+# NCBI API base URLs
+ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
+# Set your email and API key for NCBI Entrez
+NCBI_EMAIL = "balathepharmacist@gmail.com"  # Replace with your email
+NCBI_API_KEY = "781f12bc04105f7d5536a510520cd74cbf08"  # Replace with your API key
 
-# ✅ Throttle: NCBI recommends <= 3 requests/sec (0.34s delay for safety)
+# Throttle delay per NCBI guidelines (max 3 requests/sec)
 THROTTLE_DELAY = 0.34
 
 
 def search_pubmed(query, author=None, start_year=None, end_year=None, country=None, max_results=10):
     """
-    PubMed: Search articles with keyword/boolean/DOI + filters (author/year/country).
-    Returns full details including DOI, PMID, Abstract, Authors, Affiliations.
+    Search PubMed using direct HTTP requests to NCBI E-utilities.
+    Filters: author, publication year range, country (affiliation).
+    Returns list of article dicts with metadata.
     """
 
-    # ✅ Build search query
-    search_query = query.strip()
+    # Build base query string with filters
+    search_terms = [query.strip()]
 
-    # Author filter
     if author:
-        search_query += f' AND {author}[Author]'
+        search_terms.append(f'{author}[Author]')
 
-    # Year range filter
     if start_year or end_year:
         start = start_year or "1800"
-        end = end_year or "3000"
-        search_query += f' AND ("{start}"[Date - Publication] : "{end}"[Date - Publication])'
+        end = end_year or datetime.now().year
+        search_terms.append(f'("{start}"[Date - Publication] : "{end}"[Date - Publication])')
 
-    # Country filter (via affiliations)
     if country:
-        search_query += f' AND {country}[Affiliation]'
+        search_terms.append(f'{country}[Affiliation]')
 
-    # ✅ Search PubMed IDs
-    handle = Entrez.esearch(db="pubmed", term=search_query, retmax=max_results)
-    record = Entrez.read(handle)
-    ids = record.get("IdList", [])
+    full_query = " AND ".join(search_terms)
+
+    # 1) Use esearch to get list of PMIDs matching query
+    esearch_params = {
+        "db": "pubmed",
+        "term": full_query,
+        "retmax": max_results,
+        "retmode": "xml",
+        "email": NCBI_EMAIL,
+        "api_key": NCBI_API_KEY
+    }
+
+    esearch_resp = requests.get(ESEARCH_URL, params=esearch_params)
     time.sleep(THROTTLE_DELAY)
-
-    if not ids:
+    if esearch_resp.status_code != 200:
+        print(f"Error in esearch request: {esearch_resp.status_code}")
         return []
 
-    # ✅ Fetch details for IDs
-    handle = Entrez.efetch(db="pubmed", id=",".join(ids), rettype="medline", retmode="xml")
-    papers = Entrez.read(handle)
-    time.sleep(THROTTLE_DELAY)
+    # Parse esearch XML response to get list of IDs
+    root = ET.fromstring(esearch_resp.text)
+    idlist = root.find("IdList")
+    if idlist is None:
+        return []
+    pmids = [id_elem.text for id_elem in idlist.findall("Id")]
+    if not pmids:
+        return []
 
-    results = []
-    for paper in papers.get("PubmedArticle", []):
-        article_data = paper.get("MedlineCitation", {}).get("Article", {})
+    # 2) Use efetch to get detailed info for each PMID
+    efetch_params = {
+        "db": "pubmed",
+        "id": ",".join(pmids),
+        "retmode": "xml",
+        "email": NCBI_EMAIL,
+        "api_key": NCBI_API_KEY
+    }
+    efetch_resp = requests.get(EFETCH_URL, params=efetch_params)
+    time.sleep(THROTTLE_DELAY)
+    if efetch_resp.status_code != 200:
+        print(f"Error in efetch request: {efetch_resp.status_code}")
+        return []
+
+    # Parse efetch XML for article details
+    root = ET.fromstring(efetch_resp.text)
+    articles = []
+
+    for article_elem in root.findall(".//PubmedArticle"):
+        medline_citation = article_elem.find("MedlineCitation")
+        article = medline_citation.find("Article") if medline_citation is not None else None
+        if article is None:
+            continue
 
         # Title
-        title = article_data.get("ArticleTitle", "No title")
+        title_elem = article.find("ArticleTitle")
+        title = title_elem.text if title_elem is not None else "No title"
 
         # Authors
-        authors_data = article_data.get("AuthorList", [])
-        authors = [
-            f"{a.get('ForeName', '')} {a.get('LastName', '')}".strip()
-            for a in authors_data if a.get("ForeName") or a.get("LastName")
-        ]
+        authors = []
+        author_list = article.find("AuthorList")
+        if author_list is not None:
+            for author in author_list.findall("Author"):
+                fore_name = author.findtext("ForeName") or ""
+                last_name = author.findtext("LastName") or ""
+                full_name = (fore_name + " " + last_name).strip()
+                if full_name:
+                    authors.append(full_name)
 
         # Affiliations
         affiliations = []
-        for author_entry in authors_data:
-            for aff in author_entry.get("AffiliationInfo", []):
-                aff_text = aff.get("Affiliation", "").strip()
-                if aff_text:
-                    affiliations.append(aff_text)
+        if author_list is not None:
+            for author in author_list.findall("Author"):
+                for aff_info in author.findall("AffiliationInfo"):
+                    aff_text = aff_info.findtext("Affiliation")
+                    if aff_text and aff_text not in affiliations:
+                        affiliations.append(aff_text.strip())
 
         # DOI
         doi = None
-        article_ids = paper.get("PubmedData", {}).get("ArticleIdList", [])
-        for article_id in article_ids:
-            if article_id.attributes.get("IdType") == "doi":
-                doi = str(article_id)
+        pubmed_data = article_elem.find("PubmedData")
+        if pubmed_data is not None:
+            article_ids = pubmed_data.find("ArticleIdList")
+            if article_ids is not None:
+                for article_id in article_ids.findall("ArticleId"):
+                    if article_id.attrib.get("IdType") == "doi":
+                        doi = article_id.text
+                        break
 
         # Abstract
-        abstract_list = article_data.get("Abstract", {}).get("AbstractText", [])
-        abstract_text = " ".join(abstract_list) if abstract_list else "No abstract available"
+        abstract_text = ""
+        abstract = article.find("Abstract")
+        if abstract is not None:
+            abstract_text = " ".join([elem.text or "" for elem in abstract.findall("AbstractText")]).strip()
+        if not abstract_text:
+            abstract_text = "No abstract available"
 
-        # PMID & URL
-        pmid = paper.get("MedlineCitation", {}).get("PMID", "")
-        url = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/"
+        # PMID
+        pmid_elem = medline_citation.find("PMID") if medline_citation is not None else None
+        pmid = pmid_elem.text if pmid_elem is not None else ""
 
-        # ✅ Append result in DB-compatible format
-        results.append({
+        # URL to PubMed article
+        url = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/" if pmid else None
+
+        articles.append({
             "title": title,
             "authors": authors,
             "abstract": abstract_text,
@@ -99,5 +150,5 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
             "source": "PubMed"
         })
 
-    return results
+    return articles
 
