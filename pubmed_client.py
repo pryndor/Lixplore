@@ -10,8 +10,8 @@ ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
 # Set your email and API key for NCBI Entrez
-NCBI_EMAIL = "balathepharmacist@gmail.com"  # Replace with your email
-NCBI_API_KEY = "781f12bc04105f7d5536a510520cd74cbf08"  # Replace with your API key
+NCBI_EMAIL = "Your_Email.com"  # Replace with your email
+NCBI_API_KEY = "Your_API_Key"  # Replace with your API key
 
 # Throttle delay per NCBI guidelines (max 3 requests/sec)
 THROTTLE_DELAY = 0.34
