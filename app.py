@@ -1,11 +1,13 @@
 # app.py
 
-from flask import Flask, render_template, request, flash, jsonify
+from flask import Flask, render_template, request, flash, jsonify, redirect, url_for
 import markdown
 import sqlite3
 import os
 import json
 from datetime import datetime
+import re
+import yaml
 
 from cache import get_cached_results, save_results_to_cache
 from pubmed_client import search_pubmed
@@ -14,6 +16,7 @@ from springer.springer_client import search_springer
 from europepmc.europepmc_client import search_epmc_publications, search_epmc_grants
 from clinicaltrials_client import search_clinical_trials
 from doaj_client import search_doaj
+from flask_mail import Mail, Message
 
 from database.database import (
     init_db,
@@ -27,7 +30,13 @@ from database.database import (
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Change in production
+DATABASE = os.path.join(os.path.dirname(__file__), "database", "lixplore.db")
 
+
+def get_db_connection():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row  # Allows dict-like access to rows
+    return conn
 
 
 # -------------------------------------------------
@@ -142,6 +151,56 @@ def get_results_by_search_id(search_id):
         """, (search_id,))
         return cursor.fetchall()
 
+def parse_front_matter(content):
+    """
+    Splits the Markdown front matter (YAML) from the body.
+    Returns: (metadata_dict, body_text)
+    """
+    match = re.match(r'^---\n(.*?)\n---\n(.*)', content, re.S)
+    if match:
+        front_matter = match.group(1)
+        body = match.group(2)
+        metadata = yaml.safe_load(front_matter)
+        return metadata, body
+    else:
+        return {}, content
+
+
+def load_markdown_posts():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    posts_dir = os.path.join(os.path.dirname(__file__), "posts")  # adjust if needed
+
+    for filename in os.listdir(posts_dir):
+        if filename.endswith(".md"):
+            filepath = os.path.join(posts_dir, filename)
+            with open(filepath, "r", encoding="utf-8") as f:
+                content = f.read()
+
+            # Parse front matter
+            metadata, body = parse_front_matter(content)
+
+            # Convert the markdown body to HTML
+            body_html = markdown.markdown(body)
+            title = metadata.get('title', 'Untitled')
+            author = metadata.get('author', 'Bala PR')  # <-- your default
+            published = metadata.get('published', datetime.now().strftime("%Y-%m-%d"))
+            tags = metadata.get('tags', '')
+            slug = metadata.get('slug', filename[:-3])
+
+            # Check if already in DB
+            cursor.execute("SELECT COUNT(*) FROM articles WHERE slug = ?", (slug,))
+            if cursor.fetchone()[0] == 0:
+                cursor.execute(
+                    "INSERT INTO articles (title, author, published, tags, slug, content) VALUES (?, ?, ?, ?, ?, ?)",
+                    (title, author, published, tags, slug, body_html)
+                )
+
+    conn.commit()
+    conn.close()
+
+
 
 
 def get_cached_results(source, query, filters):
@@ -235,25 +294,50 @@ def fetch_from_api(source, query, filters):
 # -------------------------------------------------
 # Routes
 # -------------------------------------------------
+
+@app.route("/blogs/tag/<tag>")
+def blogs_by_tag(tag):
+    conn = get_db_connection()
+    posts = conn.execute("""
+        SELECT title, author, created_at, tags, content, slug
+        FROM blog_posts
+        WHERE tags LIKE ?
+        ORDER BY created_at DESC
+    """, ('%' + tag + '%',)).fetchall()
+    conn.close()
+
+    # Convert sqlite3.Row to dict (optional, depends on how you pass to template)
+    posts = [dict(post) for post in posts]
+
+    return render_template("blog.html", posts=posts)
+
 @app.route("/")
 def intro():
     return render_template("intro.html")
 
 @app.route("/blog")
 def blog():
-    blog_dir = "blog_posts"
-    posts = {}
+    conn = get_db_connection()
+    posts = conn.execute("""
+        SELECT title, author, created_at, tags, content, slug
+        FROM blog_posts
+        ORDER BY created_at DESC
+    """).fetchall()
+    conn.close()
 
-    for filename in sorted(os.listdir(blog_dir), reverse=True):
-        if filename.endswith(".md"):
-            filepath = os.path.join(blog_dir, filename)
-            with open(filepath, "r", encoding="utf-8") as f:
-                md_content = f.read()
-                html_content = markdown.markdown(md_content)
-                title = filename.replace(".md", "").replace("-", " ").title()
-                posts[title] = html_content
-
-    return render_template("blog.html", posts=posts)
+    posts_list = []
+    for post in posts:
+        html_content = markdown.markdown(post["content"])  # Convert markdown to HTML here
+        posts_list.append({
+            "title": post["title"],
+            "author": post["author"] or "Admin",
+            "created_at": post["created_at"],
+            "tags": post["tags"] or "",
+            "content": html_content,
+            "slug": post["slug"]
+        })
+    
+    return render_template("blog.html", posts=posts_list)
 
 
 @app.route("/release-notes")
@@ -387,7 +471,6 @@ def history_results(search_id):
         for r in rows
     ]
     return render_template("results.html", results=articles, source="History Search")
-
 
 # -------------------------------------------------
 # Main Entry

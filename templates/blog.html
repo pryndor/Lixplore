@@ -50,20 +50,14 @@
         background-color: #eaeaea;
     }
 
-    .blog-content {
-        display: none;
-        padding: 1rem;
-        border-top: 1px solid #eee;
-    }
-
     .blog-meta {
         font-size: 0.9rem;
         color: #666;
-        margin-bottom: 0.5rem;
+        margin: 0 1rem 0.25rem 1rem;
     }
 
     .tags {
-        margin-top: 0.5rem;
+        margin: 0 1rem 0.75rem 1rem;
     }
 
     .tag {
@@ -74,6 +68,18 @@
         margin: 0 0.3rem 0.3rem 0;
         border-radius: 4px;
         font-size: 0.75rem;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .tag:hover {
+        background-color: #005f99;
+    }
+
+    .blog-content {
+        display: none;
+        padding: 1rem;
+        border-top: 1px solid #eee;
+        margin: 0 1rem 1rem 1rem;
     }
 
     .arrow {
@@ -91,7 +97,6 @@
     }
 </style>
 
-
 <section class="pandt-section">
     <h1>Blog</h1>
     <p class="intro-text">
@@ -99,45 +104,54 @@
     </p>
 
     <div class="blog-content-wrapper">
-        {% for post in posts %}
-        <div class="blog-item">
-            <div class="blog-header" onclick="toggleBlog(this)">
-                <h2>{{ post.title }}</h2>
-            </div>
-            <div class="blog-content" style="display: none;">
-                <div class="blog-meta">
-                    By <strong>{{ post.author }}</strong> | {{ post.created_at }}
-                </div>
+    {% for post in posts %}
+    <div class="blog-item">
+        <div class="blog-header" onclick="toggleBlog(this)">
+            <h2>{{ post.title }}</h2>
+        </div>
 
-                {% if post.tags %}
-                <div class="tags">
-                    {% for tag in post.tags.split(",") %}
-                        <span class="tag">{{ tag.strip() }}</span>
-                    {% endfor %}
-                </div>
-                {% endif %}
+        <div class="blog-meta">
+            By <strong>{{ post.author }}</strong> | {{ post.created_at }}
+        </div>
 
-                <hr>
+        <!-- Display tags as clickable links -->
+        {% if post.tags %}
+        <div class="tags">
+            {% for tag in post.tags.split(",") %}
+                <a href="{{ url_for('blogs_by_tag', tag=tag.strip()) }}" class="tag">{{ tag.strip() }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
 
-                <div class="blog-body">
-                    {{ post.content | safe }}
-                </div>
+        <!-- Display the actual blog body -->
+        <div class="blog-content">
+            <div class="blog-body">
+                <!-- This ensures only the body (markdown converted to HTML) is rendered -->
+		{{ post.content | safe }}
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
+</div>
+
 </section>
 
 <script>
     function toggleBlog(header) {
-        const content = header.nextElementSibling;
-        const isOpen = content.style.display === 'block';
+        // Get the container of this blog post
+        const blogItem = header.parentElement;
 
-        // Close all others
+        // Find the blog-content div inside this blog item
+        const content = blogItem.querySelector('.blog-content');
+
+        // Check if content is currently visible
+        const isOpen = window.getComputedStyle(content).display === 'block';
+
+        // Close all blog contents and remove "open" class from headers
         document.querySelectorAll('.blog-content').forEach(c => c.style.display = 'none');
         document.querySelectorAll('.blog-header').forEach(h => h.classList.remove('open'));
 
-        // Toggle current
+        // Toggle visibility of current content
         if (!isOpen) {
             content.style.display = 'block';
             header.classList.add('open');
