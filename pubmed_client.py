@@ -16,8 +16,8 @@ EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
 
 # Environment variables (make sure .env has these keys)
-NCBI_EMAIL = os.getenv("balathepharmacist@gmail.com")
-NCBI_API_KEY = os.getenv("781f12bc04105f7d5536a510520cd74cbf08")
+NCBI_EMAIL = os.getenv("NCBI_EMAIL")
+NCBI_API_KEY = os.getenv("NCBI_API_KEY")
 
 # Throttle delay per NCBI guidelines (max 3 requests/sec)
 THROTTLE_DELAY = 0.34
