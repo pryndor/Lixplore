@@ -1,0 +1,245 @@
+2025-08-17 16:16:54,725 - WARNING -  * Debugger is active!
+2025-08-17 16:16:54,727 - INFO -  * Debugger PIN: 864-217-533
+2025-08-17 16:17:16,903 - INFO -  * Detected change in '/home/bala/Lixplore/springer/springer_client.py', reloading
+2025-08-17 16:17:17,387 - WARNING -  * Debugger is active!
+2025-08-17 16:17:17,389 - INFO -  * Debugger PIN: 864-217-533
+2025-08-17 16:18:43,005 - INFO -  * Detected change in '/home/bala/Lixplore/springer/springer_client.py', reloading
+2025-08-17 16:18:43,609 - WARNING -  * Debugger is active!
+2025-08-17 16:18:43,611 - INFO -  * Debugger PIN: 864-217-533
+2025-08-17 16:18:47,956 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:47] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:18:47,972 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:47] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,001 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,002 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,003 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,003 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,006 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,007 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,015 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,016 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,016 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,017 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,018 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,019 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:48,022 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:48] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:52,229 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"gilenya"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:18:54,298 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:18:54,326 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,328 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,330 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,346 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,347 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,348 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,349 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,350 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,353 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,354 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,359 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,362 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,363 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:18:54,365 - INFO - 127.0.0.1 - - [17/Aug/2025 16:18:54] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:05,854 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"methycobalamine"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:19:07,085 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:19:07,116 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,120 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,122 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,124 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,127 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,128 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,129 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,132 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,133 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,135 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,138 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,143 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,143 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:07,144 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:07] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:36,550 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"atenolol"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:19:37,818 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:19:37,840 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,842 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,843 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,851 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,852 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,853 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,857 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,858 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,858 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,867 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,868 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,869 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,871 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:19:37,871 - INFO - 127.0.0.1 - - [17/Aug/2025 16:19:37] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:21:51,008 - INFO -  * Detected change in '/home/bala/Lixplore/springer/springer_client.py', reloading
+2025-08-17 16:21:51,499 - WARNING -  * Debugger is active!
+2025-08-17 16:21:51,501 - INFO -  * Debugger PIN: 864-217-533
+2025-08-17 16:30:28,069 - INFO -  * Detected change in '/home/bala/Lixplore/springer/springer_client.py', reloading
+2025-08-17 16:30:28,673 - WARNING -  * Debugger is active!
+2025-08-17 16:30:28,675 - INFO -  * Debugger PIN: 864-217-533
+2025-08-17 16:30:33,298 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"atenolol"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:30:34,947 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:34] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:30:34,976 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:34] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:30:34,977 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:34] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:34,977 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:34] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:34,996 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:34] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:34,998 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:34] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:34,999 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:34] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:35,000 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:35] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:35,000 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:35] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:35,000 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:35] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:35,009 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:35] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:35,009 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:35] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:35,010 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:35] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:35,012 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:35] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:35,012 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:35] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:47,493 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"betabrim"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:30:48,750 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:30:48,769 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,771 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,772 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,786 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,788 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,789 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,790 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,791 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,792 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,799 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,799 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,800 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,800 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:30:48,800 - INFO - 127.0.0.1 - - [17/Aug/2025 16:30:48] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:11,687 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"methanol"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:31:13,024 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:31:13,046 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,047 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,047 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,062 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,063 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,063 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,063 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,066 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,067 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,074 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,074 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,076 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,076 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:13,077 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:13] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:33,652 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"ethanol"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:31:35,139 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:31:35,170 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,171 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,174 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,189 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,192 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,192 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,192 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,195 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,196 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,206 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,207 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,207 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,208 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:31:35,208 - INFO - 127.0.0.1 - - [17/Aug/2025 16:31:35] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:41,084 - INFO -  * Detected change in '/home/bala/Lixplore/app.py', reloading
+2025-08-17 16:40:41,620 - WARNING -  * Debugger is active!
+2025-08-17 16:40:41,623 - INFO -  * Debugger PIN: 864-217-533
+2025-08-17 16:40:46,901 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"ethanol"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:40:50,674 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:40:50,699 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,703 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,703 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,722 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,722 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,723 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,724 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,726 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,728 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,730 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,732 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,736 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,737 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:50,737 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:50] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:57,980 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"alkaloids"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:40:59,643 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:40:59,667 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,667 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,668 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,680 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,681 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,681 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,682 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,683 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,684 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,690 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,690 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,692 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,692 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:40:59,694 - INFO - 127.0.0.1 - - [17/Aug/2025 16:40:59] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:40,851 - INFO -  * Detected change in '/home/bala/Lixplore/app.py', reloading
+2025-08-17 16:45:41,370 - WARNING -  * Debugger is active!
+2025-08-17 16:45:41,372 - INFO -  * Debugger PIN: 864-217-533
+2025-08-17 16:45:46,971 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"alkaloids"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:45:48,457 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:45:48,476 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,500 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,501 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,502 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,502 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,505 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,506 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,508 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,509 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,512 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,513 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,515 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,518 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:48,519 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:48] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:52,521 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"alkaloids"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:45:53,870 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:45:53,896 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,897 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,897 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,904 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,909 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,909 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,912 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,912 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,913 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,914 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,918 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,921 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,921 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:45:53,922 - INFO - 127.0.0.1 - - [17/Aug/2025 16:45:53] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:15,608 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"PARACETAMOL"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-08-17 16:46:16,909 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:46:16,936 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,937 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,939 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,947 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,948 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,950 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,952 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,953 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,958 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,959 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,961 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,964 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,966 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:16,967 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:16] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,622 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "POST /search HTTP/1.1" 200 -
+2025-08-17 16:46:58,646 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,646 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,647 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,664 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,664 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,665 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,668 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,669 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,670 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,682 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,685 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,686 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,690 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:46:58,691 - INFO - 127.0.0.1 - - [17/Aug/2025 16:46:58] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-17 16:51:38,970 - INFO -  * Detected change in '/home/bala/Lixplore/app.py', reloading
+2025-08-17 16:51:39,497 - WARNING -  * Debugger is active!
+2025-08-17 16:51:39,499 - INFO -  * Debugger PIN: 864-217-533

@@ -1,52 +1,56 @@
 # springer_client
-import requests
-import os
 
-# 🔑 Springer API key (can also set via environment variable)
-API_KEY = os.getenv("SPRINGER_API_KEY", "Your_API_Key")
+# springer_client_refactored.py
+from springernature_api_client.openaccess import OpenAccessAPI
+from springernature_api_client.metadata import MetadataAPI
+from springernature_api_client.tdm import TDMAPI
+from springernature_api_client.utils import results_to_dataframe
+import os
+import requests
+
+# 🔑 API key
+API_KEY = os.getenv("SPRINGER_API_KEY", "2849e4acd5190c3992f9a1a8ebe82692")
 
 # 📂 Folder to save PDFs
 SAVE_FOLDER = "springer_pdfs"
 os.makedirs(SAVE_FOLDER, exist_ok=True)
 
 
-def search_springer(query, results=5, author=None, start_year=None, end_year=None):
-    """
-    Springer: Search articles by keyword or DOI.
-    Returns metadata + abstract + OA PDF link (if available).
-    """
+def download_pdf(url, filepath):
+    """Download PDF if URL exists"""
+    if url:
+        try:
+            r = requests.get(url)
+            if r.status_code == 200:
+                with open(filepath, "wb") as f:
+                    f.write(r.content)
+                print(f"✅ PDF saved: {filepath}")
+            else:
+                print(f"❌ Failed to download PDF: {url}")
+        except Exception as e:
+            print(f"❌ Error downloading PDF: {e}")
 
-    # ✅ Add year filter
-    if start_year and end_year:
-        query += f" AND date-facet-start:[{start_year} TO {end_year}]"
-    elif start_year:
-        query += f" AND date-facet-start:[{start_year} TO 3000]"
-    elif end_year:
-        query += f" AND date-facet-start:[1800 TO {end_year}]"
 
-    metadata_url = f"https://api.springernature.com/metadata/json?q={query}&p={results}&api_key={API_KEY}"
+def search_springer(query, results=5):
+    """
+    Search Springer articles using Open Access API, Metadata API, and TDM API.
+    Returns list of dicts with metadata + abstract + OA PDF link.
+    """
+    oa_client = OpenAccessAPI(api_key=API_KEY)
+    metadata_client = MetadataAPI(api_key=API_KEY)
+    tdm_client = TDMAPI(api_key=API_KEY)  # optional, for full-text access
+
     print(f"\n🔍 Searching Springer for: {query}")
+    response = oa_client.search(q=f'keyword:"{query}"', p=results, s=1, fetch_all=False, is_premium=False)
 
-    try:
-        response = requests.get(metadata_url, timeout=15)
-        response.raise_for_status()
-    except requests.RequestException as e:
-        print(f"❌ Springer API error: {e}")
-        return []
-
-    data = response.json()
-    if not data.get("records"):
-        print("⚠ No results found.")
-        return []
-
-    results_list = []
-    for record in data["records"]:
+    articles = []
+    for record in response.get("records", []):
         title = record.get("title", "No title")
-        abstract = record.get("abstract", "No abstract available")
+        abstract = record.get("abstract", "No abstract")
         doi = record.get("doi")
         authors = [a.get("creator") for a in record.get("creators", []) if a.get("creator")]
 
-        # ✅ URL: Prefer HTML link, else construct from DOI
+        # HTML URL fallback
         url_value = None
         for url_item in record.get("url", []):
             if url_item.get("format") == "html":
@@ -55,7 +59,7 @@ def search_springer(query, results=5, author=None, start_year=None, end_year=Non
         if not url_value and doi:
             url_value = f"https://doi.org/{doi}"
 
-        # ✅ OA PDF (optional download)
+        # OA PDF
         oa_pdf_path = None
         for url_item in record.get("url", []):
             if url_item.get("format") == "pdf":
@@ -63,17 +67,27 @@ def search_springer(query, results=5, author=None, start_year=None, end_year=Non
                 download_pdf(oa_pdf_path, f"{SAVE_FOLDER}/{title[:50].replace('/', '_')}.pdf")
                 break
 
-        results_list.append({
+        articles.append({
             "title": title,
             "authors": authors,
             "abstract": abstract,
-            "affiliations": [],
-            "pmid": None,
             "doi": doi,
             "url": url_value,
             "oa_pdf_path": oa_pdf_path,
             "source": "Springer"
         })
 
-    return results_list
+    return articles
+
+if __name__ == "__main__":
+    # Test fetching PDFs
+    test_articles = search_springer("cancer", results=5)
+    for article in test_articles:
+        if article["oa_pdf_path"]:
+            print("OA PDF available:", article["oa_pdf_path"])
+            # Optional: download
+            # download_pdf(article["oa_pdf_path"], f"{SAVE_FOLDER}/{article['title'][:50].replace('/', '_')}.pdf")
+        else:
+            print("No PDF available for:", article["title"])
+
 

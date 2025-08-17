@@ -237,32 +237,56 @@ def get_cached_results(source, query, filters):
     return None, None
 
 
+import json
+
+def safe_str(value):
+    """Convert any value to a string for DB storage. Dicts/lists -> JSON string, None -> None"""
+    if value is None:
+        return None
+    if isinstance(value, str):
+        return value
+    try:
+        return json.dumps(value)
+    except Exception:
+        return str(value)
+
+
 def save_results_to_cache(source, query, filters, results):
     filters_str = json.dumps(filters or {}, sort_keys=True)
     with get_connection() as conn:
         cursor = conn.cursor()
+
+        # Insert search entry
         cursor.execute("""
             INSERT INTO searches (source, query, filters) VALUES (?, ?, ?)
         """, (source, query, filters_str))
         search_id = cursor.lastrowid
 
+        # Insert each article
         for article in results:
-            authors = ", ".join(article.get("authors", []))
-            affiliations = ", ".join(article.get("affiliations", []))
+            authors = safe_str(article.get("authors"))
+            affiliations = safe_str(article.get("affiliations"))
+            abstract = safe_str(article.get("abstract"))
+            oa_pdf_url = article.get("oa_pdf_path")
+            if not isinstance(oa_pdf_url, str):
+                oa_pdf_url = safe_str(oa_pdf_url)
+
             cursor.execute("""
-                INSERT INTO results (search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO results (
+                    search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 search_id,
-                article.get("title"),
+                safe_str(article.get("title")),
                 authors,
-                article.get("doi"),
-                article.get("pmid"),
-                article.get("url"),
-                article.get("abstract"),
+                safe_str(article.get("doi")),
+                safe_str(article.get("pmid")),
+                safe_str(article.get("url")),
+                abstract,
                 affiliations,
-                article.get("oa_pdf_path")
+                oa_pdf_url
             ))
+
         conn.commit()
 
 
@@ -425,7 +449,6 @@ def show_release_notes():
                 html_content = markdown.markdown(md_content)
                 releases[folder] = html_content
 
-    print("Releases loaded:", releases.keys())
 
 
     return render_template("release_notes.html", releases=releases)
@@ -484,6 +507,9 @@ def search_page():
 
         for article in results:
             article["citation"] = format_citation(article)
+             # Test PMC PDF URL
+            print("PMC PDF URL:", article.get("pmc_pdf_url"))
+
 
     return render_template("index.html", results=results, source=source, query=query, status=status_filter)
 

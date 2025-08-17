@@ -4,24 +4,25 @@ import requests
 import time
 import xml.etree.ElementTree as ET
 from datetime import datetime
-import os
 from dotenv import load_dotenv
+import os
 
 # Load .env variables
 load_dotenv()
+
+# Environment variables (ensure these exist in your .env file)
+NCBI_EMAIL = os.getenv("NCBI_EMAIL")
+NCBI_API_KEY = os.getenv("NCBI_API_KEY")
 
 # API base URLs
 ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
 
-# Environment variables (make sure .env has these keys)
-NCBI_EMAIL = os.getenv("NCBI_EMAIL")
-NCBI_API_KEY = os.getenv("NCBI_API_KEY")
+
 
 # Throttle delay per NCBI guidelines (max 3 requests/sec)
 THROTTLE_DELAY = 0.34
-
 
 
 # ------------------------
@@ -49,23 +50,19 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
     """
     Search PubMed using direct HTTP requests to NCBI E-utilities.
     Filters: author, publication year range, country (affiliation).
-    Returns list of article dicts with metadata.
+    Returns list of article dicts with metadata, including PMC info if available.
     """
 
     # Build query string
     search_terms = [query.strip()]
-
     if author:
         search_terms.append(f'{author}[Author]')
-
     if start_year or end_year:
         start = start_year or "1800"
         end = end_year or datetime.now().year
         search_terms.append(f'("{start}"[Date - Publication] : "{end}"[Date - Publication])')
-
     if country:
         search_terms.append(f'{country}[Affiliation]')
-
     full_query = " AND ".join(search_terms)
 
     # 1) ESearch: get PMIDs
@@ -77,7 +74,6 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
         "email": NCBI_EMAIL,
         "api_key": NCBI_API_KEY
     }
-
     esearch_resp = requests.get(ESEARCH_URL, params=esearch_params)
     time.sleep(THROTTLE_DELAY)
     if esearch_resp.status_code != 200:
@@ -106,7 +102,6 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
         print(f"Error in efetch request: {efetch_resp.status_code}")
         return []
 
-    # Parse XML
     root = ET.fromstring(efetch_resp.text)
     articles = []
 
@@ -163,6 +158,9 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
         # PubMed URL
         url = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/" if pmid else None
 
+        # PMC info
+        pmc_result = get_pmc_pdf_url(pmid)
+
         articles.append({
             "title": title,
             "authors": authors,
@@ -171,8 +169,39 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
             "pmid": pmid,
             "doi": doi,
             "url": url,
-            "source": "PubMed"
+            "source": "PubMed",
+            "pmcid": pmc_result["pmcid"] if pmc_result else None,
+            "pmc_pdf_url": pmc_result["pdf_url"] if pmc_result else None
         })
 
     return articles
+
+
+# ---------- PMID -> PMCID PDF helper ----------
+def get_pmc_pdf_url(pmid):
+    """
+    Given a PubMed ID, returns the PMC ID and direct PDF URL if available.
+    """
+    params = {
+        "tool": "Lixplore",
+        "email": NCBI_EMAIL,
+        "ids": pmid
+    }
+
+    response = requests.get(PMC_CONVERTER_URL, params=params)
+    time.sleep(THROTTLE_DELAY)
+    if response.status_code != 200:
+        return None
+
+    root = ET.fromstring(response.text)
+    record = root.find("record")
+    if record is None:
+        return None
+
+    pmcid = record.attrib.get("pmcid")
+    if not pmcid:
+        return None
+
+    pdf_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/pdf/"
+    return {"pmcid": pmcid, "pdf_url": pdf_url}
 
