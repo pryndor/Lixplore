@@ -7,20 +7,44 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 
+# Load .env variables
 load_dotenv()
 
-# NCBI API base URLs
+# API base URLs
 ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
-PUBMED_EMAIL = os.getenv("balathepharmacist@gmail.com")
-PUBMED_API_KEY = os.getenv("781f12bc04105f7d5536a510520cd74cbf08")
 
+# Environment variables (make sure .env has these keys)
+NCBI_EMAIL = os.getenv("balathepharmacist@gmail.com")
+NCBI_API_KEY = os.getenv("781f12bc04105f7d5536a510520cd74cbf08")
 
 # Throttle delay per NCBI guidelines (max 3 requests/sec)
 THROTTLE_DELAY = 0.34
 
 
+
+# ------------------------
+# 1) Old Entrez-based search
+# ------------------------
+def search_pubmed_entrez(query):
+    """
+    Search PubMed using Biopython's Entrez API.
+    Returns a list of PMIDs.
+    """
+    from Bio import Entrez
+    Entrez.email = NCBI_EMAIL
+    if NCBI_API_KEY:
+        Entrez.api_key = NCBI_API_KEY
+
+    handle = Entrez.esearch(db="pubmed", term=query, retmax=20)
+    record = Entrez.read(handle)
+    return record["IdList"]
+
+
+# ------------------------
+# 2) Direct HTTP-based search with filters
+# ------------------------
 def search_pubmed(query, author=None, start_year=None, end_year=None, country=None, max_results=10):
     """
     Search PubMed using direct HTTP requests to NCBI E-utilities.
@@ -28,7 +52,7 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
     Returns list of article dicts with metadata.
     """
 
-    # Build base query string with filters
+    # Build query string
     search_terms = [query.strip()]
 
     if author:
@@ -44,7 +68,7 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
 
     full_query = " AND ".join(search_terms)
 
-    # 1) Use esearch to get list of PMIDs matching query
+    # 1) ESearch: get PMIDs
     esearch_params = {
         "db": "pubmed",
         "term": full_query,
@@ -60,7 +84,6 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
         print(f"Error in esearch request: {esearch_resp.status_code}")
         return []
 
-    # Parse esearch XML response to get list of IDs
     root = ET.fromstring(esearch_resp.text)
     idlist = root.find("IdList")
     if idlist is None:
@@ -69,7 +92,7 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
     if not pmids:
         return []
 
-    # 2) Use efetch to get detailed info for each PMID
+    # 2) EFetch: fetch article details
     efetch_params = {
         "db": "pubmed",
         "id": ",".join(pmids),
@@ -83,7 +106,7 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
         print(f"Error in efetch request: {efetch_resp.status_code}")
         return []
 
-    # Parse efetch XML for article details
+    # Parse XML
     root = ET.fromstring(efetch_resp.text)
     articles = []
 
@@ -94,8 +117,7 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
             continue
 
         # Title
-        title_elem = article.find("ArticleTitle")
-        title = title_elem.text if title_elem is not None else "No title"
+        title = article.findtext("ArticleTitle", default="No title")
 
         # Authors
         authors = []
@@ -129,18 +151,16 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
                         break
 
         # Abstract
-        abstract_text = ""
         abstract = article.find("Abstract")
         if abstract is not None:
             abstract_text = " ".join([elem.text or "" for elem in abstract.findall("AbstractText")]).strip()
-        if not abstract_text:
+        else:
             abstract_text = "No abstract available"
 
         # PMID
-        pmid_elem = medline_citation.find("PMID") if medline_citation is not None else None
-        pmid = pmid_elem.text if pmid_elem is not None else ""
+        pmid = medline_citation.findtext("PMID", default="")
 
-        # URL to PubMed article
+        # PubMed URL
         url = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/" if pmid else None
 
         articles.append({
