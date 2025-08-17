@@ -92,6 +92,16 @@
     <div class="contact-details">
         <p><strong>GitHub:</strong> <a href="https://github.com/pryndor" target="_blank" style="color:#007acc;">Be a Contributor</a></p>
     </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 
     <form class="contact-form" method="POST" action="{{ url_for('contact') }}">
         <label for="name">Your Name</label>

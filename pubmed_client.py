@@ -4,14 +4,18 @@ import requests
 import time
 import xml.etree.ElementTree as ET
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # NCBI API base URLs
 ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
-# Set your email and API key for NCBI Entrez
-NCBI_EMAIL = "Your_Email.com"  # Replace with your email
-NCBI_API_KEY = "Your_API_Key"  # Replace with your API key
+PUBMED_EMAIL = os.getenv("balathepharmacist@gmail.com")
+PUBMED_API_KEY = os.getenv("781f12bc04105f7d5536a510520cd74cbf08")
+
 
 # Throttle delay per NCBI guidelines (max 3 requests/sec)
 THROTTLE_DELAY = 0.34

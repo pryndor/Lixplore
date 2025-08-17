@@ -8,6 +8,7 @@ import json
 from datetime import datetime
 import re
 import yaml
+import smtplib
 
 from cache import get_cached_results, save_results_to_cache
 from pubmed_client import search_pubmed
@@ -290,10 +291,71 @@ def fetch_from_api(source, query, filters):
         print(f"[API] ⚠ Error fetching from {source}: {e}")
     return []
 
+#--------------------------
+# Mail config----
+#------------------------
+
+# Configure your email server (example uses Gmail SMTP)
+app.config.update(
+    MAIL_SERVER='smtppro.zoho.in',
+    MAIL_PORT=587,
+    MAIL_USE_TLS=True,
+    MAIL_USE_SSL=False,
+    MAIL_USERNAME='info@drugvigil.com',        # your sending email
+    MAIL_PASSWORD='pyJECPvDkLs6',  # password or app password
+    MAIL_DEFAULT_SENDER=('Lixlpore Alerts', 'info@drugvigil.com')
+)
+
+mail = Mail(app)
+
 
 # -------------------------------------------------
 # Routes
 # -------------------------------------------------
+
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        subject = request.form.get("subject")
+        message = request.form.get("message")
+
+        if not (name and email and subject and message):
+            flash("Please fill in all the fields.", "error")
+            return redirect(url_for("contact"))
+
+        # Compose email content
+        email_body = f"""
+        New message from Contact Form:
+
+        Name: {name}
+        Email: {email}
+        Subject: {subject}
+
+        Message:
+        {message}
+        """
+
+        try:
+            msg = Message(
+                subject=f"Contact Form: {subject}",
+                sender=(name, email),  # Name and email of sender
+                recipients=["info@drugvigil.com"],  # Replace with your receiving email
+                body=email_body
+            )
+            mail.send(msg)
+            flash("Message sent successfully!", "success")
+        except Exception as e:
+            flash(f"Failed to send message: {e}", "error")
+
+        return redirect(url_for("contact"))
+
+    # If GET request, show the contact form
+    return render_template("contact.html")
+
+    
 
 @app.route("/blogs/tag/<tag>")
 def blogs_by_tag(tag):
@@ -441,10 +503,6 @@ def donations():
 def blogs():
     return render_template("blogs.html")
 
-
-@app.route("/contact")
-def contact():
-    return render_template("contact.html")
 
 
 @app.route("/history/<int:search_id>")
