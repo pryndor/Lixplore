@@ -11,8 +11,9 @@ import os
 load_dotenv()
 
 # Environment variables (ensure these exist in your .env file)
-NCBI_EMAIL = os.getenv("NCBI_EMAIL")
-NCBI_API_KEY = os.getenv("NCBI_API_KEY")
+NCBI_EMAIL = os.getenv("NCBI_EMAIL")    # .env: NCBI_EMAIL=balathepharmacist@gmail.com
+NCBI_API_KEY = os.getenv("NCBI_API_KEY")   # .env: NCBI_API_KEY=781f12bc04105f7d5536a510520cd74cbf08
+PMC_CONVERTER_URL = "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/"
 
 # API base URLs
 ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
@@ -22,7 +23,7 @@ EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
 
 # Throttle delay per NCBI guidelines (max 3 requests/sec)
-THROTTLE_DELAY = 0.34
+THROTTLE_DELAY = 0.125
 
 
 # ------------------------
@@ -46,7 +47,7 @@ def search_pubmed_entrez(query):
 # ------------------------
 # 2) Direct HTTP-based search with filters
 # ------------------------
-def search_pubmed(query, author=None, start_year=None, end_year=None, country=None, max_results=10):
+def search_pubmed(query, author=None, start_year=None, end_year=None, country=None, max_results=20):
     """
     Search PubMed using direct HTTP requests to NCBI E-utilities.
     Filters: author, publication year range, country (affiliation).
@@ -178,27 +179,31 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
 
 
 # ---------- PMID -> PMCID PDF helper ----------
+
+
 def get_pmc_pdf_url(pmid):
     """
     Given a PubMed ID, returns the PMC ID and direct PDF URL if available.
     """
     params = {
+        "ids": pmid,
         "tool": "Lixplore",
         "email": NCBI_EMAIL,
-        "ids": pmid
+        "format": "json"
     }
 
     response = requests.get(PMC_CONVERTER_URL, params=params)
     time.sleep(THROTTLE_DELAY)
+
     if response.status_code != 200:
         return None
 
-    root = ET.fromstring(response.text)
-    record = root.find("record")
-    if record is None:
+    data = response.json()
+    if "records" not in data or not data["records"]:
         return None
 
-    pmcid = record.attrib.get("pmcid")
+    record = data["records"][0]
+    pmcid = record.get("pmcid")
     if not pmcid:
         return None
 

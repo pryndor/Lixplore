@@ -36,7 +36,11 @@
                 <!-- Details -->
                 <div class="result-details">
                     <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
-                    {% if article.pmid %}<p><strong>PMID:</strong> {{ article.pmid }}</p>{% endif %}
+                    
+                    {% if article.pmid %}
+                        <p><strong>PMID:</strong> {{ article.pmid }}</p>
+                    {% endif %}
+                    
                     <p><strong>DOI:</strong> 
                         {% if article.doi %}
                             <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a>
@@ -44,10 +48,27 @@
                             Not available
                         {% endif %}
                     </p>
+
                     <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
+                    
                     {% if article.url %}
-                        <p><strong>Full Text:</strong> <a href="{{ article.url }}" target="_blank">{{ article.url }}</a></p>
+                        <p><strong>Full Text:</strong> 
+                             <a href="{{ article.url }}" target="_blank">PubMed</a>                       </p>
                     {% endif %}
+	
+		    {% if article.oa_pdf_path %}
+  <p class="pdf-line">
+    <strong>PDF:</strong>
+    <a class="pdf-link" href="{{ article.oa_pdf_path }}" target="_blank" rel="noopener">
+      <img
+        src="{{ url_for('static', filename='images/pdf.svg') }}?v=1"
+        alt="PDF"
+        class="pdf-icon"
+      >
+      View PDF
+    </a>
+		    </p>           
+		    {% endif %}
                 </div>
             </div>
         {% endfor %}

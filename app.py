@@ -9,6 +9,7 @@ from datetime import datetime
 import re
 import yaml
 import smtplib
+import requests
 
 from cache import get_cached_results, save_results_to_cache
 from pubmed_client import search_pubmed
@@ -58,9 +59,10 @@ def format_citation(article):
     return citation
 
 
-# -------------------------------------------------
-# Helper: Search with cache
-# -------------------------------------------------
+
+# -----------------------------
+# Search with cache
+# -----------------------------
 def search_with_cache(source, query, filters):
     filters_str = json.dumps(filters or {}, sort_keys=True)
 
@@ -91,55 +93,57 @@ def search_with_cache(source, query, filters):
 
     # Not cached → fetch fresh
     results = fetch_from_api(source, query, filters)
+
+    # Normalize OA PDF before saving
+    for i, article in enumerate(results):
+        results[i] = normalize_oa_pdf(article)
+
     if results:
-        save_search(source, query, filters, results)
+        save_search_and_articles(source, query, filters, results)
+
     return results
 
+# -----------------------------
+# Save search and articles
+# -----------------------------
 def save_search_and_articles(source, query, filters, results):
     filters_str = json.dumps(filters or {}, sort_keys=True)
-
     with get_connection() as conn:
         cursor = conn.cursor()
 
         # Insert or get search_id
-        cursor.execute("""
-            SELECT id FROM searches WHERE source=? AND query=? AND filters=?
-        """, (source, query, filters_str))
+        cursor.execute("SELECT id FROM searches WHERE source=? AND query=? AND filters=?",
+                       (source, query, filters_str))
         row = cursor.fetchone()
         if row:
             search_id = row[0]
         else:
-            cursor.execute("""
-                INSERT INTO searches (source, query, filters) VALUES (?, ?, ?)
-            """, (source, query, filters_str))
+            cursor.execute("INSERT INTO searches (source, query, filters) VALUES (?, ?, ?)",
+                           (source, query, filters_str))
             search_id = cursor.lastrowid
 
-        # Clear old articles for this search if any
+        # Clear old articles
         cursor.execute("DELETE FROM articles WHERE search_id=?", (search_id,))
 
-        # Insert articles individually
         for article in results:
+            article = normalize_oa_pdf(article)  # Ensure OA PDF is string
             authors_str = ", ".join(article.get("authors", [])) if article.get("authors") else None
             affiliations_str = ", ".join(article.get("affiliations", [])) if article.get("affiliations") else None
 
             cursor.execute("""
-                INSERT INTO articles (
-                    search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO articles (search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 search_id,
-                article.get("title"),
-                authors_str,
-                article.get("doi"),
-                article.get("pmid"),
-                article.get("url"),
-                article.get("abstract"),
-                affiliations_str,
-                article.get("oa_pdf_path"),
+                safe_str(article.get("title")),
+                safe_str(authors_str),
+                safe_str(article.get("doi")),
+                safe_str(article.get("pmid")),
+                safe_str(article.get("url")),
+                safe_str(article.get("abstract")),
+                safe_str(affiliations_str),
+                safe_str(article.get("oa_pdf_path"))
             ))
-
-        # Optionally update cache table or ignore it if articles hold the data
-        # Commit transaction
         conn.commit()
 
 def get_results_by_search_id(search_id):
@@ -237,8 +241,11 @@ def get_cached_results(source, query, filters):
     return None, None
 
 
-import json
 
+
+# -----------------------------
+# Helper: Safe string conversion
+# -----------------------------
 def safe_str(value):
     """Convert any value to a string for DB storage. Dicts/lists -> JSON string, None -> None"""
     if value is None:
@@ -251,44 +258,42 @@ def safe_str(value):
         return str(value)
 
 
+# -----------------------------
+# Save results to cache (optional)
+# -----------------------------
 def save_results_to_cache(source, query, filters, results):
     filters_str = json.dumps(filters or {}, sort_keys=True)
-    with get_connection() as conn:
-        cursor = conn.cursor()
+    try:
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO searches (source, query, filters) VALUES (?, ?, ?)",
+                           (source, query, filters_str))
+            search_id = cursor.lastrowid
 
-        # Insert search entry
-        cursor.execute("""
-            INSERT INTO searches (source, query, filters) VALUES (?, ?, ?)
-        """, (source, query, filters_str))
-        search_id = cursor.lastrowid
+            for article in results:
+                article = normalize_oa_pdf(article)  # Normalize before saving
+                authors_str = ", ".join(article.get("authors", [])) if article.get("authors") else None
+                affiliations_str = ", ".join(article.get("affiliations", [])) if article.get("affiliations") else None
 
-        # Insert each article
-        for article in results:
-            authors = safe_str(article.get("authors"))
-            affiliations = safe_str(article.get("affiliations"))
-            abstract = safe_str(article.get("abstract"))
-            oa_pdf_url = article.get("oa_pdf_path")
-            if not isinstance(oa_pdf_url, str):
-                oa_pdf_url = safe_str(oa_pdf_url)
-
-            cursor.execute("""
-                INSERT INTO results (
-                    search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                search_id,
-                safe_str(article.get("title")),
-                authors,
-                safe_str(article.get("doi")),
-                safe_str(article.get("pmid")),
-                safe_str(article.get("url")),
-                abstract,
-                affiliations,
-                oa_pdf_url
-            ))
-
-        conn.commit()
-
+                cursor.execute("""
+                    INSERT INTO articles (
+                        search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    search_id,
+                    safe_str(article.get("title")),
+                    safe_str(authors_str),
+                    safe_str(article.get("doi")),
+                    safe_str(article.get("pmid")),
+                    safe_str(article.get("url")),
+                    safe_str(article.get("abstract")),
+                    safe_str(affiliations_str),
+                    safe_str(article.get("oa_pdf_path"))
+                ))
+                print("DEBUG PDF:", article.get("oa_pdf_path"))  # 👈 add this
+            conn.commit()
+    except Exception as e:
+        print(f"[DB] ⚠ Error saving search: {e}")
 
 
 # -------------------------------------------------
@@ -297,23 +302,45 @@ def save_results_to_cache(source, query, filters, results):
 def fetch_from_api(source, query, filters):
     try:
         if source == "pubmed":
-            return search_pubmed(query)
+            results = search_pubmed(query)
         elif source == "crossref":
-            return search_crossref(query)
+            results = search_crossref(query)
         elif source == "springer":
-            return search_springer(query)
+            results = search_springer(query)
         elif source == "europepmc_publications":
-            return search_epmc_publications(query)
+            results = search_epmc_publications(query)
         elif source == "europepmc_grants":
             grant_data = search_epmc_grants(query)
-            return grant_data.get("grants", []) if isinstance(grant_data, dict) else []
+            results = grant_data.get("grants", []) if isinstance(grant_data, dict) else []
         elif source == "clinicaltrials":
-            return search_clinical_trials(query, filters.get("status"))
+            results = search_clinical_trials(query, filters.get("status"))
         elif source == "doaj":
-            return search_doaj(query)
+            results = search_doaj(query)
+        else:
+            results = []
+
+        # Normalize OA PDF paths for all articles
+        for i, article in enumerate(results):
+            results[i] = normalize_oa_pdf(article)
+
+        return results
+
     except Exception as e:
         print(f"[API] ⚠ Error fetching from {source}: {e}")
-    return []
+        return []
+
+
+
+# -----------------------------
+# Helper: Normalize OA PDF
+# -----------------------------
+def normalize_oa_pdf(article):
+    oa_pdf = article.get("oa_pdf_path")
+    if isinstance(oa_pdf, dict):
+        article["oa_pdf_path"] = oa_pdf.get("value")
+    elif isinstance(oa_pdf, list):
+        article["oa_pdf_path"] = oa_pdf[0] if oa_pdf else None
+    return article
 
 #--------------------------
 # Mail config----
@@ -506,12 +533,23 @@ def search_page():
         results = search_with_cache(source, query, filters)
 
         for article in results:
+            # Standardize PDF field: PMC or OA PDF
+            pdf_url = article.get("pmc_pdf_url") or article.get("oa_pdf_path")
+            article["oa_pdf_path"] = pdf_url  # overwrite for consistency
+
+            # Format citation
             article["citation"] = format_citation(article)
-             # Test PMC PDF URL
-            print("PMC PDF URL:", article.get("pmc_pdf_url"))
 
+            # Debug print
+            print(f"PDF URL ({source}):", article.get("oa_pdf_path"))
 
-    return render_template("index.html", results=results, source=source, query=query, status=status_filter)
+    return render_template(
+        "index.html",
+        results=results,
+        source=source,
+        query=query,
+        status=status_filter
+    )
 
 
 @app.route("/history")

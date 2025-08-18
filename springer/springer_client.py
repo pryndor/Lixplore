@@ -1,6 +1,5 @@
 # springer_client
 
-# springer_client_refactored.py
 from springernature_api_client.openaccess import OpenAccessAPI
 from springernature_api_client.metadata import MetadataAPI
 from springernature_api_client.tdm import TDMAPI

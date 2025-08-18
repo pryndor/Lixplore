@@ -79,6 +79,7 @@
                 <span class="fulltext-link disabled">Full Text N/A</span>
             {% endif %}
 
+	    
             {% if article.citation %}
                 <a href="#" class="citation-link"
                    onclick="openCitationModal(`{{ article.citation|escape }}`, `{{ article.title|escape }}`, `{{ article.authors|join('; ')|escape }}`, `{{ article.year or '' }}`, `{{ article.doi or '' }}`)">
@@ -87,6 +88,13 @@
             {% else %}
                 <span class="citation-link disabled">Citation N/A</span>
             {% endif %}
+
+	    {% if article.oa_pdf_path %}
+        <a href="{{ article.oa_pdf_path }}" target="_blank">
+            <img src="{{ url_for('static', filename='images/OpenAccess.svg') }}" alt="PDF" />
+        </a>
+    {% endif %}
+
         </div>
         <hr>
     </div>
