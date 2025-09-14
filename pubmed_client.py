@@ -11,8 +11,8 @@ import os
 load_dotenv()
 
 # Environment variables (ensure these exist in your .env file)
-NCBI_EMAIL = os.getenv("NCBI_EMAIL")    # .env: NCBI_EMAIL=balathepharmacist@gmail.com
-NCBI_API_KEY = os.getenv("NCBI_API_KEY")   # .env: NCBI_API_KEY=781f12bc04105f7d5536a510520cd74cbf08
+NCBI_EMAIL = os.getenv("NCBI_EMAIL")    # .env: NCBI_EMAIL=YOUR_Email
+NCBI_API_KEY = os.getenv("NCBI_API_KEY")   # .env: NCBI_API_KEY=YOUR_API
 PMC_CONVERTER_URL = "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/"
 
 # API base URLs
