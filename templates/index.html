@@ -4,7 +4,7 @@
 <!-- 🔍 Search Section -->
 <section id="search-section" class="search-box sticky-filters">
     <form method="POST" action="{{ url_for('search_page') }}" class="search-form">
-        
+
         <!-- Source Selector -->
         <label for="source">Select Source:</label>
         <select name="source" id="source" required>
@@ -12,21 +12,26 @@
             <option value="pubmed" {% if source=='pubmed' %}selected{% endif %}>PubMed</option>
             <option value="crossref" {% if source=='crossref' %}selected{% endif %}>CrossRef</option>
             <option value="springer" {% if source=='springer' %}selected{% endif %}>Springer</option>
-            <option value="europepmc_publications" {% if source=='europepmc_publications' %}selected{% endif %}>EuropePMC Publications</option>
-            <option value="europepmc_grants" {% if source=='europepmc_grants' %}selected{% endif %}>EuropePMC Grants</option>
+            <option value="europepmc_publications" {% if source=='europepmc_publications' %}selected{% endif %}>
+                EuropePMC Publications</option>
+            <option value="europepmc_grants" {% if source=='europepmc_grants' %}selected{% endif %}>EuropePMC Grants
+            </option>
             <option value="clinicaltrials" {% if source=='clinicaltrials' %}selected{% endif %}>Clinical Trials</option>
             <option value="doaj" {% if source=='doaj' %}selected{% endif %}>DOAJ</option>
         </select>
 
         <!-- Clinical Trials Status Filter -->
-        <div id="statusFilter" style="display: {% if source=='clinicaltrials' %}block{% else %}none{% endif %}; width:100%;">
+        <div id="statusFilter"
+            style="display: {% if source=='clinicaltrials' %}block{% else %}none{% endif %}; width:100%;">
             <label for="status">Status (optional):</label>
-            <input type="text" id="status" name="status" placeholder="e.g., RECRUITING, COMPLETED" value="{{ status or '' }}">
+            <input type="text" id="status" name="status" placeholder="e.g., RECRUITING, COMPLETED"
+                value="{{ status or '' }}">
         </div>
 
         <!-- Query Input -->
         <label for="query">Search Query:</label>
-        <input type="text" id="query" name="query" placeholder="Enter keyword, DOI, or author" required value="{{ query or '' }}">
+        <input type="text" id="query" name="query" placeholder="Enter keyword, DOI, or author" required
+            value="{{ query or '' }}">
 
         <!-- 📅 Date Range -->
         <div class="date-range">
@@ -50,64 +55,115 @@
 <!-- 📄 Results -->
 {% if results %}
 <section class="results-box" id="resultsContainer">
-    <h2>Search Results</h2>
+    <div class="results-header">
+        <h2>Search Results</h2>
+        <div class="screening-actions">
+            <a href="{{ url_for('screening_dashboard') }}" class="btn btn-secondary">
+                📋 View Screening Projects
+            </a>
+            <button onclick="showCreateScreeningModal()" class="btn btn-primary">
+                ➕ Create Screening Project
+            </button>
+        </div>
+    </div>
+
+    {% if pagination and pagination.total_results > 0 %}
+    <div class="results-info">
+        <p><strong>📊 Results:</strong> Showing {{ pagination.start_result }} to {{ pagination.end_result }} of
+            {{ pagination.total_results }} articles (Page {{ pagination.current_page }} of {{ pagination.total_pages }})
+        </p>
+        <p><em>Results sorted alphabetically by title</em></p>
+    </div>
+    {% endif %}
     {% for article in results %}
     <div class="result-card">
         <h3>{{ article.title }}</h3>
-        
+
         {% if article.abstract %}
-            <p><strong>Abstract:</strong> {{ article.abstract }}</p>
+        <p><strong>Abstract:</strong> {{ article.abstract }}</p>
         {% endif %}
 
         {% if article.authors %}
-            <p><strong>Authors:</strong> {{ article.authors|join(', ') }}</p>
+        <p><strong>Authors:</strong> {{ article.authors|join(', ') }}</p>
         {% endif %}
 
         {% if article.pmid %}
-            <p><strong>PMID:</strong> {{ article.pmid }}</p>
+        <p><strong>PMID:</strong> {{ article.pmid }}</p>
         {% endif %}
 
         {% if article.doi %}
-            <p><strong>DOI:</strong> {{ article.doi }}</p>
+        <p><strong>DOI:</strong> {{ article.doi }}</p>
         {% endif %}
 
         <!-- Links -->
         <div class="link-section">
             {% if article.url %}
-                <a href="{{ article.url }}" target="_blank" class="fulltext-link">Full Text</a>
+            <a href="{{ article.url }}" target="_blank" class="fulltext-link">Full Text</a>
             {% else %}
-                <span class="fulltext-link disabled">Full Text N/A</span>
+            <span class="fulltext-link disabled">Full Text N/A</span>
             {% endif %}
 
-	    
+
             {% if article.citation %}
-                <a href="#" class="citation-link"
-                   onclick="openCitationModal(`{{ article.citation|escape }}`, `{{ article.title|escape }}`, `{{ article.authors|join('; ')|escape }}`, `{{ article.year or '' }}`, `{{ article.doi or '' }}`)">
-                   Cite this article
-                </a>
+            <a href="#" class="citation-link"
+                onclick="openCitationModal(`{{ article.citation|escape }}`, `{{ article.title|escape }}`, `{{ article.authors|join('; ')|escape }}`, `{{ article.year or '' }}`, `{{ article.doi or '' }}`)">
+                Cite this article
+            </a>
             {% else %}
-                <span class="citation-link disabled">Citation N/A</span>
+            <span class="citation-link disabled">Citation N/A</span>
             {% endif %}
 
-	    {% if article.oa_pdf_path %}
-        <a href="{{ article.oa_pdf_path }}" target="_blank">
-            <img src="{{ url_for('static', filename='images/OpenAccess.svg') }}" alt="PDF" />
-        </a>
-    {% endif %}
+            {% if article.oa_pdf_path %}
+            <a href="{{ article.oa_pdf_path }}" target="_blank">
+                <img src="{{ url_for('static', filename='images/OpenAccess.svg') }}" alt="PDF" />
+            </a>
+            {% endif %}
 
         </div>
         <hr>
     </div>
     {% endfor %}
 
-    {% if results|length >= 20 %}
-    <div style="text-align:center; margin-top:20px;">
-        <button id="loadMoreBtn" 
-                data-source="{{ source }}" 
-                data-query="{{ query }}" 
-                style="padding: 10px 15px; background: #007acc; color: white; border: none; border-radius: 5px; cursor: pointer;">
-            Load More
-        </button>
+    <!-- Enhanced Pagination Controls -->
+    {% if pagination and pagination.total_pages > 1 %}
+    <div class="pagination-container">
+        <div class="pagination">
+            <!-- Start button -->
+            {% if pagination.show_start %}
+            <a href="{{ url_for('search_page', source=source, query=query, status=status, page=1) }}"
+                class="pagination-btn pagination-start">Start</a>
+            {% endif %}
+
+            <!-- Page numbers (smart display for 1-100) -->
+            {% for page_num in pagination.page_range %}
+            {% if page_num == pagination.current_page %}
+            <span class="pagination-current">{{ page_num }}</span>
+            {% elif page_num <= 3 or page_num > pagination.total_pages - 3 or (page_num >= pagination.current_page - 1 and page_num <= pagination.current_page + 1) %}
+            <a href="{{ url_for('search_page', source=source, query=query, status=status, page=page_num) }}"
+                class="pagination-btn">{{ page_num }}</a>
+            {% elif page_num == 4 and pagination.current_page > 6 %}
+            <span class="pagination-ellipsis">...</span>
+            {% elif page_num == pagination.total_pages - 3 and pagination.current_page < pagination.total_pages - 5 %}
+            <span class="pagination-ellipsis">...</span>
+            {% endif %}
+            {% endfor %}
+
+            <!-- Next button (circular navigation) -->
+            <a href="{{ url_for('search_page', source=source, query=query, status=status, page=pagination.next_page) }}"
+                class="pagination-btn pagination-next">
+                {% if pagination.current_page == pagination.total_pages %}
+                Start Over
+                {% else %}
+                Next
+                {% endif %}
+            </a>
+        </div>
+
+        <div class="pagination-info">
+            <p>Page {{ pagination.current_page }} of {{ pagination.total_pages }} | {{ pagination.total_results }} total
+                results</p>
+            <p><em>🔄 Circular navigation: Next from last page returns to page 1</em></p>
+        </div>
     </div>
     {% endif %}
 </section>
@@ -115,26 +171,373 @@
 
 <!-- 📱 Styles -->
 <style>
-.sticky-filters { position: sticky; top: 0; background: #fff; z-index: 10; padding: 12px 1rem; border-bottom: 1px solid #ccc; max-width: 700px; margin: auto; }
-.search-form { display: flex; flex-wrap: wrap; gap: 7px; }
-.search-form label { width: 100%; font-weight: bold; margin-top: 5px; }
-.search-form select, .search-form input { width: 100%; padding: 7px; border-radius: 5px; border: 1px solid #ccc; }
-.date-range { display: flex; gap: 25px; width: 100%; }
-.date-range div { flex: 1; }
-.search-btn { background: #007acc; color: white; border-radius: 5px; border: none; padding: 10px; width: 40%; cursor: pointer; }
-.search-btn:hover { background: #005ea3; }
+    .sticky-filters {
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 10;
+        padding: 12px 1rem;
+        border-bottom: 1px solid #ccc;
+        max-width: 700px;
+        margin: auto;
+    }
 
-.results-box { max-width: 700px; margin: 20px auto; }
-.result-card { margin-bottom: 20px; padding: 15px; background: #f9f9f9; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.link-section { display: flex; gap: 15px; align-items: center; }
-.citation-link { text-decoration: underline; color: #007acc; cursor: pointer; }
-.citation-link:hover { color: #005ea3; }
+    .search-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+    }
 
-.citation-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; }
-.citation-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border-radius: 10px; padding: 20px; width: 350px; z-index: 1000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-.citation-modal h3 { margin-top: 0; text-align: center; }
-.citation-modal button { margin-top: 8px; padding: 8px; width: 100%; border: none; border-radius: 5px; background: #007acc; color: white; cursor: pointer; }
-.citation-modal button:hover { background: #005ea3; }
+    .search-form label {
+        width: 100%;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+    .search-form select,
+    .search-form input {
+        width: 100%;
+        padding: 7px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .date-range {
+        display: flex;
+        gap: 25px;
+        width: 100%;
+    }
+
+    .date-range div {
+        flex: 1;
+    }
+
+    .search-btn {
+        background: #007acc;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        padding: 10px;
+        width: 40%;
+        cursor: pointer;
+    }
+
+    .search-btn:hover {
+        background: #005ea3;
+    }
+
+    .results-box {
+        max-width: 700px;
+        margin: 20px auto;
+    }
+
+    .result-card {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f9f9f9;
+        border-radius: 12px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .link-section {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .citation-link {
+        text-decoration: underline;
+        color: #007acc;
+        cursor: pointer;
+    }
+
+    .citation-link:hover {
+        color: #005ea3;
+    }
+
+    .citation-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .citation-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        width: 350px;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .citation-modal h3 {
+        margin-top: 0;
+        text-align: center;
+    }
+
+    .citation-modal button {
+        margin-top: 8px;
+        padding: 8px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        background: #007acc;
+        color: white;
+        cursor: pointer;
+    }
+
+    .citation-modal button:hover {
+        background: #005ea3;
+    }
+
+    /* Results Header */
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #e1e8ed;
+    }
+
+    .screening-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-content h3 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 14px;
+        color: #2c3e50;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        margin-right: 8px;
+        width: auto;
+    }
+
+    .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid #e1e8ed;
+    }
+
+    /* Results Info */
+    .results-info {
+        background: #f8f9fa;
+        border: 1px solid #e1e8ed;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .results-info p {
+        margin: 5px 0;
+        color: #2c3e50;
+    }
+
+    .results-info em {
+        color: #7f8c8d;
+        font-size: 14px;
+    }
+
+    /* Pagination Styles */
+    .pagination-container {
+        margin-top: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e1e8ed;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+
+    .pagination-btn {
+        padding: 8px 12px;
+        background: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid #3498db;
+    }
+
+    .pagination-btn:hover {
+        background: #2980b9;
+        border-color: #2980b9;
+        transform: translateY(-1px);
+    }
+
+    .pagination-current {
+        padding: 8px 12px;
+        background: #e74c3c;
+        color: white;
+        border-radius: 4px;
+        font-weight: 600;
+        border: 1px solid #e74c3c;
+    }
+
+    .pagination-next {
+        background: #27ae60;
+        border-color: #27ae60;
+        font-weight: 600;
+    }
+
+    .pagination-next:hover {
+        background: #229954;
+        border-color: #229954;
+    }
+
+    .pagination-start {
+        background: #9b59b6;
+        border-color: #9b59b6;
+        font-weight: 600;
+    }
+
+    .pagination-start:hover {
+        background: #8e44ad;
+        border-color: #8e44ad;
+    }
+
+    .pagination-ellipsis {
+        padding: 8px 12px;
+        color: #7f8c8d;
+        font-weight: 500;
+    }
+
+    .pagination-info {
+        text-align: center;
+        color: #7f8c8d;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .pagination-info p {
+        margin: 5px 0;
+    }
+
+    /* Responsive pagination */
+    @media (max-width: 768px) {
+        .pagination {
+            gap: 4px;
+        }
+
+        .pagination-btn,
+        .pagination-current {
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+
+        .pagination-container {
+            padding: 15px;
+        }
+    }
 </style>
 
 <!-- 📜 Citation Modal -->
@@ -150,72 +553,101 @@
     <button style="background:#ccc; color:#000;" onclick="closeCitationModal()">Close</button>
 </div>
 
+<!-- 📋 Create Screening Project Modal -->
+<div id="screeningModal" class="modal-overlay" style="display: none;" onclick="closeScreeningModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3>📋 Create Screening Project from Search Results</h3>
+        <form id="screeningForm" method="POST" action="{{ url_for('create_screening_project') }}">
+            <div class="form-group">
+                <label for="screening_name">Project Name *</label>
+                <input type="text" id="screening_name" name="name" required
+                    placeholder="e.g., {{ query }} - Systematic Review">
+            </div>
+
+            <div class="form-group">
+                <label for="screening_description">Description</label>
+                <textarea id="screening_description" name="description" rows="2"
+                    placeholder="Screening project for search: {{ query }}"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="screening_created_by">Lead Researcher *</label>
+                <input type="text" id="screening_created_by" name="created_by" required placeholder="Your name">
+            </div>
+
+            <div class="form-group">
+                <label for="screening_inclusion">Inclusion Criteria</label>
+                <textarea id="screening_inclusion" name="inclusion_criteria" rows="3"
+                    placeholder="Enter inclusion criteria..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="screening_exclusion">Exclusion Criteria</label>
+                <textarea id="screening_exclusion" name="exclusion_criteria" rows="3"
+                    placeholder="Enter exclusion criteria..."></textarea>
+            </div>
+
+            <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="require_dual_screening">
+                    Require dual screening
+                </label>
+            </div>
+
+            <input type="hidden" id="import_search_results" name="import_search_results" value="true">
+            <input type="hidden" id="search_source" name="search_source" value="{{ source }}">
+            <input type="hidden" id="search_query" name="search_query" value="{{ query }}">
+
+            <div class="modal-actions">
+                <button type="button" onclick="closeScreeningModal()" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create Project & Import Results</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- 📜 Scripts -->
 <script>
-let currentCitation="", currentTitle="", currentAuthors="", currentYear="", currentDOI="";
-function openCitationModal(citation, title, authors, year, doi) {
-    currentCitation = citation; currentTitle = title; currentAuthors = authors; currentYear = year; currentDOI = doi;
-    document.getElementById("citationOverlay").style.display = "block";
-    document.getElementById("citationModal").style.display = "block";
-}
-function closeCitationModal() {
-    document.getElementById("citationOverlay").style.display = "none";
-    document.getElementById("citationModal").style.display = "none";
-}
-document.getElementById("copyCitationBtn").onclick = function() {
-    navigator.clipboard.writeText(currentCitation).then(()=>alert("Citation copied!")).catch(()=>alert("Failed to copy citation"));
-};
-function triggerDownload(format) {
-    let content="", filename="";
-    if (format==="bibtex") {content=`@article{${currentAuthors.split(' ')[0]}_${currentYear}, title={${currentTitle}}, author={${currentAuthors}}, year={${currentYear}}, doi={${currentDOI}}}`; filename="citation.bib";}
-    else if (format==="ris") {content=`TY  - JOUR\nTI  - ${currentTitle}\nAU  - ${currentAuthors}\nPY  - ${currentYear}\nDO  - ${currentDOI}\nER  -`; filename="citation.ris";}
-    else if (format==="txt") {content=`${currentAuthors} (${currentYear}). ${currentTitle}. DOI: ${currentDOI}`; filename="citation.txt";}
-    else if (format==="xml_abs") {content=`<abstract>\n<title>${currentTitle}</title>\n<authors>${currentAuthors}</authors>\n<year>${currentYear}</year>\n<doi>${currentDOI}</doi>\n<abstractText>${currentCitation}</abstractText>\n</abstract>`; filename="citation_abstract.xml";}
-    else if (format==="xml_full") {content=`<fulltext>\n<title>${currentTitle}</title>\n<authors>${currentAuthors}</authors>\n<year>${currentYear}</year>\n<doi>${currentDOI}</doi>\n<fullText>${currentCitation}</fullText>\n</fulltext>`; filename="citation_full.xml";}
-    const blob=new Blob([content],{type:"text/plain"}); const link=document.createElement("a");
-    link.href=URL.createObjectURL(blob); link.download=filename; link.click(); URL.revokeObjectURL(link.href);
-}
+    let currentCitation = "", currentTitle = "", currentAuthors = "", currentYear = "", currentDOI = "";
+    function openCitationModal ( citation, title, authors, year, doi )
+    {
+        currentCitation = citation; currentTitle = title; currentAuthors = authors; currentYear = year; currentDOI = doi;
+        document.getElementById( "citationOverlay" ).style.display = "block";
+        document.getElementById( "citationModal" ).style.display = "block";
+    }
+    function closeCitationModal ()
+    {
+        document.getElementById( "citationOverlay" ).style.display = "none";
+        document.getElementById( "citationModal" ).style.display = "none";
+    }
+    document.getElementById( "copyCitationBtn" ).onclick = function ()
+    {
+        navigator.clipboard.writeText( currentCitation ).then( () => alert( "Citation copied!" ) ).catch( () => alert( "Failed to copy citation" ) );
+    };
+    function triggerDownload ( format )
+    {
+        let content = "", filename = "";
+        if ( format === "bibtex" ) { content = `@article{${ currentAuthors.split( ' ' )[ 0 ] }_${ currentYear }, title={${ currentTitle }}, author={${ currentAuthors }}, year={${ currentYear }}, doi={${ currentDOI }}}`; filename = "citation.bib"; }
+        else if ( format === "ris" ) { content = `TY  - JOUR\nTI  - ${ currentTitle }\nAU  - ${ currentAuthors }\nPY  - ${ currentYear }\nDO  - ${ currentDOI }\nER  -`; filename = "citation.ris"; }
+        else if ( format === "txt" ) { content = `${ currentAuthors } (${ currentYear }). ${ currentTitle }. DOI: ${ currentDOI }`; filename = "citation.txt"; }
+        else if ( format === "xml_abs" ) { content = `<abstract>\n<title>${ currentTitle }</title>\n<authors>${ currentAuthors }</authors>\n<year>${ currentYear }</year>\n<doi>${ currentDOI }</doi>\n<abstractText>${ currentCitation }</abstractText>\n</abstract>`; filename = "citation_abstract.xml"; }
+        else if ( format === "xml_full" ) { content = `<fulltext>\n<title>${ currentTitle }</title>\n<authors>${ currentAuthors }</authors>\n<year>${ currentYear }</year>\n<doi>${ currentDOI }</doi>\n<fullText>${ currentCitation }</fullText>\n</fulltext>`; filename = "citation_full.xml"; }
+        const blob = new Blob( [ content ], { type: "text/plain" } ); const link = document.createElement( "a" );
+        link.href = URL.createObjectURL( blob ); link.download = filename; link.click(); URL.revokeObjectURL( link.href );
+    }
 
-// Load More Logic
-let currentStart = 20;
-const maxResults = 20;
-const loadMoreBtn = document.getElementById("loadMoreBtn");
-if (loadMoreBtn) {
-    loadMoreBtn.addEventListener("click", function () {
-        loadMoreBtn.textContent = "Loading...";
-        const source = this.dataset.source;
-        const query = this.dataset.query;
-        fetch(`/load_more?source=${source}&query=${encodeURIComponent(query)}&start=${currentStart}&max=${maxResults}`)
-            .then(r => r.json())
-            .then(data => {
-                if (data.results && data.results.length > 0) {
-                    const container = document.getElementById("resultsContainer");
-                    data.results.forEach(article => {
-                        const div = document.createElement("div");
-                        div.classList.add("result-card");
-                        div.innerHTML = `
-                            <h3>${article.title}</h3>
-                            ${article.abstract ? `<p><strong>Abstract:</strong> ${article.abstract}</p>` : ""}
-                            ${article.authors ? `<p><strong>Authors:</strong> ${article.authors.join(", ")}</p>` : ""}
-                            ${article.pmid ? `<p><strong>PMID:</strong> ${article.pmid}</p>` : ""}
-                            ${article.doi ? `<p><strong>DOI:</strong> ${article.doi}</p>` : ""}
-                            <div class="link-section">
-                                ${article.url ? `<a href="${article.url}" target="_blank" class="fulltext-link">Full Text</a>` : `<span class="fulltext-link disabled">Full Text N/A</span>`}
-                                ${article.citation ? `<a href="#" class="citation-link" onclick="openCitationModal(\`${article.citation.replace(/`/g, '\\`')}\`,\`${article.title.replace(/`/g, '\\`')}\`,\`${article.authors.join('; ').replace(/`/g, '\\`')}\`,\`${article.year || ''}\`,\`${article.doi || ''}\`)">Cite this article</a>` : `<span class="citation-link disabled">Citation N/A</span>`}
-                            </div>
-                            <hr>`;
-                        container.appendChild(div);
-                    });
-                    currentStart = data.next_start;
-                    loadMoreBtn.textContent = "Load More";
-                } else {
-                    loadMoreBtn.style.display = "none";
-                }
-            })
-            .catch(() => { alert("Failed to load more results."); loadMoreBtn.textContent = "Load More"; });
-    });
-}
+    // Pagination is now handled server-side with proper page navigation
+
+    // Screening Modal Functions
+    function showCreateScreeningModal ()
+    {
+        document.getElementById( "screeningModal" ).style.display = "block";
+    }
+
+    function closeScreeningModal ()
+    {
+        document.getElementById( "screeningModal" ).style.display = "none";
+    }
 </script>
 
 {% endblock %}
-

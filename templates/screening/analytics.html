@@ -1,0 +1,573 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - {{ project.name }}{% endblock %}
+
+{% block content %}
+<div class="analytics-container">
+    <!-- Header -->
+    <div class="analytics-header">
+        <div class="header-content">
+            <h1>📊 Screening Analytics</h1>
+            <h2>{{ project.name }}</h2>
+        </div>
+        <div class="header-actions">
+            <a href="{{ url_for('export_screening_results', project_id=project.id, format='csv') }}"
+                class="btn btn-primary">
+                📥 Export Results
+            </a>
+            <a href="{{ url_for('screening_project', project_id=project.id) }}" class="btn btn-secondary">
+                ← Back to Project
+            </a>
+        </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="metrics-section">
+        <h3>📈 Key Metrics</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value">{{ statistics.total_articles }}</div>
+                <div class="metric-label">Total Articles</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-value">{{ statistics.status_counts.get('included', 0) }}</div>
+                <div class="metric-label">Included</div>
+                <div class="metric-percentage">
+                    {% if statistics.total_articles > 0 %}
+                    {{ "%.1f"|format((statistics.status_counts.get('included', 0) / statistics.total_articles) * 100) }}%
+                    {% else %}
+                    0%
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-value">{{ statistics.status_counts.get('excluded', 0) }}</div>
+                <div class="metric-label">Excluded</div>
+                <div class="metric-percentage">
+                    {% if statistics.total_articles > 0 %}
+                    {{ "%.1f"|format((statistics.status_counts.get('excluded', 0) / statistics.total_articles) * 100) }}%
+                    {% else %}
+                    0%
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-value">{{ statistics.status_counts.get('conflict', 0) }}</div>
+                <div class="metric-label">Conflicts</div>
+                <div class="metric-percentage">
+                    {% if statistics.total_articles > 0 %}
+                    {{ "%.1f"|format((statistics.status_counts.get('conflict', 0) / statistics.total_articles) * 100) }}%
+                    {% else %}
+                    0%
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-value">{{ analytics.agreement_rate }}%</div>
+                <div class="metric-label">Inter-rater Agreement</div>
+                <div class="metric-note">{{ analytics.total_comparisons }} comparisons</div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-value">
+                    {% if statistics.total_articles > 0 %}
+                    {{ "%.1f"|format(((statistics.total_articles - statistics.status_counts.get('pending', 0)) / statistics.total_articles) * 100) }}%
+                    {% else %}
+                    0%
+                    {% endif %}
+                </div>
+                <div class="metric-label">Completion Rate</div>
+                <div class="metric-note">
+                    {{ statistics.total_articles - statistics.status_counts.get('pending', 0) }} of
+                    {{ statistics.total_articles }} screened
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Visualization -->
+    <div class="progress-section">
+        <h3>📊 Screening Progress</h3>
+        <div class="progress-chart">
+            <div class="progress-bar">
+                {% set total = statistics.total_articles %}
+                {% if total > 0 %}
+                <div class="progress-segment included"
+                    style="width: {{ (statistics.status_counts.get('included', 0) / total) * 100 }}%"
+                    title="Included: {{ statistics.status_counts.get('included', 0) }}">
+                </div>
+                <div class="progress-segment excluded"
+                    style="width: {{ (statistics.status_counts.get('excluded', 0) / total) * 100 }}%"
+                    title="Excluded: {{ statistics.status_counts.get('excluded', 0) }}">
+                </div>
+                <div class="progress-segment conflict"
+                    style="width: {{ (statistics.status_counts.get('conflict', 0) / total) * 100 }}%"
+                    title="Conflicts: {{ statistics.status_counts.get('conflict', 0) }}">
+                </div>
+                <div class="progress-segment pending"
+                    style="width: {{ (statistics.status_counts.get('pending', 0) / total) * 100 }}%"
+                    title="Pending: {{ statistics.status_counts.get('pending', 0) }}">
+                </div>
+                {% endif %}
+            </div>
+            <div class="progress-legend">
+                <div class="legend-item">
+                    <span class="legend-color included"></span>
+                    <span>Included ({{ statistics.status_counts.get('included', 0) }})</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color excluded"></span>
+                    <span>Excluded ({{ statistics.status_counts.get('excluded', 0) }})</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color conflict"></span>
+                    <span>Conflicts ({{ statistics.status_counts.get('conflict', 0) }})</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color pending"></span>
+                    <span>Pending ({{ statistics.status_counts.get('pending', 0) }})</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviewer Performance -->
+    <div class="reviewers-section">
+        <h3>👥 Reviewer Performance</h3>
+        <div class="reviewers-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Reviewer</th>
+                        <th>Total Decisions</th>
+                        <th>Included</th>
+                        <th>Excluded</th>
+                        <th>Maybe</th>
+                        <th>Inclusion Rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reviewer in analytics.reviewer_performance %}
+                    <tr>
+                        <td class="reviewer-name">{{ reviewer[0] }}</td>
+                        <td class="decision-count">{{ reviewer[1] }}</td>
+                        <td class="include-count">{{ reviewer[2] }}</td>
+                        <td class="exclude-count">{{ reviewer[3] }}</td>
+                        <td class="maybe-count">{{ reviewer[4] }}</td>
+                        <td class="inclusion-rate">
+                            {% if reviewer[1] > 0 %}
+                            {{ "%.1f"|format((reviewer[2] / reviewer[1]) * 100) }}%
+                            {% else %}
+                            0%
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Daily Activity -->
+    {% if analytics.daily_decisions %}
+    <div class="activity-section">
+        <h3>📅 Recent Screening Activity</h3>
+        <div class="activity-chart">
+            {% for day_data in analytics.daily_decisions %}
+            <div class="activity-bar">
+                <div class="bar-container">
+                    <div class="bar" style="height: {{ (day_data[1] / 20) * 100 }}px"
+                        title="{{ day_data[1] }} decisions on {{ day_data[0] }}"></div>
+                </div>
+                <div class="bar-label">{{ day_data[0].split('-')[2] }}/{{ day_data[0].split('-')[1] }}</div>
+                <div class="bar-value">{{ day_data[1] }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Export Options -->
+    <div class="export-section">
+        <h3>📥 Export Options</h3>
+        <div class="export-options">
+            <div class="export-card">
+                <h4>📊 All Results</h4>
+                <p>Export all articles with their screening status</p>
+                <a href="{{ url_for('export_screening_results', project_id=project.id, format='csv', status='all') }}"
+                    class="btn btn-primary">Download CSV</a>
+            </div>
+
+            <div class="export-card">
+                <h4>✅ Included Articles</h4>
+                <p>Export only included articles for final review</p>
+                <a href="{{ url_for('export_screening_results', project_id=project.id, format='csv', status='included') }}"
+                    class="btn btn-success">Download CSV</a>
+            </div>
+
+            <div class="export-card">
+                <h4>❌ Excluded Articles</h4>
+                <p>Export excluded articles with reasons</p>
+                <a href="{{ url_for('export_screening_results', project_id=project.id, format='csv', status='excluded') }}"
+                    class="btn btn-danger">Download CSV</a>
+            </div>
+
+            <div class="export-card">
+                <h4>⚠️ Conflicts</h4>
+                <p>Export articles with screening conflicts</p>
+                <a href="{{ url_for('export_screening_results', project_id=project.id, format='csv', status='conflict') }}"
+                    class="btn btn-warning">Download CSV</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .analytics-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .analytics-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #e1e8ed;
+    }
+
+    .header-content h1 {
+        color: #2c3e50;
+        margin: 0;
+    }
+
+    .header-content h2 {
+        color: #7f8c8d;
+        margin: 5px 0 0 0;
+        font-weight: normal;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .metrics-section,
+    .progress-section,
+    .reviewers-section,
+    .activity-section,
+    .export-section {
+        margin-bottom: 40px;
+    }
+
+    .metrics-section h3,
+    .progress-section h3,
+    .reviewers-section h3,
+    .activity-section h3,
+    .export-section h3 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .metric-card {
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .metric-value {
+        font-size: 36px;
+        font-weight: bold;
+        color: #3498db;
+        margin-bottom: 8px;
+    }
+
+    .metric-label {
+        font-size: 14px;
+        color: #2c3e50;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .metric-percentage {
+        font-size: 12px;
+        color: #7f8c8d;
+    }
+
+    .metric-note {
+        font-size: 11px;
+        color: #95a5a6;
+    }
+
+    .progress-chart {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-bar {
+        height: 40px;
+        background-color: #ecf0f1;
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        margin-bottom: 20px;
+    }
+
+    .progress-segment {
+        height: 100%;
+        transition: width 0.3s ease;
+    }
+
+    .progress-segment.included {
+        background-color: #27ae60;
+    }
+
+    .progress-segment.excluded {
+        background-color: #e74c3c;
+    }
+
+    .progress-segment.conflict {
+        background-color: #f39c12;
+    }
+
+    .progress-segment.pending {
+        background-color: #95a5a6;
+    }
+
+    .progress-legend {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #2c3e50;
+    }
+
+    .legend-color {
+        width: 16px;
+        height: 16px;
+        border-radius: 3px;
+    }
+
+    .legend-color.included {
+        background-color: #27ae60;
+    }
+
+    .legend-color.excluded {
+        background-color: #e74c3c;
+    }
+
+    .legend-color.conflict {
+        background-color: #f39c12;
+    }
+
+    .legend-color.pending {
+        background-color: #95a5a6;
+    }
+
+    .reviewers-table {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .reviewers-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .reviewers-table th {
+        background-color: #f8f9fa;
+        padding: 15px;
+        text-align: left;
+        font-weight: 500;
+        color: #2c3e50;
+        border-bottom: 1px solid #e1e8ed;
+    }
+
+    .reviewers-table td {
+        padding: 15px;
+        border-bottom: 1px solid #f1f3f4;
+        color: #5a6c7d;
+    }
+
+    .reviewer-name {
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .decision-count {
+        font-weight: 500;
+        color: #3498db;
+    }
+
+    .include-count {
+        color: #27ae60;
+    }
+
+    .exclude-count {
+        color: #e74c3c;
+    }
+
+    .maybe-count {
+        color: #f39c12;
+    }
+
+    .activity-chart {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        align-items: flex-end;
+    }
+
+    .activity-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .bar-container {
+        height: 100px;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .bar {
+        width: 30px;
+        background-color: #3498db;
+        border-radius: 3px 3px 0 0;
+        min-height: 5px;
+        transition: height 0.3s ease;
+    }
+
+    .bar-label {
+        font-size: 12px;
+        color: #7f8c8d;
+    }
+
+    .bar-value {
+        font-size: 14px;
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .export-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .export-card {
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .export-card h4 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    .export-card p {
+        color: #7f8c8d;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
+    }
+
+    .btn-success {
+        background-color: #27ae60;
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        color: white;
+    }
+
+    .btn-warning {
+        background-color: #f39c12;
+        color: white;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .analytics-header {
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .metrics-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .progress-legend {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .activity-chart {
+            flex-wrap: wrap;
+        }
+
+        .export-options {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}

@@ -1,200 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<!-- Add in your <head> -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-    <link rel="search"
-          type="application/x-openurl-opensearchdescription+xml"
-          title="Lixplore"
-          href="https://lixplore.com/lixplore_opensearch.xml">
+    <head>
+        <!-- Add in your <head> -->
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title if title else "Lixplore" }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="search" type="application/x-openurl-opensearchdescription+xml" title="Lixplore"
+            href="https://lixplore.com/lixplore_opensearch.xml">
 
-   </head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ title if title else "Lixplore" }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-<!-- 💡 Pro Tip Widget -->
-<div id="proTipBox" class="pro-tip-box">
-    <span id="proTipText">💡 Pro Tip: Use "AND", "OR", and quotes for precise searches.</span>
-</div>
+    </head>
 
-
-<script>
-// ===========================
-// Pro Tip Rotator
-// ===========================
-const tips = [
-    '💡 Pro Tip: Use "AND", "OR", and quotes for precise searches.',
-    '💡 Pro Tip: Filter results by date using the From/To fields.',
-    '💡 Pro Tip: Search directly by DOI, Author, or Keyword.',
-    '💡 Pro Tip: Switch between sources (PubMed, CrossRef, etc.) to find unique results.',
-    '💡 Pro Tip: For Clinical Trials, filter by status (e.g., RECRUITING, COMPLETED).'
-];
-
-let tipIndex = 0;
-function showNextTip() {
-    const tipBox = document.getElementById('proTipText');
-    tipIndex = (tipIndex + 1) % tips.length;
-    tipBox.style.opacity = 0;
-    setTimeout(() => {
-        tipBox.textContent = tips[tipIndex];
-        tipBox.style.opacity = 1;
-    }, 500);
-}
-
-// Change tip every 6 seconds
-setInterval(showNextTip, 6000);
-</script>
-
-<body>
-
-<div class="background-layer" id="backgroundLayer">
-    <div class="floating-shape shape1"></div>
-    <div class="floating-shape shape2"></div>
-    <div class="floating-shape shape3"></div>
-    <div class="floating-shape shape4"></div>
-    <div class="floating-shape shape5"></div>
-    <div class="floating-shape shape6"></div>
-    <div class="floating-shape shape7"></div>
-
-    <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper1">
-    <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper2">
-    <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper3">
-    <img src="{{ url_for('static', filename='images/dna.svg') }}" class="floating-icon icon-dna1">
-    <img src="{{ url_for('static', filename='images/dna.svg') }}" class="floating-icon icon-dna2">
-    <img src="{{ url_for('static', filename='images/zotero.svg') }}" class="floating-icon icon-zotero1">
-    <img src="{{ url_for('static', filename='images/zotero.svg') }}" class="floating-icon icon-zotero2">
-    <img src="{{ url_for('static', filename='images/Ads.svg') }}" class="floating-icon icon-ads1">
-    <img src="{{ url_for('static', filename='images/Ads.svg') }}" class="floating-icon icon-ads2">
-    <img src="{{ url_for('static', filename='images/citation.svg') }}" class="floating-icon icon-citation1">
-    <img src="{{ url_for('static', filename='images/citation.svg') }}" class="floating-icon icon-citation2">
-    <img src="{{ url_for('static', filename='images/books.svg') }}" class="floating-icon icon-books1">
-    <img src="{{ url_for('static', filename='images/books.svg') }}" class="floating-icon icon-books2">
-    <img src="{{ url_for('static', filename='images/Crossref.svg') }}" class="floating-icon icon-crossref1">
-    <img src="{{ url_for('static', filename='images/Crossref.svg') }}" class="floating-icon icon-crossref2">
-    <img src="{{ url_for('static', filename='images/Diary.svg') }}" class="floating-icon icon-diary">
-    <img src="{{ url_for('static', filename='images/Doi.svg') }}" class="floating-icon icon-doi">
-    <img src="{{ url_for('static', filename='images/OpenAccess.svg') }}" class="floating-icon icon-openaccess">
-    <img src="{{ url_for('static', filename='images/OpenDataSquare.svg') }}" class="floating-icon icon-opendata">
-    <img src="{{ url_for('static', filename='images/Pubmed.svg') }}" class="floating-icon icon-pubmed">
-</div>
-
-<header>
-    <!-- Brand Logo + Name -->
-    <a href="{{ url_for('intro') }}" class="brand">
-        <img src="{{ url_for('static', filename='images/lixplore_logo.svg') }}" alt="Lixplore Logo" class="logo">
-        <h1 class="brand-name">Lixplore</h1>
-    </a>
-
-    <!-- Mobile Menu Toggle -->
-    <input type="checkbox" id="menu-toggle" class="menu-toggle">
-    <label for="menu-toggle" class="menu-icon">&#9776;</label>
-
-    <!-- Navigation -->
-    <nav>
-        <a href="{{ url_for('intro') }}">Home</a>
-        <a href="{{ url_for('history') }}">History</a>
-        <a href="{{ url_for('support') }}">Support Our Project</a>
-        <a href="{{ url_for('contact') }}">Contact</a>
-    </nav>
-</header>
-
-
-
-<main>
-    {% block content %}{% endblock %}
-</main>
-
-<footer>
-    <div class="footer-links">
-        <div class="footer-item">
-            <strong><a href="{{ url_for('support') }}">Support Our Project</a></strong>
-            <span>Donate Us</span>
-        </div>
-        <div class="footer-item">
-            <strong><a href="https://github.com/pryndor" target="_blank">GitHub</a></strong>
-            <span>Be a Contributor</span>
-        </div>
-        <div class="footer-item">
-            <strong><a href="{{ url_for('contact') }}">Contact</a></strong>
-            <span>Talk to Us</span>
-        </div>
-        <div class="footer-item">
-	    <strong><a href="{{ url_for('show_release_notes') }}">Release Notes</a></strong>          
-	    <span>Latest updates & changes</span>
-        </div>
-        <div class="footer-item">
-		<strong><a href="{{ url_for('privacy') }}">Privacy & Terms</a></strong>
-	 <span>Read Us</span>
-        </div>
-        <div class="footer-item">
-            <strong><a href="{{ url_for('blog') }}">Blogs</a></strong>
-            <span>Coming Soon</span>
-        </div>
+    <!-- 💡 Pro Tip Widget -->
+    <div id="proTipBox" class="pro-tip-box">
+        <span id="proTipText">💡 Pro Tip: Use "AND", "OR", and quotes for precise searches.</span>
     </div>
-    <p>© 2025 Lixplore ➤ All rights reserved</p>
-</footer>
-
-<script>
-let scrollTimer;
-window.addEventListener('scroll', () => {
-    const bgLayer = document.getElementById('backgroundLayer');
-    bgLayer.classList.add('paused');
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
-        bgLayer.classList.remove('paused');
-    }, 200);
-});
-</script>
-
-<!-- Jump to Top Button -->
-<button id="scrollToTopBtn" title="Go to top">↑ Top</button>
 
 
+    <script>
+        // ===========================
+        // Pro Tip Rotator
+        // ===========================
+        const tips = [
+            '💡 Pro Tip: Use "AND", "OR", and quotes for precise searches.',
+            '💡 Pro Tip: Filter results by date using the From/To fields.',
+            '💡 Pro Tip: Search directly by DOI, Author, or Keyword.',
+            '💡 Pro Tip: Switch between sources (PubMed, CrossRef, etc.) to find unique results.',
+            '💡 Pro Tip: For Clinical Trials, filter by status (e.g., RECRUITING, COMPLETED).'
+        ];
+
+        let tipIndex = 0;
+        function showNextTip ()
+        {
+            const tipBox = document.getElementById( 'proTipText' );
+            tipIndex = ( tipIndex + 1 ) % tips.length;
+            tipBox.style.opacity = 0;
+            setTimeout( () =>
+            {
+                tipBox.textContent = tips[ tipIndex ];
+                tipBox.style.opacity = 1;
+            }, 500 );
+        }
+
+        // Change tip every 6 seconds
+        setInterval( showNextTip, 6000 );
+    </script>
+
+    <body>
+
+        <div class="background-layer" id="backgroundLayer">
+            <div class="floating-shape shape1"></div>
+            <div class="floating-shape shape2"></div>
+            <div class="floating-shape shape3"></div>
+            <div class="floating-shape shape4"></div>
+            <div class="floating-shape shape5"></div>
+            <div class="floating-shape shape6"></div>
+            <div class="floating-shape shape7"></div>
+
+            <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper1">
+            <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper2">
+            <img src="{{ url_for('static', filename='images/paper.svg') }}" class="floating-icon icon-paper3">
+            <img src="{{ url_for('static', filename='images/dna.svg') }}" class="floating-icon icon-dna1">
+            <img src="{{ url_for('static', filename='images/dna.svg') }}" class="floating-icon icon-dna2">
+            <img src="{{ url_for('static', filename='images/zotero.svg') }}" class="floating-icon icon-zotero1">
+            <img src="{{ url_for('static', filename='images/zotero.svg') }}" class="floating-icon icon-zotero2">
+            <img src="{{ url_for('static', filename='images/Ads.svg') }}" class="floating-icon icon-ads1">
+            <img src="{{ url_for('static', filename='images/Ads.svg') }}" class="floating-icon icon-ads2">
+            <img src="{{ url_for('static', filename='images/citation.svg') }}" class="floating-icon icon-citation1">
+            <img src="{{ url_for('static', filename='images/citation.svg') }}" class="floating-icon icon-citation2">
+            <img src="{{ url_for('static', filename='images/books.svg') }}" class="floating-icon icon-books1">
+            <img src="{{ url_for('static', filename='images/books.svg') }}" class="floating-icon icon-books2">
+            <img src="{{ url_for('static', filename='images/Crossref.svg') }}" class="floating-icon icon-crossref1">
+            <img src="{{ url_for('static', filename='images/Crossref.svg') }}" class="floating-icon icon-crossref2">
+            <img src="{{ url_for('static', filename='images/Diary.svg') }}" class="floating-icon icon-diary">
+            <img src="{{ url_for('static', filename='images/Doi.svg') }}" class="floating-icon icon-doi">
+            <img src="{{ url_for('static', filename='images/OpenAccess.svg') }}" class="floating-icon icon-openaccess">
+            <img src="{{ url_for('static', filename='images/OpenDataSquare.svg') }}"
+                class="floating-icon icon-opendata">
+            <img src="{{ url_for('static', filename='images/Pubmed.svg') }}" class="floating-icon icon-pubmed">
+        </div>
+
+        <header>
+            <!-- Brand Logo + Name -->
+            <a href="{{ url_for('intro') }}" class="brand">
+                <img src="{{ url_for('static', filename='images/lixplore_logo.svg') }}" alt="Lixplore Logo"
+                    class="logo">
+                <h1 class="brand-name">Lixplore</h1>
+            </a>
+
+            <!-- Mobile Menu Toggle -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+            <!-- Navigation -->
+            <nav>
+                <a href="{{ url_for('intro') }}">Home</a>
+                <a href="{{ url_for('search_history') }}">🔍 Search History</a>
+                <a href="{{ url_for('screening_dashboard') }}">📋 Screening</a>
+                <a href="{{ url_for('support') }}">Support Our Project</a>
+                <a href="{{ url_for('contact') }}">Contact</a>
+            </nav>
+        </header>
 
 
-<script>
 
-let scrollTimer;
-window.addEventListener('scroll', () => {
-    const bgLayer = document.getElementById('backgroundLayer');
-    bgLayer.classList.add('paused');
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
-        bgLayer.classList.remove('paused');
-    }, 200);
-});
+        <main>
+            {% block content %}{% endblock %}
+        </main>
 
-<script>
-<script>
+        <footer>
+            <div class="footer-links">
+                <div class="footer-item">
+                    <strong><a href="{{ url_for('support') }}">Support Our Project</a></strong>
+                    <span>Donate Us</span>
+                </div>
+                <div class="footer-item">
+                    <strong><a href="https://github.com/pryndor" target="_blank">GitHub</a></strong>
+                    <span>Be a Contributor</span>
+                </div>
+                <div class="footer-item">
+                    <strong><a href="{{ url_for('contact') }}">Contact</a></strong>
+                    <span>Talk to Us</span>
+                </div>
+                <div class="footer-item">
+                    <strong><a href="{{ url_for('show_release_notes') }}">Release Notes</a></strong>
+                    <span>Latest updates & changes</span>
+                </div>
+                <div class="footer-item">
+                    <strong><a href="{{ url_for('privacy') }}">Privacy & Terms</a></strong>
+                    <span>Read Us</span>
+                </div>
+                <div class="footer-item">
+                    <strong><a href="{{ url_for('blog') }}">Blogs</a></strong>
+                    <span>Coming Soon</span>
+                </div>
+            </div>
+            <p>© 2025 Lixplore ➤ All rights reserved</p>
+        </footer>
+
+        <script>
+            let scrollTimer;
+            window.addEventListener( 'scroll', () =>
+            {
+                const bgLayer = document.getElementById( 'backgroundLayer' );
+                bgLayer.classList.add( 'paused' );
+                clearTimeout( scrollTimer );
+                scrollTimer = setTimeout( () =>
+                {
+                    bgLayer.classList.remove( 'paused' );
+                }, 200 );
+            } );
+        </script>
+
+        <!-- Jump to Top Button -->
+        <button id="scrollToTopBtn" title="Go to top">↑ Top</button>
+
+
+
+
+        <script>
+
+            let scrollTimer;
+            window.addEventListener( 'scroll', () =>
+            {
+                const bgLayer = document.getElementById( 'backgroundLayer' );
+                bgLayer.classList.add( 'paused' );
+                clearTimeout( scrollTimer );
+                scrollTimer = setTimeout( () =>
+                {
+                    bgLayer.classList.remove( 'paused' );
+                }, 200 );
+            } );
+
+            <script>
+                <script>
 
 document.addEventListener("DOMContentLoaded", () => {
     const scrollBtn = document.getElementById("scrollToTopBtn");
-    if (!scrollBtn) return;
+                    if (!scrollBtn) return;
 
-    // Hide initially
-    scrollBtn.style.display = "none";
+                    // Hide initially
+                    scrollBtn.style.display = "none";
 
     // Show button after scrolling down 100px
     window.addEventListener("scroll", () => {
         if (window.scrollY > 100) {
-            scrollBtn.style.display = "block";
+                        scrollBtn.style.display = "block";
         } else {
-            scrollBtn.style.display = "none";
+                        scrollBtn.style.display = "none";
         }
     });
 
     // Scroll to top on click
     scrollBtn.addEventListener("click", () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+                        window.scrollTo( { top: 0, behavior: "smooth" } );
     });
 });
-</script>
+        </script>
 
 
-</body>
+    </body>
+
 </html>
-

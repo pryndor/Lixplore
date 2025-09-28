@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+import pprint
 
 # Load .env variables
 load_dotenv()
@@ -34,6 +35,35 @@ def search_pubmed_entrez(query):
     Search PubMed using Biopython's Entrez API.
     Returns a list of PMIDs.
     """
+    print("search_pubmed called")
+    print("Query:", query)
+    print("Author:", author)
+    print("Start Year:", start_year)
+    print("End Year:", end_year)
+    print("Country:", country)
+    print("Max Results:", max_results)
+
+    #build your paramters here
+    esearch_params = {
+            "db": "pubmed",
+            "term": query,
+            "retmax": max_results,
+            "api_key": NCBI_API_KEY,
+    }
+    print("ESearch params:", esearch_params)
+
+    #Call API
+    response = requests.get(ESEARCH_URL, params=esearch_params)
+    print("Response status:", response.status_code)
+
+    try:
+        data = response.json()
+        print("Response data:", data)
+    except Exception as e:
+        print("Error parsing JSON:", e)
+
+        return data
+
     from Bio import Entrez
     Entrez.email = NCBI_EMAIL
     if NCBI_API_KEY:
@@ -73,7 +103,7 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
         "retmax": max_results,
         "retmode": "xml",
         "email": NCBI_EMAIL,
-        "api_key": NCBI_API_KEY
+        "api_key": NCBI_API_KEY, 
     }
     esearch_resp = requests.get(ESEARCH_URL, params=esearch_params)
     time.sleep(THROTTLE_DELAY)
@@ -209,4 +239,11 @@ def get_pmc_pdf_url(pmid):
 
     pdf_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/pdf/"
     return {"pmcid": pmcid, "pdf_url": pdf_url}
+
+if __name__ == "__main__":
+    # Test the search_pubmed function with a sample query
+    print("Running test search_pubmed...")
+    result = search_pubmed("diabetes")  # Example query
+    print("Result from PubMed API:")
+    print(result)
 

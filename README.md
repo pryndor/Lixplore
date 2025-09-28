@@ -13,6 +13,12 @@ Downloading open-access articles (when available)
 
 Managing and reviewing collected papers
 
+**📋 NEW: Literature Screening and Systematic Review Tools**
+- Create and manage screening projects for systematic reviews
+- Multi-reviewer support with conflict resolution
+- Progress tracking and analytics
+- Export capabilities for final article lists
+
 Eventually integrating features like metadata parsing, tagging, annotation, and reference exports
 
 ## Overview

@@ -1,0 +1,591 @@
+{% extends "base.html" %}
+
+{% block title %}🔍 Search History - Lixplore{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>🔍 Search History</h1>
+    <p>Browse your search history with local and global search capabilities</p>
+
+    <!-- Search Controls -->
+    <div class="search-controls">
+        <form method="GET" action="{{ url_for('search_history') }}" class="search-form">
+            <div class="search-input-group">
+                <input type="text" name="q" value="{{ search_query }}" placeholder="Search in history..."
+                    class="search-input">
+
+                <select name="type" class="search-type-select">
+                    <option value="local" {% if search_type == 'local' %}selected{% endif %}>Local Search</option>
+                    <option value="global" {% if search_type == 'global' %}selected{% endif %}>Global Search</option>
+                </select>
+
+                <select name="source" class="source-filter">
+                    <option value="">All Sources</option>
+                    {% for source in available_sources %}
+                    <option value="{{ source }}" {% if source_filter == source %}selected{% endif %}>
+                        {{ source.title() }}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit" class="search-btn">🔍 Search</button>
+                <a href="{{ url_for('search_history') }}" class="clear-btn">Clear</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Search Type Info -->
+    <div class="search-type-info">
+        {% if search_type == 'local' %}
+        <p><strong>🏠 Local Search:</strong> Searches only in query text field</p>
+        <p><em>Results show searches where the query contains your search term</em></p>
+        {% else %}
+        <p><strong>🌐 Global Search:</strong> Searches across query, source, and timestamp fields</p>
+        <p><em>Results show searches where any field contains your search term</em></p>
+        {% endif %}
+
+        {% if search_query %}
+        <div class="search-stats">
+            <p><strong>🔍 Searching for:</strong> "{{ search_query }}"</p>
+            <p><strong>📊 Search Mode:</strong> {{ search_type.title() }} Search</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Results Info -->
+    {% if pagination and pagination.total_results > 0 %}
+    <div class="results-info">
+        <p><strong>📊 Results:</strong> Showing {{ pagination.start_result }} to {{ pagination.end_result }} of
+            {{ pagination.total_results }} searches (Page {{ pagination.current_page }} of {{ pagination.total_pages }})
+        </p>
+        <p><em>Results sorted alphabetically by query</em></p>
+    </div>
+    {% endif %}
+
+    <!-- Search History Results -->
+    {% if history %}
+    <div class="history-grid">
+        {% for search in history %}
+        <div class="history-card {% if search_query %}search-result{% endif %}">
+            <div class="history-header">
+                <h3>
+                    {% if search_query and search.is_local_match %}
+                    {{ search.query | replace(search_query, '<mark>' + search_query + '</mark>') | safe }}
+                    {% else %}
+                    {{ search.query }}
+                    {% endif %}
+                </h3>
+                <span class="source-badge source-{{ search.source }}">
+                    {% if search_query and search_type == 'global' and search_query.lower() in search.source.lower() %}
+                    {{ search.source.upper() | replace(search_query.upper(), '<mark>' + search_query.upper() + '</mark>') | safe }}
+                    {% else %}
+                    {{ search.source.upper() }}
+                    {% endif %}
+                </span>
+            </div>
+
+            <div class="history-details">
+                <p><strong>🕒 Date:</strong>
+                    {% if search_query and search_type == 'global' and search_query.lower() in search.timestamp.lower() %}
+                    {{ search.timestamp | replace(search_query, '<mark>' + search_query + '</mark>') | safe }}
+                    {% else %}
+                    {{ search.timestamp }}
+                    {% endif %}
+                </p>
+
+                {% if search.filters %}
+                <p><strong>🔧 Filters:</strong> {{ search.filters }}</p>
+                {% endif %}
+
+                <p><strong>📊 Articles:</strong> {{ search.article_count }} results</p>
+
+                {% if search_query %}
+                <div class="match-info">
+                    {% if search_type == 'local' %}
+                    {% if search.is_local_match %}
+                    <span class="match-badge local-match">🏠 Query Match</span>
+                    {% endif %}
+                    {% else %}
+                    {% if search.is_global_match %}
+                    <span class="match-badge global-match">🌐 Global Match</span>
+                    <div class="match-details">
+                        {% if search_query.lower() in search.query.lower() %}
+                        <span class="field-match">Query</span>
+                        {% endif %}
+                        {% if search_query.lower() in search.source.lower() %}
+                        <span class="field-match">Source</span>
+                        {% endif %}
+                        {% if search_query.lower() in search.timestamp.lower() %}
+                        <span class="field-match">Date</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="history-actions">
+                <a href="{{ url_for('history_results', search_id=search.id) }}" class="view-results-btn">📄 View
+                    {{ search.article_count }} Results</a>
+                <a href="{{ url_for('search_page') }}?source={{ search.source }}&query={{ search.query }}"
+                    class="repeat-search-btn">🔄 Repeat Search</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-results">
+        {% if search_query %}
+        <p>No search history found for "{{ search_query }}"</p>
+        <p>Try a different search term or use global search</p>
+        {% else %}
+        <p>No search history available</p>
+        <p>Start searching to build your history!</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Enhanced Pagination Controls -->
+    {% if pagination and pagination.total_pages > 1 %}
+    <div class="pagination-container">
+        <div class="pagination">
+            <!-- Start button -->
+            {% if pagination.show_start %}
+            <a href="{{ url_for('search_history', q=search_query, type=search_type, source=source_filter, page=1) }}"
+                class="pagination-btn pagination-start">Start</a>
+            {% endif %}
+
+            <!-- Page numbers (smart display for 1-100) -->
+            {% for page_num in pagination.page_range %}
+            {% if page_num == pagination.current_page %}
+            <span class="pagination-current">{{ page_num }}</span>
+            {% elif page_num <= 3 or page_num > pagination.total_pages - 3 or (page_num >= pagination.current_page - 1 and page_num <= pagination.current_page + 1) %}
+            <a href="{{ url_for('search_history', q=search_query, type=search_type, source=source_filter, page=page_num) }}"
+                class="pagination-btn">{{ page_num }}</a>
+            {% elif page_num == 4 and pagination.current_page > 6 %}
+            <span class="pagination-ellipsis">...</span>
+            {% elif page_num == pagination.total_pages - 3 and pagination.current_page < pagination.total_pages - 5 %}
+            <span class="pagination-ellipsis">...</span>
+            {% endif %}
+            {% endfor %}
+
+            <!-- Next button (circular navigation) -->
+            <a href="{{ url_for('search_history', q=search_query, type=search_type, source=source_filter, page=pagination.next_page) }}"
+                class="pagination-btn pagination-next">
+                {% if pagination.current_page == pagination.total_pages %}
+                Start Over
+                {% else %}
+                Next
+                {% endif %}
+            </a>
+        </div>
+
+        <div class="pagination-info">
+            <p>Page {{ pagination.current_page }} of {{ pagination.total_pages }} | {{ pagination.total_results }} total
+                searches</p>
+            <p><em>🔄 Circular navigation: Next from last page returns to page 1</em></p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .search-controls {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #e1e8ed;
+    }
+
+    .search-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-input-group {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .search-input {
+        flex: 1;
+        min-width: 200px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .search-type-select,
+    .source-filter {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        background: white;
+    }
+
+    .search-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background 0.3s;
+    }
+
+    .search-btn:hover {
+        background: #2980b9;
+    }
+
+    .clear-btn {
+        background: #95a5a6;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background 0.3s;
+    }
+
+    .clear-btn:hover {
+        background: #7f8c8d;
+    }
+
+    .search-type-info {
+        background: #e8f4fd;
+        padding: 15px 20px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        border-left: 4px solid #3498db;
+    }
+
+    .search-stats {
+        margin-top: 10px;
+        padding: 10px;
+        background: rgba(52, 152, 219, 0.1);
+        border-radius: 4px;
+        border: 1px solid rgba(52, 152, 219, 0.2);
+    }
+
+    .search-stats p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .results-info {
+        background: #f8f9fa;
+        border: 1px solid #e1e8ed;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .history-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .history-card {
+        background: white;
+        border: 1px solid #e1e8ed;
+        border-radius: 8px;
+        padding: 20px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .history-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .history-card.search-result {
+        border-left: 4px solid #3498db;
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    }
+
+    /* Search highlighting */
+    mark {
+        background: #fff3cd;
+        color: #856404;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-weight: 600;
+    }
+
+    /* Match information */
+    .match-info {
+        margin-top: 10px;
+        padding: 8px;
+        background: #f8f9fa;
+        border-radius: 4px;
+        border: 1px solid #e1e8ed;
+    }
+
+    .match-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .local-match {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .global-match {
+        background: #cce5ff;
+        color: #004085;
+        border: 1px solid #b3d7ff;
+    }
+
+    .match-details {
+        margin-top: 5px;
+    }
+
+    .field-match {
+        display: inline-block;
+        padding: 2px 6px;
+        margin: 2px;
+        background: #e9ecef;
+        color: #495057;
+        border-radius: 8px;
+        font-size: 11px;
+        font-weight: 500;
+        border: 1px solid #ced4da;
+    }
+
+    .history-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+
+    .history-header h3 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 16px;
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .source-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        color: white;
+    }
+
+    .source-pubmed {
+        background: #e74c3c;
+    }
+
+    .source-crossref {
+        background: #3498db;
+    }
+
+    .source-springer {
+        background: #27ae60;
+    }
+
+    .source-europepmc {
+        background: #f39c12;
+    }
+
+    .source-clinicaltrials {
+        background: #9b59b6;
+    }
+
+    .source-doaj {
+        background: #e67e22;
+    }
+
+    .history-details {
+        margin-bottom: 15px;
+        color: #7f8c8d;
+        font-size: 14px;
+    }
+
+    .history-details p {
+        margin: 5px 0;
+    }
+
+    .history-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .view-results-btn,
+    .repeat-search-btn {
+        padding: 8px 12px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: background 0.3s;
+    }
+
+    .view-results-btn {
+        background: #3498db;
+        color: white;
+    }
+
+    .view-results-btn:hover {
+        background: #2980b9;
+    }
+
+    .repeat-search-btn {
+        background: #27ae60;
+        color: white;
+    }
+
+    .repeat-search-btn:hover {
+        background: #229954;
+    }
+
+    .no-results {
+        text-align: center;
+        padding: 40px;
+        color: #7f8c8d;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e1e8ed;
+    }
+
+    /* Pagination Styles */
+    .pagination-container {
+        margin-top: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e1e8ed;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+
+    .pagination-btn {
+        padding: 8px 12px;
+        background: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 1px solid #3498db;
+    }
+
+    .pagination-btn:hover {
+        background: #2980b9;
+        border-color: #2980b9;
+        transform: translateY(-1px);
+    }
+
+    .pagination-current {
+        padding: 8px 12px;
+        background: #e74c3c;
+        color: white;
+        border-radius: 4px;
+        font-weight: 600;
+        border: 1px solid #e74c3c;
+    }
+
+    .pagination-next {
+        background: #27ae60;
+        border-color: #27ae60;
+        font-weight: 600;
+    }
+
+    .pagination-next:hover {
+        background: #229954;
+        border-color: #229954;
+    }
+
+    .pagination-start {
+        background: #9b59b6;
+        border-color: #9b59b6;
+        font-weight: 600;
+    }
+
+    .pagination-start:hover {
+        background: #8e44ad;
+        border-color: #8e44ad;
+    }
+
+    .pagination-ellipsis {
+        padding: 8px 12px;
+        color: #7f8c8d;
+        font-weight: 500;
+    }
+
+    .pagination-info {
+        text-align: center;
+        color: #7f8c8d;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .pagination-info p {
+        margin: 5px 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .search-input-group {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-input,
+        .search-type-select,
+        .source-filter,
+        .search-btn,
+        .clear-btn {
+            width: 100%;
+        }
+
+        .history-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .pagination {
+            gap: 4px;
+        }
+
+        .pagination-btn,
+        .pagination-current {
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+    }
+</style>
+{% endblock %}

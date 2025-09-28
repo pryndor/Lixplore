@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}Screening Dashboard - Lixplore{% endblock %}
+
+{% block content %}
+<div class="screening-dashboard">
+    <div class="header-section">
+        <h1>📋 Literature Screening Dashboard</h1>
+        <p>Manage your systematic literature review screening projects</p>
+        <a href="{{ url_for('create_screening_project') }}" class="btn btn-primary">
+            ➕ Create New Screening Project
+        </a>
+    </div>
+
+    {% if projects %}
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>{{ project.name }}</h3>
+                    <span class="status-badge status-{{ project.status }}">{{ project.status.title() }}</span>
+                </div>
+                
+                <div class="project-info">
+                    <p class="description">{{ project.description or "No description provided" }}</p>
+                    <div class="project-meta">
+                        <span class="created-by">👤 {{ project.created_by }}</span>
+                        <span class="created-date">📅 {{ project.created_at.split(' ')[0] }}</span>
+                        {% if project.require_dual_screening %}
+                            <span class="dual-screening">👥 Dual Screening</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="project-actions">
+                    <a href="{{ url_for('screening_project', project_id=project.id) }}" class="btn btn-secondary">
+                        View Project
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">📋</div>
+            <h3>No Screening Projects Yet</h3>
+            <p>Create your first screening project to start systematic literature review.</p>
+            <a href="{{ url_for('create_screening_project') }}" class="btn btn-primary">
+                Create Your First Project
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+.screening-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header-section h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.header-section p {
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    background: white;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.project-header h3 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background-color: #d5f4e6;
+    color: #27ae60;
+}
+
+.status-completed {
+    background-color: #dbeafe;
+    color: #3b82f6;
+}
+
+.status-paused {
+    background-color: #fef3c7;
+    color: #f59e0b;
+}
+
+.project-info .description {
+    color: #5a6c7d;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.project-meta span {
+    font-size: 12px;
+    color: #7f8c8d;
+    background-color: #f8f9fa;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.dual-screening {
+    background-color: #e8f5e8 !important;
+    color: #27ae60 !important;
+}
+
+.project-actions {
+    text-align: right;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #7f8c8d;
+}
+
+.empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.empty-state h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+</style>
+{% endblock %}

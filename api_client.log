@@ -3000,3 +3000,1380 @@
 2025-08-18 14:38:45,994 - INFO - 127.0.0.1 - - [18/Aug/2025 14:38:45] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
 2025-08-18 14:38:45,999 - INFO - 127.0.0.1 - - [18/Aug/2025 14:38:45] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
 2025-08-18 14:39:39,163 - INFO - 127.0.0.1 - - [18/Aug/2025 14:39:39] "GET /load_more?source=pubmed&query=Rybelsus&start=20&max=20 HTTP/1.1" 200 -
+2025-08-23 14:57:27,514 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.8.110:5000
+2025-08-23 14:57:27,514 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-23 14:57:27,515 - INFO -  * Restarting with stat
+2025-08-23 14:57:28,005 - WARNING -  * Debugger is active!
+2025-08-23 14:57:28,012 - INFO -  * Debugger PIN: 864-217-533
+2025-08-23 14:57:35,957 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:35] "GET / HTTP/1.1" 200 -
+2025-08-23 14:57:35,983 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:35] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-08-23 14:57:35,984 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:35] "GET /static/images/paper.svg HTTP/1.1" 200 -
+2025-08-23 14:57:35,985 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:35] "GET /static/images/dna.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,036 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/zotero.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,042 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/Ads.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,049 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/citation.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,056 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/books.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,061 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/Crossref.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,066 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/Diary.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,071 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/Doi.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,076 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/OpenAccess.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,081 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/OpenDataSquare.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,086 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/Pubmed.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,091 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "GET /static/images/lixplore_logo.svg HTTP/1.1" 200 -
+2025-08-23 14:57:36,604 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-08-23 14:57:38,525 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:38] "GET /history HTTP/1.1" 200 -
+2025-08-23 14:57:38,540 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:38] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-23 14:57:40,975 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:40] "[35m[1mGET /history/59 HTTP/1.1[0m" 500 -
+2025-08-23 14:57:40,991 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:40] "GET /history/59?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-08-23 14:57:40,992 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:40] "GET /history/59?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-08-23 14:57:41,017 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:41] "GET /history/59?__debugger__=yes&cmd=resource&f=console.png&s=xUc9mlpvIRUvUfSHLkL0 HTTP/1.1" 200 -
+2025-08-23 14:57:41,030 - INFO - 127.0.0.1 - - [23/Aug/2025 14:57:41] "GET /history/59?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-08-23 15:00:41,656 - INFO -  * Detected change in '/home/bala/Lixplore/app.py', reloading
+2025-08-23 15:00:41,738 - INFO -  * Restarting with stat
+2025-08-23 15:00:42,204 - WARNING -  * Debugger is active!
+2025-08-23 15:00:42,206 - INFO -  * Debugger PIN: 864-217-533
+2025-08-23 15:00:45,182 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:45] "GET /history/59 HTTP/1.1" 200 -
+2025-08-23 15:00:45,193 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:45] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-23 15:00:49,012 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "GET /home HTTP/1.1" 200 -
+2025-08-23 15:00:49,035 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,036 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,037 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,038 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,039 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,040 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,045 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,046 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,047 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,049 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,050 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,051 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,054 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:49,055 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:49] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:00:52,897 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:52] "GET /history HTTP/1.1" 200 -
+2025-08-23 15:00:52,913 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:52] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-23 15:00:54,383 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:54] "GET /history/58 HTTP/1.1" 200 -
+2025-08-23 15:00:54,400 - INFO - 127.0.0.1 - - [23/Aug/2025 15:00:54] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-23 15:06:33,663 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "GET /home HTTP/1.1" 200 -
+2025-08-23 15:06:33,688 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,691 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,691 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,704 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,705 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,708 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,709 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,712 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,712 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,714 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,717 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,718 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,720 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:33,721 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:33] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,566 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "POST /search HTTP/1.1" 200 -
+2025-08-23 15:06:40,586 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,587 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,588 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,594 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,595 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,596 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,597 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,598 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,601 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,603 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,603 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,604 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,607 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:40,608 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:40] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,906 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "POST /search HTTP/1.1" 200 -
+2025-08-23 15:06:53,940 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,942 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,946 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,947 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,958 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,960 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,962 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,962 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,966 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,970 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,970 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,972 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,974 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:53,975 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:53] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,461 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "POST /search HTTP/1.1" 200 -
+2025-08-23 15:06:58,492 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,494 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,495 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,507 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,508 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,508 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,510 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,510 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,514 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,515 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,517 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,517 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,519 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:06:58,522 - INFO - 127.0.0.1 - - [23/Aug/2025 15:06:58] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,016 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "POST /search HTTP/1.1" 200 -
+2025-08-23 15:08:02,046 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,053 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,054 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,070 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,072 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,072 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,073 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,080 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,081 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,083 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,084 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,087 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,091 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:08:02,091 - INFO - 127.0.0.1 - - [23/Aug/2025 15:08:02] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:36,993 - INFO -  * Detected change in '/home/bala/Lixplore/app.py', reloading
+2025-08-23 15:11:37,072 - INFO -  * Restarting with stat
+2025-08-23 15:11:37,575 - WARNING -  * Debugger is active!
+2025-08-23 15:11:37,578 - INFO -  * Debugger PIN: 864-217-533
+2025-08-23 15:11:41,887 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "POST /search HTTP/1.1" 200 -
+2025-08-23 15:11:41,909 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,910 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,914 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,927 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,927 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,929 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,929 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,932 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,933 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,935 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,935 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,939 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,941 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:41,941 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:41] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,897 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "POST /search HTTP/1.1" 200 -
+2025-08-23 15:11:47,917 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,919 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,923 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,934 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,935 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,937 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,939 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,940 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,947 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,948 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,951 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,953 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,954 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:47,957 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:47] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,482 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "POST /search HTTP/1.1" 200 -
+2025-08-23 15:11:50,514 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,515 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,517 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,530 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,531 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,532 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,534 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,535 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,540 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,541 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,544 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,545 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,547 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:11:50,548 - INFO - 127.0.0.1 - - [23/Aug/2025 15:11:50] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:03,613 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:03] "GET /history HTTP/1.1" 200 -
+2025-08-23 15:12:03,626 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:03] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-23 15:12:04,825 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:04] "GET /history/58 HTTP/1.1" 200 -
+2025-08-23 15:12:04,847 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:04] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-23 15:12:07,815 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "GET /home HTTP/1.1" 200 -
+2025-08-23 15:12:07,832 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,835 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,835 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,849 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,850 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,852 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,852 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,854 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,854 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,859 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,862 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,863 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,865 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:07,866 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:07] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,856 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "GET /search HTTP/1.1" 200 -
+2025-08-23 15:12:10,877 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,878 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,880 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,889 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,889 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,890 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,894 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,895 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,897 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,897 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,898 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,900 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,901 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:10,902 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:10] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:29,073 - INFO -  * Detected change in '/home/bala/Lixplore/app.py', reloading
+2025-08-23 15:12:29,169 - INFO -  * Restarting with stat
+2025-08-23 15:12:29,709 - WARNING -  * Debugger is active!
+2025-08-23 15:12:29,711 - INFO -  * Debugger PIN: 864-217-533
+2025-08-23 15:12:35,236 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "GET /search HTTP/1.1" 200 -
+2025-08-23 15:12:35,260 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,260 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,264 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,266 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,267 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,268 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,269 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,273 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,274 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,279 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,285 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,285 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,286 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:35,287 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:35] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:37,408 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:37] "GET /history HTTP/1.1" 200 -
+2025-08-23 15:12:37,422 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:37] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-23 15:12:38,613 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:38] "GET /history/58 HTTP/1.1" 200 -
+2025-08-23 15:12:38,631 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:38] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-23 15:12:40,124 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "GET /home HTTP/1.1" 200 -
+2025-08-23 15:12:40,137 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,138 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,141 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,153 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,153 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,156 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,157 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,160 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,162 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,167 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,167 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,170 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,173 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:12:40,175 - INFO - 127.0.0.1 - - [23/Aug/2025 15:12:40] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:06,044 - INFO -  * Detected change in '/home/bala/Lixplore/app.py', reloading
+2025-08-23 15:13:06,143 - INFO -  * Restarting with stat
+2025-08-23 15:13:06,744 - WARNING -  * Debugger is active!
+2025-08-23 15:13:06,746 - INFO -  * Debugger PIN: 864-217-533
+2025-08-23 15:13:07,682 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:07] "[33mGET /home HTTP/1.1[0m" 404 -
+2025-08-23 15:13:09,410 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:09] "[33mGET /home HTTP/1.1[0m" 404 -
+2025-08-23 15:13:13,357 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:13] "[33mGET /home HTTP/1.1[0m" 404 -
+2025-08-23 15:13:40,028 - INFO -  * Detected change in '/home/bala/Lixplore/app.py', reloading
+2025-08-23 15:13:40,113 - INFO -  * Restarting with stat
+2025-08-23 15:13:40,597 - WARNING -  * Debugger is active!
+2025-08-23 15:13:40,600 - INFO -  * Debugger PIN: 864-217-533
+2025-08-23 15:13:41,741 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "GET /home HTTP/1.1" 200 -
+2025-08-23 15:13:41,757 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,760 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,760 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,769 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,769 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,771 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,771 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,772 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,776 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,777 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,781 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,783 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,786 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:41,786 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:41] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:45,220 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:45] "GET /history HTTP/1.1" 200 -
+2025-08-23 15:13:45,235 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:45] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-23 15:13:46,653 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "GET /search HTTP/1.1" 200 -
+2025-08-23 15:13:46,680 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,683 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,684 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,689 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,690 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,692 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,692 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,694 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,695 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,701 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,702 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,702 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,705 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-23 15:13:46,708 - INFO - 127.0.0.1 - - [23/Aug/2025 15:13:46] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-23 18:30:15,343 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.8.110:5000
+2025-08-23 18:30:15,343 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-23 18:30:15,343 - INFO -  * Restarting with stat
+2025-08-23 18:30:15,800 - WARNING -  * Debugger is active!
+2025-08-23 18:30:15,802 - INFO -  * Debugger PIN: 864-217-533
+2025-08-28 12:42:27,614 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.8.110:5000
+2025-08-28 12:42:27,615 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-28 12:42:27,616 - INFO -  * Restarting with stat
+2025-08-28 12:42:28,163 - WARNING -  * Debugger is active!
+2025-08-28 12:42:28,171 - INFO -  * Debugger PIN: 864-217-533
+2025-08-28 12:42:35,369 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "GET / HTTP/1.1" 200 -
+2025-08-28 12:42:35,429 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,430 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,432 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,528 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,531 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,546 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,551 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,552 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,563 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,566 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,635 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,637 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,649 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:35,651 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:35] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:42:36,093 - INFO - 127.0.0.1 - - [28/Aug/2025 12:42:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-08-28 12:43:45,736 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "GET /search HTTP/1.1" 200 -
+2025-08-28 12:43:45,758 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,761 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,762 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,775 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,776 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,779 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,780 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,780 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,782 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,786 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,788 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,789 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,789 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:45,793 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:45] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:43:54,055 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:54] "GET /history HTTP/1.1" 200 -
+2025-08-28 12:43:54,073 - INFO - 127.0.0.1 - - [28/Aug/2025 12:43:54] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-08-28 12:44:00,667 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "GET /search HTTP/1.1" 200 -
+2025-08-28 12:44:00,692 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,692 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,693 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,707 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,709 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,710 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,714 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,714 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,715 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,715 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,718 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,720 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,725 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:44:00,726 - INFO - 127.0.0.1 - - [28/Aug/2025 12:44:00] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,567 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "POST /search HTTP/1.1" 200 -
+2025-08-28 12:46:03,591 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,593 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,593 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,609 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,611 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,613 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,619 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,620 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,621 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,622 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,623 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,624 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,627 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:03,632 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:03] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,156 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "POST /search HTTP/1.1" 200 -
+2025-08-28 12:46:22,176 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,176 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,177 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,195 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,196 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,197 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,198 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,200 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,202 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,210 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,211 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,211 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,212 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:46:22,213 - INFO - 127.0.0.1 - - [28/Aug/2025 12:46:22] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,211 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "POST /search HTTP/1.1" 200 -
+2025-08-28 12:47:48,237 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,239 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,240 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,254 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,255 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,256 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,258 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,260 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,261 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,264 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,271 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,272 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,274 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-08-28 12:47:48,274 - INFO - 127.0.0.1 - - [28/Aug/2025 12:47:48] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:04,098 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.8.110:5000
+2025-09-15 15:33:04,098 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-15 15:33:04,098 - INFO -  * Restarting with stat
+2025-09-15 15:33:04,551 - WARNING -  * Debugger is active!
+2025-09-15 15:33:04,558 - INFO -  * Debugger PIN: 864-217-533
+2025-09-15 15:33:20,428 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET / HTTP/1.1" 200 -
+2025-09-15 15:33:20,469 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/dna.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,469 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-09-15 15:33:20,469 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/paper.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,506 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/Diary.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,508 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/citation.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,508 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/books.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,509 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/Ads.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,509 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/Crossref.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,510 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/zotero.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,513 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/Doi.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,521 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/OpenAccess.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,523 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/OpenDataSquare.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,525 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/Pubmed.svg HTTP/1.1" 200 -
+2025-09-15 15:33:20,525 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:20] "GET /static/images/lixplore_logo.svg HTTP/1.1" 200 -
+2025-09-15 15:33:21,035 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-15 15:33:22,781 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "GET /search HTTP/1.1" 200 -
+2025-09-15 15:33:22,802 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,802 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,803 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,810 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,811 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,812 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,814 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,814 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,816 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,818 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,823 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,824 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,824 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:33:22,825 - INFO - 127.0.0.1 - - [15/Sep/2025 15:33:22] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,919 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "POST /search HTTP/1.1" 200 -
+2025-09-15 15:34:17,940 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,941 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,942 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,960 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,963 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,963 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,963 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,964 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,965 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,965 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,975 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,976 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,977 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:34:17,978 - INFO - 127.0.0.1 - - [15/Sep/2025 15:34:17] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,609 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "POST /search HTTP/1.1" 200 -
+2025-09-15 15:35:20,641 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,643 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,644 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,647 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,651 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,653 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,653 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,654 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,656 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,657 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,663 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,664 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,664 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:35:20,666 - INFO - 127.0.0.1 - - [15/Sep/2025 15:35:20] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:21,938 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:21] "GET /history HTTP/1.1" 200 -
+2025-09-15 15:36:21,956 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:21] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-09-15 15:36:25,173 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "GET /search HTTP/1.1" 200 -
+2025-09-15 15:36:25,196 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,198 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,199 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,213 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,215 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,215 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,217 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,221 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,222 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,224 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,226 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,227 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,230 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:36:25,230 - INFO - 127.0.0.1 - - [15/Sep/2025 15:36:25] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,796 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "POST /search HTTP/1.1" 200 -
+2025-09-15 15:37:12,834 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,835 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,835 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,848 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,850 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,850 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,851 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,853 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,854 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,855 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,856 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,859 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,860 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:12,867 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:12] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:23,173 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"clove"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-09-15 15:37:24,788 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "POST /search HTTP/1.1" 200 -
+2025-09-15 15:37:24,818 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,820 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,820 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,831 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,831 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,833 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,834 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,835 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,836 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,839 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,841 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,841 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,844 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:24,848 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:24] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,193 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "POST /search HTTP/1.1" 200 -
+2025-09-15 15:37:45,219 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,220 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,220 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,230 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,231 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,233 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,235 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,236 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,238 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,239 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,240 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,242 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,243 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:45,245 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:45] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,088 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "POST /search HTTP/1.1" 200 -
+2025-09-15 15:37:50,109 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,110 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,115 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,121 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,122 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,124 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,125 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,125 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,127 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,129 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,130 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,132 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,136 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:37:50,137 - INFO - 127.0.0.1 - - [15/Sep/2025 15:37:50] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:19,828 - INFO - Making request to: https://api.springernature.com/openaccess/json with params: {'q': 'keyword:"cardamom"', 'p': 5, 's': 1, 'api_key': '2849e4acd5190c3992f9a1a8ebe82692'}
+2025-09-15 15:38:22,199 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "POST /search HTTP/1.1" 200 -
+2025-09-15 15:38:22,232 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,232 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,232 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,246 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,247 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,248 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,248 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,249 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,252 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,255 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,258 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,260 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,261 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:22,261 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:22] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,690 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "POST /search HTTP/1.1" 200 -
+2025-09-15 15:38:35,719 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,721 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,722 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,734 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,734 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,735 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,737 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,737 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,739 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,744 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,746 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,746 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,746 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-15 15:38:35,748 - INFO - 127.0.0.1 - - [15/Sep/2025 15:38:35] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-15 18:32:26,082 - INFO -  * Detected change in '/home/bala/Lixplore/pubmed_client.py', reloading
+2025-09-15 18:32:26,254 - INFO -  * Restarting with stat
+2025-09-15 18:32:26,911 - WARNING -  * Debugger is active!
+2025-09-15 18:32:26,913 - INFO -  * Debugger PIN: 864-217-533
+2025-09-24 15:29:05,176 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.127.16:5000
+2025-09-24 15:29:05,211 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-24 15:29:05,239 - INFO -  * Restarting with stat
+2025-09-24 15:29:10,126 - WARNING -  * Debugger is active!
+2025-09-24 15:29:10,177 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 18:15:03,446 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.127.16:5000
+2025-09-24 18:15:03,474 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-24 18:15:03,530 - INFO -  * Restarting with stat
+2025-09-24 18:15:16,918 - WARNING -  * Debugger is active!
+2025-09-24 18:15:17,392 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 18:24:36,340 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.127.16:5000
+2025-09-24 18:24:36,370 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-24 18:24:36,386 - INFO -  * Restarting with stat
+2025-09-24 18:24:42,185 - WARNING -  * Debugger is active!
+2025-09-24 18:24:42,387 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 18:25:17,536 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:17] "GET / HTTP/1.1" 200 -
+2025-09-24 18:25:18,997 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:18] "GET /static/images/zotero.svg HTTP/1.1" 200 -
+2025-09-24 18:25:19,164 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:19] "GET /static/images/dna.svg HTTP/1.1" 200 -
+2025-09-24 18:25:19,165 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:19] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-09-24 18:25:19,462 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:19] "GET /static/images/paper.svg HTTP/1.1" 200 -
+2025-09-24 18:25:19,468 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:19] "GET /static/images/citation.svg HTTP/1.1" 200 -
+2025-09-24 18:25:19,500 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:19] "GET /static/images/Ads.svg HTTP/1.1" 200 -
+2025-09-24 18:25:20,582 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:20] "GET /static/images/books.svg HTTP/1.1" 200 -
+2025-09-24 18:25:20,600 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:20] "GET /static/images/Crossref.svg HTTP/1.1" 200 -
+2025-09-24 18:25:20,765 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:20] "GET /static/images/OpenDataSquare.svg HTTP/1.1" 200 -
+2025-09-24 18:25:20,805 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:20] "GET /static/images/Doi.svg HTTP/1.1" 200 -
+2025-09-24 18:25:20,815 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:20] "GET /static/images/Pubmed.svg HTTP/1.1" 200 -
+2025-09-24 18:25:20,816 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:20] "GET /static/images/Diary.svg HTTP/1.1" 200 -
+2025-09-24 18:25:20,918 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:20] "GET /static/images/OpenAccess.svg HTTP/1.1" 200 -
+2025-09-24 18:25:21,167 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:21] "GET /static/images/lixplore_logo.svg HTTP/1.1" 200 -
+2025-09-24 18:25:24,034 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-24 18:25:34,586 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:34] "GET /search HTTP/1.1" 200 -
+2025-09-24 18:25:34,834 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:34] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:25:34,849 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:34] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:35,691 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:35] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,012 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,046 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,068 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,089 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,114 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,133 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,146 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,183 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,219 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,231 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:36,245 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:36] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:48,641 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:48] "POST /search HTTP/1.1" 200 -
+2025-09-24 18:25:48,887 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:48] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:25:48,993 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:48] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,028 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,060 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,122 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,157 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,189 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,238 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,292 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,340 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,374 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,541 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,623 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:25:49,730 - INFO - 192.168.127.16 - - [24/Sep/2025 18:25:49] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:26,189 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:26] "GET /screening HTTP/1.1" 200 -
+2025-09-24 18:29:27,878 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:27] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:29:27,922 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:27] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:27,959 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:27] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,093 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,133 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,159 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,208 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,237 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,255 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,272 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,291 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,369 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,377 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:28,410 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:28] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:33,786 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:33] "GET /screening/project/3 HTTP/1.1" 200 -
+2025-09-24 18:29:35,326 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:35] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:29:35,481 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:35] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:35,735 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:35] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:36,131 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:36] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:36,736 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:36] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:36,866 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:36] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:36,999 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:36] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:37,236 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:37] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:37,402 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:37] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:37,619 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:37] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:38,014 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:38] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:38,097 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:38] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:38,152 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:38] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:38,250 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:38] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:29:46,402 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:46] "[35m[1mGET /articles HTTP/1.1[0m" 500 -
+2025-09-24 18:29:47,085 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:47] "[36mGET /articles?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-24 18:29:47,091 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:47] "[36mGET /articles?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:29:48,948 - INFO - 192.168.127.16 - - [24/Sep/2025 18:29:48] "[36mGET /articles?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-24 18:31:00,146 - INFO -  * Detected change in 'D:\\Lixplore\\Lixplore\\app.py', reloading
+2025-09-24 18:31:04,198 - INFO -  * Restarting with stat
+2025-09-24 18:32:48,324 - WARNING -  * Debugger is active!
+2025-09-24 18:32:48,651 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 18:43:58,031 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.127.16:5000
+2025-09-24 18:43:58,052 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-24 18:43:58,074 - INFO -  * Restarting with stat
+2025-09-24 18:44:12,656 - WARNING -  * Debugger is active!
+2025-09-24 18:44:12,795 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 18:44:43,120 - INFO - 192.168.127.16 - - [24/Sep/2025 18:44:43] "GET / HTTP/1.1" 200 -
+2025-09-24 18:45:01,200 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,201 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,204 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,204 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,206 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,207 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,573 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,673 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,678 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,705 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,899 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:01,900 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:01] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:02,002 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:02] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:45:02,012 - INFO - 192.168.127.16 - - [24/Sep/2025 18:45:02] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:43,807 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:43] "GET / HTTP/1.1" 200 -
+2025-09-24 18:47:51,140 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,154 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,211 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,232 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,247 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,269 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,274 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,289 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,310 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,313 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,319 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,319 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,334 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:47:51,335 - INFO - 192.168.127.16 - - [24/Sep/2025 18:47:51] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:21,788 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:21] "GET /search HTTP/1.1" 200 -
+2025-09-24 18:48:22,016 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,046 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,137 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,175 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,221 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,365 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,375 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,399 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,415 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,425 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,433 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,533 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,541 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:22,602 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:22] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:48:43,086 - INFO - 192.168.127.16 - - [24/Sep/2025 18:48:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-24 18:49:00,131 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:00] "POST /search HTTP/1.1" 200 -
+2025-09-24 18:49:03,266 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:03] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:49:03,311 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:03] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:03,445 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:03] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:03,948 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:03] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:03,962 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:03] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:04,015 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:04] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:04,042 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:04] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:04,067 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:04] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:04,305 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:04] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:04,365 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:04] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:04,408 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:04] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:04,589 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:04] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:05,348 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:05] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:05,895 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:05] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:32,673 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:32] "GET /search?source=pubmed&query=clove&page=2 HTTP/1.1" 200 -
+2025-09-24 18:49:42,911 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:42] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:49:44,489 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:44] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:46,459 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:46] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:49,137 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:49] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:51,294 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:51] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:55,145 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:55] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:49:57,532 - INFO - 192.168.127.16 - - [24/Sep/2025 18:49:57] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:00,390 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:00] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:04,186 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:04] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:05,973 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:05] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:06,672 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:06] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:07,254 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:07] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:07,747 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:07] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:08,054 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:08] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:10,618 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:10] "GET /history HTTP/1.1" 200 -
+2025-09-24 18:50:13,647 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:13] "[33mGET /static/style.css HTTP/1.1[0m" 404 -
+2025-09-24 18:50:24,796 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:24] "GET /search HTTP/1.1" 200 -
+2025-09-24 18:50:25,818 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:25] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,087 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,110 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,151 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,197 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,345 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,350 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,365 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,376 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,383 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,620 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,645 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,658 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:50:26,665 - INFO - 192.168.127.16 - - [24/Sep/2025 18:50:26] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 18:57:02,439 - INFO -  * Detected change in 'D:\\Lixplore\\Lixplore\\app.py', reloading
+2025-09-24 18:57:20,908 - INFO -  * Restarting with stat
+2025-09-24 18:58:33,453 - WARNING -  * Debugger is active!
+2025-09-24 18:58:34,835 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 18:59:36,022 - INFO -  * Detected change in 'D:\\Lixplore\\Lixplore\\app.py', reloading
+2025-09-24 18:59:42,380 - INFO -  * Restarting with stat
+2025-09-24 19:00:25,843 - WARNING -  * Debugger is active!
+2025-09-24 19:00:26,060 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 19:18:20,630 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.127.16:5000
+2025-09-24 19:18:20,657 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-24 19:18:20,689 - INFO -  * Restarting with stat
+2025-09-24 19:18:26,893 - WARNING -  * Debugger is active!
+2025-09-24 19:18:27,022 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 19:28:48,213 - INFO -  * Detected change in 'D:\\Lixplore\\Lixplore\\app.py', reloading
+2025-09-24 19:29:48,496 - INFO -  * Restarting with stat
+2025-09-24 19:34:43,424 - WARNING -  * Debugger is active!
+2025-09-24 19:34:45,878 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 19:35:58,333 - INFO -  * Detected change in 'D:\\Lixplore\\Lixplore\\app.py', reloading
+2025-09-24 19:36:06,167 - INFO -  * Restarting with stat
+2025-09-24 19:37:27,242 - WARNING -  * Debugger is active!
+2025-09-24 19:37:28,418 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 19:37:52,822 - INFO -  * Detected change in 'D:\\Lixplore\\Lixplore\\app.py', reloading
+2025-09-24 19:37:53,720 - INFO -  * Restarting with stat
+2025-09-24 19:38:27,651 - WARNING -  * Debugger is active!
+2025-09-24 19:38:27,711 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 19:38:35,802 - INFO -  * Detected change in 'D:\\Lixplore\\Lixplore\\test_enhanced_pagination.py', reloading
+2025-09-24 19:38:37,318 - INFO -  * Restarting with stat
+2025-09-24 19:39:09,552 - WARNING -  * Debugger is active!
+2025-09-24 19:39:09,571 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 19:50:45,276 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.127.16:5000
+2025-09-24 19:50:45,555 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-24 19:50:45,649 - INFO -  * Restarting with stat
+2025-09-24 19:51:14,544 - WARNING -  * Debugger is active!
+2025-09-24 19:51:15,055 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 19:53:53,523 - INFO -  * Detected change in 'D:\\Lixplore\\Lixplore\\database\\database.py', reloading
+2025-09-24 19:54:02,912 - INFO -  * Restarting with stat
+2025-09-24 19:54:38,911 - WARNING -  * Debugger is active!
+2025-09-24 19:54:39,386 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 19:54:58,992 - INFO -  * Detected change in 'D:\\Lixplore\\Lixplore\\app.py', reloading
+2025-09-24 19:55:03,196 - INFO -  * Restarting with stat
+2025-09-24 19:56:26,270 - WARNING -  * Debugger is active!
+2025-09-24 19:56:26,293 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 20:09:45,153 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.127.16:5000
+2025-09-24 20:09:45,177 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-24 20:09:45,249 - INFO -  * Restarting with stat
+2025-09-24 20:09:50,064 - WARNING -  * Debugger is active!
+2025-09-24 20:09:50,200 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 21:02:48,317 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.127.16:5000
+2025-09-24 21:02:48,447 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-24 21:02:48,473 - INFO -  * Restarting with stat
+2025-09-24 21:02:52,168 - WARNING -  * Debugger is active!
+2025-09-24 21:02:52,331 - INFO -  * Debugger PIN: 139-583-505
+2025-09-24 21:03:20,129 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:20] "GET / HTTP/1.1" 200 -
+2025-09-24 21:03:20,768 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:20] "GET /static/images/zotero.svg HTTP/1.1" 200 -
+2025-09-24 21:03:20,815 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:20] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-09-24 21:03:21,003 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:20] "GET /static/images/Ads.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,012 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/dna.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,165 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/paper.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,183 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/citation.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,416 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/Crossref.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,428 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/books.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,557 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/Pubmed.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,674 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/OpenDataSquare.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,743 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/lixplore_logo.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,766 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/Diary.svg HTTP/1.1" 200 -
+2025-09-24 21:03:21,828 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:21] "GET /static/images/OpenAccess.svg HTTP/1.1" 200 -
+2025-09-24 21:03:22,029 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:22] "GET /static/images/Doi.svg HTTP/1.1" 200 -
+2025-09-24 21:03:33,301 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "GET /search HTTP/1.1" 200 -
+2025-09-24 21:03:33,395 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,397 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,399 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,403 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,406 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,437 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,498 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,500 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,501 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,502 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,507 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,612 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,614 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:33,654 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:33] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:42,843 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:42] "POST /search HTTP/1.1" 200 -
+2025-09-24 21:03:42,965 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:42] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 21:03:42,993 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:42] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,063 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,128 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,149 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,272 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,332 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,410 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,441 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,457 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,514 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,554 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,560 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:43,631 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:43] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:58,134 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "GET /search?source=pubmed&query=clove&page=2 HTTP/1.1" 200 -
+2025-09-24 21:03:58,315 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 21:03:58,316 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:58,317 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:58,364 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:58,365 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:58,799 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:58,840 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:58,933 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:58,946 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:58] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:59,009 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:59] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:59,200 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:59] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:59,398 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:59] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:59,477 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:59] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:03:59,542 - INFO - 192.168.127.16 - - [24/Sep/2025 21:03:59] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:07,236 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:07] "GET /search?source=pubmed&query=clove&page=4 HTTP/1.1" 200 -
+2025-09-24 21:04:07,404 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:07] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 21:04:07,450 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:07] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:07,607 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:07] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:07,639 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:07] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:07,658 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:07] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:07,855 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:07] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:08,000 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:08] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:08,033 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:08] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:08,083 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:08] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:08,255 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:08] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:08,387 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:08] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:08,407 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:08] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:08,501 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:08] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:08,672 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:08] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,327 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "GET /search?source=pubmed&query=clove&page=1 HTTP/1.1" 200 -
+2025-09-24 21:04:15,564 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,565 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,581 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,731 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,760 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,810 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,827 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,848 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,861 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,933 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,978 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:15,997 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:15] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:16,048 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:16] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:16,059 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:16] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:25,583 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:25] "POST /search HTTP/1.1" 200 -
+2025-09-24 21:04:25,681 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:25] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-24 21:04:25,819 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:25] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:25,855 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:25] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:25,904 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:25] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:25,948 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:25] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:25,986 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:25] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:26,020 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:26] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:26,072 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:26] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:26,154 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:26] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:26,256 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:26] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:26,304 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:26] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:26,354 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:26] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:26,418 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:26] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:26,433 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:26] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-24 21:04:39,033 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:39] "[35m[1mGET /search-history HTTP/1.1[0m" 500 -
+2025-09-24 21:04:39,451 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:39] "[36mGET /search-history?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-24 21:04:39,488 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:39] "[36mGET /search-history?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-24 21:04:39,537 - INFO - 192.168.127.16 - - [24/Sep/2025 21:04:39] "[36mGET /search-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-09-27 20:15:50,306 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.8.110:5000
+2025-09-27 20:15:50,306 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-27 20:15:50,306 - INFO -  * Restarting with stat
+2025-09-27 20:15:50,830 - WARNING -  * Debugger is active!
+2025-09-27 20:15:50,839 - INFO -  * Debugger PIN: 104-569-627
+2025-09-27 20:16:11,444 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.8.110:5000
+2025-09-27 20:16:11,445 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-27 20:16:11,445 - INFO -  * Restarting with stat
+2025-09-27 20:16:12,004 - WARNING -  * Debugger is active!
+2025-09-27 20:16:12,007 - INFO -  * Debugger PIN: 104-569-627
+2025-09-27 20:16:17,977 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:17] "GET / HTTP/1.1" 200 -
+2025-09-27 20:16:18,012 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-09-27 20:16:18,015 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/paper.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,017 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/dna.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,096 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/zotero.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,103 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/Ads.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,114 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/Crossref.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,114 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/citation.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,117 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/books.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,177 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/Diary.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,179 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/Doi.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,184 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/OpenAccess.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,193 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/OpenDataSquare.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,196 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/Pubmed.svg HTTP/1.1" 200 -
+2025-09-27 20:16:18,198 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:18] "GET /static/images/lixplore_logo.svg HTTP/1.1" 200 -
+2025-09-27 20:16:22,166 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "GET /search HTTP/1.1" 200 -
+2025-09-27 20:16:22,197 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,198 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,200 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,213 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,216 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,217 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,219 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,221 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,223 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,226 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,227 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,227 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,229 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:22,236 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:22] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:26,060 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:26] "[35m[1mGET /search-history HTTP/1.1[0m" 500 -
+2025-09-27 20:16:26,119 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:26] "GET /search-history?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-09-27 20:16:26,124 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:26] "GET /search-history?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-09-27 20:16:26,139 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:26] "GET /search-history?__debugger__=yes&cmd=resource&f=console.png&s=9YXYBXXOLqanaY7lrlVd HTTP/1.1" 200 -
+2025-09-27 20:16:26,164 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:26] "GET /search-history?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-09-27 20:16:32,074 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "GET /screening HTTP/1.1" 200 -
+2025-09-27 20:16:32,093 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,094 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,095 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,113 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,114 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,116 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,117 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,120 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,121 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,126 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,127 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,137 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,137 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:16:32,138 - INFO - 127.0.0.1 - - [27/Sep/2025 20:16:32] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,002 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "GET /support HTTP/1.1" 200 -
+2025-09-27 20:17:06,044 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,047 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,048 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,065 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,068 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,069 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,069 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,071 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,072 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,075 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,077 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,078 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,081 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:06,082 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:06] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:09,906 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:09] "GET /contact HTTP/1.1" 200 -
+2025-09-27 20:17:09,969 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:09] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:17:09,983 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:09] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:09,985 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:09] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,001 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,007 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,007 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,007 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,008 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,009 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,009 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,013 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,019 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,019 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:10,020 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:10] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,469 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "GET / HTTP/1.1" 200 -
+2025-09-27 20:17:11,497 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,505 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,511 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,528 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,533 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,535 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,535 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,536 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,537 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,539 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,541 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,542 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,545 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:11,546 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:11] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:13,198 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:13] "[35m[1mGET /search-history HTTP/1.1[0m" 500 -
+2025-09-27 20:17:13,231 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:13] "[36mGET /search-history?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:17:13,232 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:13] "[36mGET /search-history?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-09-27 20:17:13,253 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:13] "[36mGET /search-history?__debugger__=yes&cmd=resource&f=console.png&s=9YXYBXXOLqanaY7lrlVd HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,243 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "GET /screening HTTP/1.1" 200 -
+2025-09-27 20:17:17,281 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,282 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,282 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,303 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,304 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,305 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,306 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,306 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,307 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,310 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,317 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,317 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,318 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:17,321 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:17] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,345 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "GET /screening/project/3 HTTP/1.1" 200 -
+2025-09-27 20:17:23,365 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,368 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,369 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,387 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,387 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,388 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,389 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,389 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,390 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,394 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,396 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,408 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,409 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:23,410 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:23] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,402 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "GET / HTTP/1.1" 200 -
+2025-09-27 20:17:47,438 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,447 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,450 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,451 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,454 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,455 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,456 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,459 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,465 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,465 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,468 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,469 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,471 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:17:47,473 - INFO - 127.0.0.1 - - [27/Sep/2025 20:17:47] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,333 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "GET /search HTTP/1.1" 200 -
+2025-09-27 20:26:17,368 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,369 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,379 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,391 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,392 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,393 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,394 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,397 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,397 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,399 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,402 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,403 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,410 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:26:17,411 - INFO - 127.0.0.1 - - [27/Sep/2025 20:26:17] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,694 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "POST /search HTTP/1.1" 200 -
+2025-09-27 20:27:14,735 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,736 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,739 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,749 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,750 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,753 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,756 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,756 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,757 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,758 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,759 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,762 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,765 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:14,766 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:14] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,439 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "GET /search?source=pubmed&query=Metformin&page=2 HTTP/1.1" 200 -
+2025-09-27 20:27:26,472 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,473 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,474 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,485 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,487 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,487 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,490 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,492 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,494 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,497 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,500 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,506 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,508 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:26,509 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:26] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,268 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "GET /search?source=pubmed&query=Metformin&page=3 HTTP/1.1" 200 -
+2025-09-27 20:27:30,327 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,331 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,331 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,345 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,347 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,347 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,349 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,350 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,351 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,352 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,355 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,356 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,359 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:30,360 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:30] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,084 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "GET /search?source=pubmed&query=Metformin&page=4 HTTP/1.1" 200 -
+2025-09-27 20:27:36,116 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,116 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,117 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,133 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,134 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,136 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,137 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,140 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,141 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,142 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,145 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,146 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,147 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:36,148 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:36] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,690 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "GET /search?source=pubmed&query=Metformin&page=1 HTTP/1.1" 200 -
+2025-09-27 20:27:41,722 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,724 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,735 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,738 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,746 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,747 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,748 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,748 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,749 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,750 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,753 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,763 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,764 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:27:41,765 - INFO - 127.0.0.1 - - [27/Sep/2025 20:27:41] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,196 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "GET /screening HTTP/1.1" 200 -
+2025-09-27 20:28:47,244 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,245 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,245 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,262 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,263 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,265 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,266 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,267 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,268 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,276 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,277 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,280 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,281 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-27 20:28:47,282 - INFO - 127.0.0.1 - - [27/Sep/2025 20:28:47] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:03,100 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.8.110:5000
+2025-09-28 09:07:03,100 - INFO - [33mPress CTRL+C to quit[0m
+2025-09-28 09:07:03,101 - INFO -  * Restarting with stat
+2025-09-28 09:07:03,682 - WARNING -  * Debugger is active!
+2025-09-28 09:07:03,691 - INFO -  * Debugger PIN: 104-569-627
+2025-09-28 09:07:11,063 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "GET / HTTP/1.1" 200 -
+2025-09-28 09:07:11,086 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,086 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,092 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,148 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,152 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,165 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,166 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,167 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,234 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,239 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,242 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,244 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,253 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,254 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:11,755 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:11] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-09-28 09:07:16,171 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "GET /search HTTP/1.1" 200 -
+2025-09-28 09:07:16,200 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,200 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,200 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,216 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,217 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,219 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,219 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,223 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,225 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,225 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,228 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,229 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,231 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:16,237 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:16] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:19,996 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:19] "GET /screening HTTP/1.1" 200 -
+2025-09-28 09:07:20,017 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,018 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,019 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,039 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,041 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,044 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,045 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,045 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,048 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,050 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,055 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,058 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,059 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:20,062 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:20] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,899 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "GET /screening/create HTTP/1.1" 200 -
+2025-09-28 09:07:32,926 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,931 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,932 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,948 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,951 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,952 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,956 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,957 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,958 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,961 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,962 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,963 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,966 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:07:32,967 - INFO - 127.0.0.1 - - [28/Sep/2025 09:07:32] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,346 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "GET / HTTP/1.1" 200 -
+2025-09-28 09:17:00,375 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,376 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,376 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,403 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,404 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,405 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,405 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,406 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,406 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,409 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,412 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,418 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,422 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:00,422 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:00] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,829 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "GET /screening HTTP/1.1" 200 -
+2025-09-28 09:17:02,869 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,870 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,871 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,887 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,890 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,894 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,895 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,896 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,899 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,900 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,903 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,907 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,909 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:02,912 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:02] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,032 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "GET /support HTTP/1.1" 200 -
+2025-09-28 09:17:04,066 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,071 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,075 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,080 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,085 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,087 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,088 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,089 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,089 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,092 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,097 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,099 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,101 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:04,103 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:04] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,072 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "GET /contact HTTP/1.1" 200 -
+2025-09-28 09:17:05,098 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,099 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,100 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,124 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,133 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,138 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,143 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,145 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,161 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,181 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,184 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,185 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,185 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:05,194 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:05] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,048 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "GET / HTTP/1.1" 200 -
+2025-09-28 09:17:07,087 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,090 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/paper.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,091 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/dna.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,107 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/zotero.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,108 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/books.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,110 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/Ads.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,111 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/Crossref.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,112 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/Diary.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,112 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/citation.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,115 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,122 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,123 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/OpenAccess.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,124 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
+2025-09-28 09:17:07,125 - INFO - 127.0.0.1 - - [28/Sep/2025 09:17:07] "[36mGET /static/images/Doi.svg HTTP/1.1[0m" 304 -

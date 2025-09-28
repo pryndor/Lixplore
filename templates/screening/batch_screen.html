@@ -1,0 +1,586 @@
+{% extends "base.html" %}
+
+{% block title %}Batch Screening - {{ project.name }}{% endblock %}
+
+{% block content %}
+<div class="batch-screen-container">
+    <!-- Header -->
+    <div class="screening-header">
+        <div class="project-info">
+            <h1>📋 {{ project.name }}</h1>
+            <p>Batch Screening - Screen multiple articles efficiently</p>
+        </div>
+        <div class="navigation">
+            <a href="{{ url_for('screening_project', project_id=project.id) }}" class="btn btn-secondary">
+                ← Back to Project
+            </a>
+        </div>
+    </div>
+
+    <!-- Instructions -->
+    <div class="instructions-section">
+        <h3>📝 Instructions</h3>
+        <ul>
+            <li>Review each article's title and abstract</li>
+            <li>Make quick include/exclude decisions based on your criteria</li>
+            <li>Use keyboard shortcuts: <kbd>I</kbd> for Include, <kbd>E</kbd> for Exclude, <kbd>M</kbd> for Maybe</li>
+            <li>Save your decisions when ready</li>
+        </ul>
+    </div>
+
+    {% if articles %}
+    <form method="POST" class="batch-screening-form">
+        <!-- Reviewer Selection -->
+        <div class="reviewer-selection">
+            <label for="reviewer_id">Reviewer *</label>
+            <select id="reviewer_id" name="reviewer_id" required>
+                <option value="">Select reviewer...</option>
+                {% for reviewer in reviewers %}
+                <option value="{{ reviewer.id }}">{{ reviewer.reviewer_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Articles List -->
+        <div class="articles-batch-list">
+            {% for article in articles %}
+            <div class="batch-article-card" data-article-id="{{ article.id }}">
+                <input type="hidden" name="article_ids" value="{{ article.id }}">
+
+                <div class="article-content">
+                    <div class="article-header">
+                        <h4>{{ article.title }}</h4>
+                        <div class="article-number">#{{ loop.index }}</div>
+                    </div>
+
+                    {% if article.authors %}
+                    <p class="article-authors"><strong>Authors:</strong> {{ article.authors }}</p>
+                    {% endif %}
+
+                    {% if article.abstract %}
+                    <div class="article-abstract">
+                        <strong>Abstract:</strong>
+                        <p>{{ article.abstract[:400] }}{% if article.abstract|length > 400 %}...{% endif %}</p>
+                    </div>
+                    {% endif %}
+
+                    <div class="article-meta">
+                        {% if article.doi %}
+                        <span class="meta-item">DOI: {{ article.doi }}</span>
+                        {% endif %}
+                        {% if article.pmid %}
+                        <span class="meta-item">PMID: {{ article.pmid }}</span>
+                        {% endif %}
+                        {% if article.publication_year %}
+                        <span class="meta-item">Year: {{ article.publication_year }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="decision-panel">
+                    <div class="quick-decisions">
+                        <button type="button" class="decision-btn include-btn"
+                            onclick="setDecision({{ article.id }}, 'include', 'meets_criteria')" title="Include (I)">
+                            ✅ Include
+                        </button>
+                        <button type="button" class="decision-btn exclude-btn"
+                            onclick="setDecision({{ article.id }}, 'exclude', 'does_not_meet_criteria')"
+                            title="Exclude (E)">
+                            ❌ Exclude
+                        </button>
+                        <button type="button" class="decision-btn maybe-btn"
+                            onclick="setDecision({{ article.id }}, 'maybe', 'needs_review')" title="Maybe (M)">
+                            ❓ Maybe
+                        </button>
+                    </div>
+
+                    <div class="decision-details">
+                        <select name="decisions" class="decision-select" data-article-id="{{ article.id }}">
+                            <option value="">No decision</option>
+                            <optgroup label="Include">
+                                <option value="include|meets_all_criteria">Meets all criteria</option>
+                                <option value="include|relevant_population">Relevant population</option>
+                                <option value="include|relevant_intervention">Relevant intervention</option>
+                            </optgroup>
+                            <optgroup label="Exclude">
+                                <option value="exclude|wrong_population">Wrong population</option>
+                                <option value="exclude|wrong_intervention">Wrong intervention</option>
+                                <option value="exclude|wrong_study_design">Wrong study design</option>
+                                <option value="exclude|language_barrier">Language barrier</option>
+                                <option value="exclude|duplicate">Duplicate</option>
+                                <option value="exclude|other">Other exclusion</option>
+                            </optgroup>
+                            <optgroup label="Maybe">
+                                <option value="maybe|needs_full_text">Needs full text review</option>
+                                <option value="maybe|unclear_criteria">Unclear if meets criteria</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="decision-status" data-article-id="{{ article.id }}">
+                        <span class="status-text">No decision</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <div class="progress-info">
+                <span id="decisions-count">0</span> of {{ articles|length }} articles decided
+            </div>
+            <button type="submit" class="btn btn-primary" id="save-decisions-btn" disabled>
+                Save All Decisions
+            </button>
+        </div>
+    </form>
+    {% else %}
+    <div class="empty-state">
+        <h3>No Articles to Screen</h3>
+        <p>All articles in this project have been screened or there are no articles added yet.</p>
+        <a href="{{ url_for('add_articles_to_screening', project_id=project.id) }}" class="btn btn-primary">
+            Add Articles
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    let decisionCount = 0;
+    const totalArticles = {{ articles| length if articles else 0 }};
+
+    function setDecision ( articleId, decision, reason )
+    {
+        const select = document.querySelector( `select[data-article-id="${ articleId }"]` );
+        const statusDiv = document.querySelector( `.decision-status[data-article-id="${ articleId }"]` );
+        const card = document.querySelector( `.batch-article-card[data-article-id="${ articleId }"]` );
+
+        // Set the select value
+        const value = `${ decision }|${ reason }`;
+        select.value = value;
+
+        // Update status display
+        const statusText = statusDiv.querySelector( '.status-text' );
+        statusText.textContent = decision.charAt( 0 ).toUpperCase() + decision.slice( 1 );
+        statusText.className = `status-text status-${ decision }`;
+
+        // Update card appearance
+        card.className = `batch-article-card decided-${ decision }`;
+
+        updateDecisionCount();
+    }
+
+    function updateDecisionCount ()
+    {
+        const decisions = document.querySelectorAll( 'select[name="decisions"]' );
+        decisionCount = 0;
+
+        decisions.forEach( select =>
+        {
+            if ( select.value )
+            {
+                decisionCount++;
+            }
+        } );
+
+        document.getElementById( 'decisions-count' ).textContent = decisionCount;
+        document.getElementById( 'save-decisions-btn' ).disabled = decisionCount === 0;
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener( 'keydown', function ( e )
+    {
+        if ( e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT' )
+        {
+            return; // Don't trigger shortcuts when typing in form fields
+        }
+
+        const focusedCard = document.querySelector( '.batch-article-card:hover' ) ||
+            document.querySelector( '.batch-article-card:focus-within' );
+
+        if ( focusedCard )
+        {
+            const articleId = focusedCard.dataset.articleId;
+
+            switch ( e.key.toLowerCase() )
+            {
+                case 'i':
+                    setDecision( articleId, 'include', 'meets_criteria' );
+                    e.preventDefault();
+                    break;
+                case 'e':
+                    setDecision( articleId, 'exclude', 'does_not_meet_criteria' );
+                    e.preventDefault();
+                    break;
+                case 'm':
+                    setDecision( articleId, 'maybe', 'needs_review' );
+                    e.preventDefault();
+                    break;
+            }
+        }
+    } );
+
+    // Initialize decision count
+    document.addEventListener( 'DOMContentLoaded', function ()
+    {
+        updateDecisionCount();
+
+        // Add change listeners to all decision selects
+        document.querySelectorAll( 'select[name="decisions"]' ).forEach( select =>
+        {
+            select.addEventListener( 'change', updateDecisionCount );
+        } );
+    } );
+</script>
+
+<style>
+    .batch-screen-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .screening-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #e1e8ed;
+    }
+
+    .project-info h1 {
+        color: #2c3e50;
+        margin: 0;
+    }
+
+    .project-info p {
+        color: #7f8c8d;
+        margin: 5px 0 0 0;
+    }
+
+    .instructions-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    .instructions-section h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+
+    .instructions-section ul {
+        margin: 0;
+        padding-left: 20px;
+    }
+
+    .instructions-section li {
+        margin-bottom: 8px;
+        color: #5a6c7d;
+    }
+
+    kbd {
+        background-color: #e1e8ed;
+        border: 1px solid #bbb;
+        border-radius: 3px;
+        padding: 2px 4px;
+        font-size: 12px;
+        font-family: monospace;
+    }
+
+    .reviewer-selection {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .reviewer-selection label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .reviewer-selection select {
+        width: 300px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .articles-batch-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .batch-article-card {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 20px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #e1e8ed;
+        transition: all 0.3s ease;
+    }
+
+    .batch-article-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .batch-article-card.decided-include {
+        border-left-color: #27ae60;
+        background-color: #f8fff9;
+    }
+
+    .batch-article-card.decided-exclude {
+        border-left-color: #dc2626;
+        background-color: #fffbfb;
+    }
+
+    .batch-article-card.decided-maybe {
+        border-left-color: #f59e0b;
+        background-color: #fffef7;
+    }
+
+    .article-content {
+        flex: 1;
+    }
+
+    .article-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+    }
+
+    .article-header h4 {
+        color: #2c3e50;
+        margin: 0;
+        flex: 1;
+        margin-right: 15px;
+        line-height: 1.4;
+    }
+
+    .article-number {
+        background: #3498db;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .article-authors {
+        color: #5a6c7d;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    .article-abstract {
+        margin-bottom: 15px;
+    }
+
+    .article-abstract strong {
+        color: #2c3e50;
+    }
+
+    .article-abstract p {
+        color: #5a6c7d;
+        line-height: 1.5;
+        margin: 5px 0 0 0;
+    }
+
+    .article-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .meta-item {
+        font-size: 12px;
+        color: #7f8c8d;
+        background-color: #f8f9fa;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+
+    .decision-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .quick-decisions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .decision-btn {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: left;
+    }
+
+    .include-btn {
+        background-color: #d5f4e6;
+        color: #27ae60;
+    }
+
+    .include-btn:hover {
+        background-color: #27ae60;
+        color: white;
+    }
+
+    .exclude-btn {
+        background-color: #fee2e2;
+        color: #dc2626;
+    }
+
+    .exclude-btn:hover {
+        background-color: #dc2626;
+        color: white;
+    }
+
+    .maybe-btn {
+        background-color: #fef3c7;
+        color: #f59e0b;
+    }
+
+    .maybe-btn:hover {
+        background-color: #f59e0b;
+        color: white;
+    }
+
+    .decision-select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+
+    .decision-status {
+        padding: 8px;
+        border-radius: 4px;
+        text-align: center;
+        font-weight: 500;
+        background-color: #f8f9fa;
+    }
+
+    .status-text {
+        font-size: 12px;
+        color: #7f8c8d;
+    }
+
+    .status-text.status-include {
+        color: #27ae60;
+    }
+
+    .status-text.status-exclude {
+        color: #dc2626;
+    }
+
+    .status-text.status-maybe {
+        color: #f59e0b;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        bottom: 20px;
+    }
+
+    .progress-info {
+        font-weight: 500;
+        color: #2c3e50;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        text-decoration: none;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+        background-color: #2980b9;
+    }
+
+    .btn-primary:disabled {
+        background-color: #bdc3c7;
+        cursor: not-allowed;
+    }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #7f8c8d;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .empty-state h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+
+    .empty-state p {
+        color: #7f8c8d;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .batch-article-card {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .reviewer-selection select {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}

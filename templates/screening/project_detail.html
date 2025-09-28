@@ -1,0 +1,460 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.name }} - Screening Project{% endblock %}
+
+{% block content %}
+<div class="project-detail-container">
+    <!-- Project Header -->
+    <div class="project-header">
+        <div class="header-content">
+            <h1>📋 {{ project.name }}</h1>
+            <span class="status-badge status-{{ project.status }}">{{ project.status.title() }}</span>
+        </div>
+        <div class="header-actions">
+            <a href="{{ url_for('add_articles_to_screening', project_id=project.id) }}" class="btn btn-primary">
+                ➕ Add Articles
+            </a>
+            <a href="{{ url_for('screening_dashboard') }}" class="btn btn-secondary">
+                ← Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Project Info -->
+    <div class="project-info-section">
+        <div class="info-card">
+            <h3>📝 Project Information</h3>
+            <p><strong>Description:</strong> {{ project.description or "No description provided" }}</p>
+            <p><strong>Created by:</strong> {{ project.created_by }}</p>
+            <p><strong>Created:</strong> {{ project.created_at.split(' ')[0] }}</p>
+            <p><strong>Dual Screening:</strong> {{ "Yes" if project.require_dual_screening else "No" }}</p>
+            <p><strong>Conflict Resolution:</strong> {{ project.conflict_resolution_method.replace('_', ' ').title() }}
+            </p>
+        </div>
+
+        <div class="criteria-card">
+            <h3>📋 Screening Criteria</h3>
+            <div class="criteria-section">
+                <h4>✅ Inclusion Criteria</h4>
+                <div class="criteria-content">
+                    {{ project.inclusion_criteria or "No inclusion criteria specified" }}
+                </div>
+            </div>
+            <div class="criteria-section">
+                <h4>❌ Exclusion Criteria</h4>
+                <div class="criteria-content">
+                    {{ project.exclusion_criteria or "No exclusion criteria specified" }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    {% if statistics %}
+    <div class="statistics-section">
+        <h3>📊 Screening Progress</h3>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">{{ statistics.total_articles }}</div>
+                <div class="stat-label">Total Articles</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ statistics.status_counts.get('included', 0) }}</div>
+                <div class="stat-label">Included</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ statistics.status_counts.get('excluded', 0) }}</div>
+                <div class="stat-label">Excluded</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ statistics.status_counts.get('conflict', 0) }}</div>
+                <div class="stat-label">Conflicts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ statistics.status_counts.get('pending', 0) }}</div>
+                <div class="stat-label">Pending</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Reviewers Section -->
+    <div class="reviewers-section">
+        <div class="section-header">
+            <h3>👥 Reviewers</h3>
+            <button onclick="showAddReviewerModal()" class="btn btn-small">Add Reviewer</button>
+        </div>
+
+        {% if reviewers %}
+        <div class="reviewers-grid">
+            {% for reviewer in reviewers %}
+            <div class="reviewer-card">
+                <div class="reviewer-info">
+                    <h4>{{ reviewer.reviewer_name }}</h4>
+                    <p class="reviewer-email">{{ reviewer.reviewer_email or "No email" }}</p>
+                    <span
+                        class="role-badge role-{{ reviewer.role }}">{{ reviewer.role.replace('_', ' ').title() }}</span>
+                </div>
+                <div class="reviewer-stats">
+                    {% for progress in statistics.reviewer_progress %}
+                    {% if progress[0] == reviewer.reviewer_name %}
+                    <span class="decisions-count">{{ progress[1] }} decisions</span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty-message">No reviewers added yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Articles Section -->
+    <div class="articles-section">
+        <div class="section-header">
+            <h3>📄 Articles ({{ articles|length }})</h3>
+            <div class="filter-controls">
+                <select id="statusFilter" onchange="filterArticles()">
+                    <option value="">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="included">Included</option>
+                    <option value="excluded">Excluded</option>
+                    <option value="conflict">Conflict</option>
+                </select>
+            </div>
+        </div>
+
+        {% if articles %}
+        <div class="articles-list" id="articlesList">
+            {% for article in articles %}
+            <div class="article-card" data-status="{{ article.screening_status }}">
+                <div class="article-header">
+                    <h4>{{ article.title }}</h4>
+                    <span class="status-badge status-{{ article.screening_status }}">
+                        {{ article.screening_status.title() }}
+                    </span>
+                </div>
+
+                {% if article.authors %}
+                <p class="article-authors"><strong>Authors:</strong> {{ article.authors }}</p>
+                {% endif %}
+
+                {% if article.abstract %}
+                <div class="article-abstract">
+                    <strong>Abstract:</strong>
+                    <p>{{ article.abstract[:300] }}{% if article.abstract|length > 300 %}...{% endif %}</p>
+                </div>
+                {% endif %}
+
+                <div class="article-meta">
+                    {% if article.doi %}
+                    <span class="meta-item">DOI: {{ article.doi }}</span>
+                    {% endif %}
+                    {% if article.pmid %}
+                    <span class="meta-item">PMID: {{ article.pmid }}</span>
+                    {% endif %}
+                    {% if article.publication_year %}
+                    <span class="meta-item">Year: {{ article.publication_year }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="article-actions">
+                    <a href="{{ url_for('screen_article', project_id=project.id, article_id=article.id) }}"
+                        class="btn btn-small">Screen Article</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <p>No articles added to this project yet.</p>
+            <a href="{{ url_for('add_articles_to_screening', project_id=project.id) }}" class="btn btn-primary">
+                Add Articles
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Add Reviewer Modal -->
+<div id="addReviewerModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Add Reviewer</h3>
+        <form method="POST" action="{{ url_for('add_reviewer', project_id=project.id) }}">
+            <div class="form-group">
+                <label for="reviewer_name">Name *</label>
+                <input type="text" id="reviewer_name" name="reviewer_name" required>
+            </div>
+            <div class="form-group">
+                <label for="reviewer_email">Email</label>
+                <input type="email" id="reviewer_email" name="reviewer_email">
+            </div>
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select id="role" name="role">
+                    <option value="reviewer">Reviewer</option>
+                    <option value="lead_reviewer">Lead Reviewer</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button type="button" onclick="hideAddReviewerModal()" class="btn btn-secondary">Cancel</button>
+                <button type="submit" class="btn btn-primary">Add Reviewer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function showAddReviewerModal ()
+    {
+        document.getElementById( 'addReviewerModal' ).style.display = 'block';
+    }
+
+    function hideAddReviewerModal ()
+    {
+        document.getElementById( 'addReviewerModal' ).style.display = 'none';
+    }
+
+    function filterArticles ()
+    {
+        const filter = document.getElementById( 'statusFilter' ).value;
+        const articles = document.querySelectorAll( '.article-card' );
+
+        articles.forEach( article =>
+        {
+            if ( !filter || article.dataset.status === filter )
+            {
+                article.style.display = 'block';
+            } else
+            {
+                article.style.display = 'none';
+            }
+        } );
+    }
+</script>
+
+<style>
+    .project-detail-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #e1e8ed;
+    }
+
+    .header-content h1 {
+        color: #2c3e50;
+        margin: 0;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .project-info-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .info-card,
+    .criteria-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .statistics-section {
+        margin-bottom: 30px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-number {
+        font-size: 32px;
+        font-weight: bold;
+        color: #3498db;
+    }
+
+    .stat-label {
+        color: #7f8c8d;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .reviewers-section,
+    .articles-section {
+        margin-bottom: 30px;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .reviewers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+    }
+
+    .reviewer-card {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .articles-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .article-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .article-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .status-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    .status-active {
+        background-color: #d5f4e6;
+        color: #27ae60;
+    }
+
+    .status-pending {
+        background-color: #fef3c7;
+        color: #f59e0b;
+    }
+
+    .status-included {
+        background-color: #d5f4e6;
+        color: #27ae60;
+    }
+
+    .status-excluded {
+        background-color: #fee2e2;
+        color: #dc2626;
+    }
+
+    .status-conflict {
+        background-color: #fde2e7;
+        color: #e11d48;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        color: white;
+    }
+
+    .btn-small {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 500px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}

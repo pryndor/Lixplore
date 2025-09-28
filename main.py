@@ -55,6 +55,7 @@ def home():
         try:
             if source == "pubmed":
                 results = search_pubmed(query)
+                print("Query received:", query)
             elif source == "crossref":
                 results = search_crossref(query)
             elif source == "springer":
