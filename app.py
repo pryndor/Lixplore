@@ -12,12 +12,12 @@ import smtplib
 import requests
 
 from cache import get_cached_results, save_results_to_cache
-from pubmed_client import search_pubmed
-from crossref.crossref_client import search_crossref
-from springer.springer_client import search_springer
-from europepmc.europepmc_client import search_epmc_publications, search_epmc_grants
-from clinicaltrials_client import search_clinical_trials
-from doaj_client import search_doaj
+from api_clients.pubmed.pubmed_client import search_pubmed
+from api_clients.crossref.crossref_client import search_crossref
+from api_clients.springer.springer_client import search_springer
+from api_clients.europepmc.europepmc_client import search_epmc_publications, search_epmc_grants
+from api_clients.clinicaltrial.clinicaltrials_client import search_clinical_trials
+from api_clients.doaj.doaj_client import search_doaj
 from flask_mail import Mail, Message
 
 from database.database import (
@@ -51,6 +51,55 @@ def get_db_connection():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row  # Allows dict-like access to rows
     return conn
+
+
+# -------------------------------------------------
+# Helper: API fetcher
+# -------------------------------------------------
+def fetch_from_api(source, query, filters):
+    try:
+        if source == "pubmed":
+            results_dict = search_pubmed(query)
+            print("Query received:", query)
+            results = results_dict.get("results", [])
+
+        elif source == "crossref":
+            results = search_crossref(query)
+        elif source == "springer":
+            results = search_springer(query)
+        elif source == "europepmc_publications":
+            results = search_epmc_publications(query)
+        elif source == "europepmc_grants":
+            grant_data = search_epmc_grants(query)
+            results = grant_data.get("grants", []) if isinstance(grant_data, dict) else []
+        elif source == "clinicaltrials":
+            results = search_clinical_trials(query, filters.get("status"))
+        elif source == "doaj":
+            results = search_doaj(query)
+        else:
+            results = []
+
+        # Normalize OA PDF paths for all articles
+        for i, article in enumerate(results):
+            results[i] = normalize_oa_pdf(article)
+
+        return results
+
+    except Exception as e:
+        print(f"[API] ⚠ Error fetching from {source}: {e}")
+        return []
+
+
+# -----------------------------
+# Helper: Normalize OA PDF
+# -----------------------------
+def normalize_oa_pdf(article):
+    oa_pdf = article.get("oa_pdf_path")
+    if isinstance(oa_pdf, dict):
+        article["oa_pdf_path"] = oa_pdf.get("value")
+    elif isinstance(oa_pdf, list):
+        article["oa_pdf_path"] = oa_pdf[0] if oa_pdf else None
+    return article
 
 
 # -------------------------------------------------
@@ -311,6 +360,9 @@ def save_results_to_cache(source, query, filters, results):
 # -------------------------------------------------
 # Helper: API fetcher
 # -------------------------------------------------
+
+
+"""
 def fetch_from_api(source, query, filters):
     try:
         if source == "pubmed":
@@ -342,9 +394,9 @@ def fetch_from_api(source, query, filters):
     except Exception as e:
         print(f"[API] ⚠ Error fetching from {source}: {e}")
         return []
+"""
 
-
-
+"""
 # -----------------------------
 # Helper: Normalize OA PDF
 # -----------------------------
@@ -355,7 +407,7 @@ def normalize_oa_pdf(article):
     elif isinstance(oa_pdf, list):
         article["oa_pdf_path"] = oa_pdf[0] if oa_pdf else None
     return article
-
+"""
 #--------------------------
 # Mail config----
 #------------------------
@@ -498,7 +550,6 @@ def show_release_notes():
 # Load more functionality removed - now using pagination
 
 
-
 @app.route("/privacy")
 def privacy():
     return render_template("pandt.html")
@@ -619,6 +670,7 @@ def search_page():
         results=results,
         source=source,
         query=query,
+<<<<<<< HEAD
         status=status_filter,
         pagination=pagination
     )
@@ -692,6 +744,20 @@ def search_history():
                          search_type=search_type,
                          source_filter=source_filter,
                          available_sources=available_sources)
+=======
+        page=1,             # current page number (default to 1)
+        per_page=20,        # results per page
+        total=len(results), # total results count (use API total if available)
+        status=status_filter
+    )
+
+
+
+@app.route("/history")
+def history():
+    history_data = get_archive()
+    return render_template("history.html", history=history_data)
+>>>>>>> d3bf0ae (Your update)
 
 
 @app.route("/donations")
@@ -703,9 +769,48 @@ def donations():
 def blogs():
     return render_template("blogs.html")
 
+<<<<<<< HEAD
 @app.route('/home')
 def home():
     return render_template('index.html')  # Or your main search page template
+=======
+@app.route('/home') #This section updates for database error
+def home():
+    return render_template(
+        'index.html',# Or your main search page template
+        page=1,
+        results=[],
+        total=0,
+        query=""
+    )
+#-------------------------
+# approute for pagination 
+#---------------------------
+
+@app.route('/search/pubmed')
+def pubmed_search():
+    print("PubMed search route hit")
+    query = request.args.get('q', '')
+    page = int(request.args.get('page', 1))
+    per_page = int(request.args.get('per_page', 20))
+
+    print("Page:", page)
+    print("Per Page:", per_page)
+    print("Query received:", query)
+   # return {
+    #    'results': id_list,
+     #   'page': page,
+      #  'per_page': per_page,
+       # 'total': total_count
+   # }
+
+    # Call the actual search function (you need to ensure this function exists and accepts these params)
+    result = search_pubmed(query, page, per_page)
+
+    print("Returning result:", result)
+
+    return jsonify(result)
+>>>>>>> d3bf0ae (Your update)
 
 
 @app.route("/history/<int:search_id>")
@@ -1195,4 +1300,6 @@ def calculate_screening_analytics(project_id):
 if __name__ == "__main__":
     init_db()
     app.run(host="0.0.0.0", port=5000, debug=True)
+
+
 

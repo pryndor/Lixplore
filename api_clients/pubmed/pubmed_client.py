@@ -7,6 +7,11 @@ from datetime import datetime
 from dotenv import load_dotenv
 import os
 import pprint
+<<<<<<< HEAD:pubmed_client.py
+=======
+from Bio import Entrez
+from datetime import datetime
+>>>>>>> d3bf0ae (Your update):api_clients/pubmed/pubmed_client.py
 
 # Load .env variables
 load_dotenv()
@@ -21,15 +26,14 @@ ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
 
-
-
-# Throttle delay per NCBI guidelines (max 3 requests/sec)
+# Throttle delay per NCBI guidelines (max 8 requests/sec)
 THROTTLE_DELAY = 0.125
 
 
 # ------------------------
 # 1) Old Entrez-based search
 # ------------------------
+'''
 def search_pubmed_entrez(query):
     """
     Search PubMed using Biopython's Entrez API.
@@ -64,19 +68,61 @@ def search_pubmed_entrez(query):
 
         return data
 
+<<<<<<< HEAD:pubmed_client.py
     from Bio import Entrez
+=======
+>>>>>>> d3bf0ae (Your update):api_clients/pubmed/pubmed_client.py
     Entrez.email = NCBI_EMAIL
     if NCBI_API_KEY:
         Entrez.api_key = NCBI_API_KEY
 
-    handle = Entrez.esearch(db="pubmed", term=query, retmax=20)
+    handle = Entrez.esearch(db="pubmed", term=query, retmax=max_results)
     record = Entrez.read(handle)
     return record["IdList"]
+'''
+#------------------------
+    #pagination function--
+#---------------------------
 
+"""
+def search_pubmed(query, page=1, per_page=20):
+    offset = (page - 1) * per_page
+    url = (
+        f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?"
+        f"db=pubmed&term={query}&retstart={offset}&retmax={per_page}&retmode=json"
+    )
+    print("PubMed API URL:", url)
+
+    response = requests.get(url)
+    data = response.json()
+    id_list = data['esearchresult']['idlist']
+    total_count = int(data['esearchresult']['count'])
+
+    # Optional: Fetch summaries for these IDs
+    if id_list:
+        summary_url = (
+            "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?"
+            f"db=pubmed&id={','.join(id_list)}&retmode=json"
+        )
+        summary_response = requests.get(summary_url)
+        summaries = summary_response.json().get("result", {})
+        articles = [summaries[uid] for uid in id_list if uid in summaries]
+    else:
+        articles = []
+
+    return {
+        "results": articles,
+        "page": page,
+        "per_page": per_page,
+        "total": total_count
+    }
+
+"""
 
 # ------------------------
 # 2) Direct HTTP-based search with filters
 # ------------------------
+
 def search_pubmed(query, author=None, start_year=None, end_year=None, country=None, max_results=20):
     """
     Search PubMed using direct HTTP requests to NCBI E-utilities.
@@ -205,7 +251,12 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
             "pmc_pdf_url": pmc_result["pdf_url"] if pmc_result else None
         })
 
-    return articles
+    return {
+        "results": articles,
+        "page": 1,
+        "per_page": max_results,
+        "total": len(articles)
+    }
 
 
 # ---------- PMID -> PMCID PDF helper ----------
@@ -240,6 +291,48 @@ def get_pmc_pdf_url(pmid):
     pdf_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/pdf/"
     return {"pmcid": pmcid, "pdf_url": pdf_url}
 
+<<<<<<< HEAD:pubmed_client.py
+=======
+#------------------------
+    #pagination function--
+#---------------------------
+
+
+def search_pubmed_paginated(query, page=1, per_page=20):
+    offset = (page - 1) * per_page
+    url = (
+        f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?"
+        f"db=pubmed&term={query}&retstart={offset}&retmax={per_page}&retmode=json"
+    )
+    print("PubMed API URL:", url)
+
+    response = requests.get(url)
+    data = response.json()
+    id_list = data['esearchresult']['idlist']
+    total_count = int(data['esearchresult']['count'])
+
+    # Optional: Fetch summaries for these IDs
+    if id_list:
+        summary_url = (
+            "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?"
+            f"db=pubmed&id={','.join(id_list)}&retmode=json"
+        )
+        summary_response = requests.get(summary_url)
+        summaries = summary_response.json().get("result", {})
+        articles = [summaries[uid] for uid in id_list if uid in summaries]
+    else:
+        articles = []
+
+    return {
+        "results": articles,
+        "page": page,
+        "per_page": per_page,
+        "total": total_count
+    }
+
+
+    
+>>>>>>> d3bf0ae (Your update):api_clients/pubmed/pubmed_client.py
 if __name__ == "__main__":
     # Test the search_pubmed function with a sample query
     print("Running test search_pubmed...")
