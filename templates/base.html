@@ -99,8 +99,8 @@
             <!-- Navigation -->
             <nav>
                 <a href="{{ url_for('intro') }}">Home</a>
-                <a href="{{ url_for('search_history') }}">🔍 Search History</a>
-                <a href="{{ url_for('screening_dashboard') }}">📋 Screening</a>
+                <a href="{{ url_for('search_history') }}">History</a>
+		{# <a href="{{ url_for('screening_dashboard') }}">📋 Screening</a> #}
                 <a href="{{ url_for('support') }}">Support Our Project</a>
                 <a href="{{ url_for('contact') }}">Contact</a>
             </nav>
@@ -142,27 +142,11 @@
             <p>© 2025 Lixplore ➤ All rights reserved</p>
         </footer>
 
-        <script>
-            let scrollTimer;
-            window.addEventListener( 'scroll', () =>
-            {
-                const bgLayer = document.getElementById( 'backgroundLayer' );
-                bgLayer.classList.add( 'paused' );
-                clearTimeout( scrollTimer );
-                scrollTimer = setTimeout( () =>
-                {
-                    bgLayer.classList.remove( 'paused' );
-                }, 200 );
-            } );
-        </script>
-
+       
         <!-- Jump to Top Button -->
         <button id="scrollToTopBtn" title="Go to top">↑ Top</button>
 
-
-
-
-        <script>
+    <script>
 
             let scrollTimer;
             window.addEventListener( 'scroll', () =>

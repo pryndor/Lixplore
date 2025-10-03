@@ -7,11 +7,9 @@ from datetime import datetime
 from dotenv import load_dotenv
 import os
 import pprint
-<<<<<<< HEAD:pubmed_client.py
-=======
 from Bio import Entrez
 from datetime import datetime
->>>>>>> d3bf0ae (Your update):api_clients/pubmed/pubmed_client.py
+
 
 # Load .env variables
 load_dotenv()
@@ -291,8 +289,6 @@ def get_pmc_pdf_url(pmid):
     pdf_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/pdf/"
     return {"pmcid": pmcid, "pdf_url": pdf_url}
 
-<<<<<<< HEAD:pubmed_client.py
-=======
 #------------------------
     #pagination function--
 #---------------------------
@@ -331,8 +327,6 @@ def search_pubmed_paginated(query, page=1, per_page=20):
     }
 
 
-    
->>>>>>> d3bf0ae (Your update):api_clients/pubmed/pubmed_client.py
 if __name__ == "__main__":
     # Test the search_pubmed function with a sample query
     print("Running test search_pubmed...")

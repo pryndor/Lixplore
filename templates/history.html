@@ -84,41 +84,75 @@
         <a class="back-link" href="{{ url_for('search_page') }}">Back to Search</a>
     </div>
 
-    <h1>Search History</h1>
+<h1>Search History</h1>
 
-    {% if history %}
-        <div style="overflow-x:auto;">
-            <table class="history-table">
-                <thead>
-                    <tr>
-                        <th>Source</th>
-                        <th>Query</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for h in history %}
-                    <tr>
-                        <td>{{ h[1] }}</td> <!-- Source -->
-                        <td>
-                            <a class="action-link" href="{{ url_for('history_results', search_id=h[0]) }}">
-                                {{ h[2] }}
-                            </a>
-                        </td> <!-- Query -->
-                        <td>{{ h[4] }}</td> <!-- Timestamp -->
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% else %}
-        <p style="text-align:center;">⚠ No search history available.</p>
-    {% endif %}
+{% if history %}
+<div style="overflow-x:auto;">
+    <table class="history-table" id="historyTable">
+        <thead>
+            <tr>
+                <th>
+                    Query <br>
+                    <input type="text" id="filterQuery" placeholder="Filter query...">
+                </th>
+                <th>
+                    Source <br>
+                    <input type="text" id="filterSource" placeholder="Filter source...">
+                </th>
+                <th>
+                    Date <br>
+                    <input type="text" id="filterDate" placeholder="YYYY-MM-DD">
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in history %}
+            <tr>
+                <td>{{ h['query'] }}</td>
+                <td>{{ h['source'] }}</td>
+                <td>{{ h['timestamp'] }}</td>
+                <td>
+                    <a class="action-link" href="{{ url_for('history_results', search_id=h['id']) }}">
+                        View Results
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-    <div style="text-align:center;">
-        <a class="back-link" href="{{ url_for('search_page') }}">Back to Search</a>
-    </div>
+<script>
+    function filterTable() {
+        let queryFilter = document.getElementById("filterQuery").value.toLowerCase();
+        let sourceFilter = document.getElementById("filterSource").value.toLowerCase();
+        let dateFilter = document.getElementById("filterDate").value.toLowerCase();
 
-</body>
-</html>
+        let table = document.getElementById("historyTable");
+        let rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName("td");
+            if (cells.length > 0) {
+                let query = cells[0].textContent.toLowerCase();
+                let source = cells[1].textContent.toLowerCase();
+                let date = cells[2].textContent.toLowerCase();
+
+                let queryMatch = query.includes(queryFilter);
+                let sourceMatch = source.includes(sourceFilter);
+                let dateMatch = date.includes(dateFilter);
+
+                rows[i].style.display = (queryMatch && sourceMatch && dateMatch) ? "" : "none";
+            }
+        }
+    }
+
+    document.getElementById("filterQuery").addEventListener("keyup", filterTable);
+    document.getElementById("filterSource").addEventListener("keyup", filterTable);
+    document.getElementById("filterDate").addEventListener("keyup", filterTable);
+</script>
+{% else %}
+<p>⚠ No search history available.</p>
+{% endif %}
 
