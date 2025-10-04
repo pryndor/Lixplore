@@ -10,6 +10,7 @@ import re
 import yaml
 import smtplib
 import requests
+from markupsafe import escape
 
 from cache import get_cached_results, save_results_to_cache
 from api_clients.pubmed.pubmed_client import search_pubmed
@@ -31,15 +32,15 @@ from database.database import (
     get_results_by_search_id,
     get_posts_by_tag,
     # Screening functions
-    create_screening_project,
-    get_screening_projects,
-    get_screening_project,
-    add_reviewer_to_project,
-    get_project_reviewers,
-    add_articles_to_screening_project,
-    get_screening_articles,
-    save_screening_decision,
-    get_screening_statistics
+   # create_screening_project,
+   # get_screening_projects,
+   # get_screening_project,
+   # add_reviewer_to_project,
+   # get_project_reviewers,
+   # add_articles_to_screening_project,
+   # get_screening_articles,
+   # save_screening_decision,
+   # get_screening_statistics
 )
 
 app = Flask(__name__)
@@ -56,6 +57,45 @@ def get_db_connection():
 # -------------------------------------------------
 # Helper: API fetcher
 # -------------------------------------------------
+"""
+def fetch_from_api(source, query, filters=None):
+    try:
+        if source == "pubmed":
+            results_dict = search_pubmed(query)
+            print("Query received:", query)
+            if isinstance(results_dict, dict):
+                results = results_dict.get("results", [])
+            else:
+                results = results_dict or []
+
+        elif source == "crossref":
+            results = search_crossref(query)
+        elif source == "springer":
+            results = search_springer(query)
+        elif source == "europepmc_publications":
+            results = search_epmc_publications(query)
+        elif source == "europepmc_grants":
+            grant_data = search_epmc_grants(query)
+            results = grant_data.get("grants", []) if isinstance(grant_data, dict) else []
+        elif source == "clinicaltrials":
+            status = filters.get("status") if filters else None
+            results = search_clinical_trials(query, status)
+        elif source == "doaj":
+            results = search_doaj(query)
+        else:
+            results = []
+
+        # Normalize OA PDF paths
+        results = [normalize_oa_pdf(article) for article in results]
+
+        return results
+
+    except Exception as e:
+        print(f"[API] ⚠ Error fetching from {source}: {e}")
+        return []
+
+"""
+
 def fetch_from_api(source, query, filters):
     try:
         if source == "pubmed":
@@ -93,6 +133,9 @@ def fetch_from_api(source, query, filters):
 # -----------------------------
 # Helper: Normalize OA PDF
 # -----------------------------
+
+
+
 def normalize_oa_pdf(article):
     oa_pdf = article.get("oa_pdf_path")
     if isinstance(oa_pdf, dict):
@@ -206,6 +249,25 @@ def save_search_and_articles(source, query, filters, results):
                 safe_str(article.get("oa_pdf_path"))
             ))
         conn.commit()
+'''
+def get_results_by_search_id(search_id):
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path
+            FROM articles
+            WHERE search_id=?
+        """, (search_id,))
+        columns = [desc[0] for desc in cursor.description]
+        rows = cursor.fetchall()
+
+        # Convert rows -> dicts (no normalization here)
+        results = [dict(zip(columns, row)) for row in rows]
+
+        return results
+'''
+
+
 
 def get_results_by_search_id(search_id):
     with get_connection() as conn:
@@ -216,6 +278,7 @@ def get_results_by_search_id(search_id):
             WHERE search_id=?
         """, (search_id,))
         return cursor.fetchall()
+
 
 def parse_front_matter(content):
     """
@@ -393,7 +456,7 @@ def fetch_from_api(source, query, filters):
     except Exception as e:
         print(f"[API] ⚠ Error fetching from {source}: {e}")
         return []
-"""
+
 
 """
 # -----------------------------
@@ -406,7 +469,7 @@ def normalize_oa_pdf(article):
     elif isinstance(oa_pdf, list):
         article["oa_pdf_path"] = oa_pdf[0] if oa_pdf else None
     return article
-"""
+
 #--------------------------
 # Mail config----
 #------------------------
@@ -429,6 +492,16 @@ mail = Mail(app)
 # Routes
 # -------------------------------------------------
 
+@app.route('/home')
+def home():
+    return render_template('index.html')  # Or your main search page template
+
+@app.template_filter('escapejs')
+def escapejs_filter(s):
+    if s is None:
+        return ''
+    return json.dumps(s)
+
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
@@ -442,23 +515,23 @@ def contact():
             flash("Please fill in all the fields.", "error")
             return redirect(url_for("contact"))
 
-        # Compose email content
-        email_body = f"""
-        New message from Contact Form:
+        # Compose email content (dedent to avoid spacing issues)
+        email_body = textwrap.dedent(f"""\
+            New message from Contact Form:
 
-        Name: {name}
-        Email: {email}
-        Subject: {subject}
+            Name: {name}
+            Email: {email}
+            Subject: {subject}
 
-        Message:
-        {message}
-        """
+            Message:
+            {message}
+        """)
 
         try:
             msg = Message(
                 subject=f"Contact Form: {subject}",
-                sender=(name, email),  # Name and email of sender
-                recipients=["info@drugvigil.com"],  # Replace with your receiving email
+                sender=(name, email),   # sender tuple: (name, email)
+                recipients=["info@drugvigil.com"],  # change to your receiving email
                 body=email_body
             )
             mail.send(msg)
@@ -468,9 +541,8 @@ def contact():
 
         return redirect(url_for("contact"))
 
-    # If GET request, show the contact form
+    # GET request → render contact form
     return render_template("contact.html")
-
     
 
 @app.route("/blogs/tag/<tag>")
@@ -558,7 +630,48 @@ def privacy():
 def support():
     return render_template("support.html")
 
+"""
+@app.route("/search", methods=["GET", "POST"])
+def search_page():
+    results, source, query, status_filter = [], "", "", None
 
+    if request.method == "POST":
+        source = request.form.get("source")
+        query = request.form.get("query", "").strip()
+        status_filter = request.form.get("status", "").strip() if source == "clinicaltrials" else None
+
+    elif request.method == "GET" and request.args.get('source') and request.args.get('query'):
+        source = request.args.get("source")
+        query = request.args.get("query").strip()
+        status_filter = request.args.get("status")
+
+    # Handle search only if source + query are provided
+    if source and query:
+        filters = {"status": status_filter} if status_filter else {}
+        results = search_with_cache(source, query, filters)
+
+        # Sort results
+        results.sort(key=lambda x: x.get("title", "").lower())
+
+        # Post-process results (shared)
+        for article in results:
+            pdf_url = article.get("pmc_pdf_url") or article.get("oa_pdf_path")
+            article["oa_pdf_path"] = pdf_url
+            article["citation"] = format_citation(article)
+    else:
+        if request.method == "POST":  # only warn on invalid POST
+            flash("⚠ Please select a source and enter a query.", "error")
+
+    return render_template(
+        "index.html",
+        results=results,
+        source=source,
+        query=query,
+        status=status_filter
+    )
+
+
+"""
 @app.route("/search", methods=["GET", "POST"])
 def search_page():
     results, source, query, status_filter = [], "", "", None
@@ -630,6 +743,7 @@ def history_results(search_id):
     ]
     return render_template("results.html", results=articles, source="History Search")
 
+''' # This is commented out that believed to be unecessary implementaion of pagination for history section, instead implemented filters
 
 @app.route("/search-history")
 def search_history():
@@ -679,14 +793,14 @@ def search_history():
         available_sources=available_sources
     )
 
+'''
 
-"""
 @app.route("/search-history")
-def history():
+def search_history():
     history_data = get_archive()
     return render_template("history.html", history=history_data)
 
-
+"""
 @app.route("/donations")
 def donations():
     return render_template("donations.html")
@@ -695,12 +809,6 @@ def donations():
 @app.route("/blogs")
 def blogs():
     return render_template("blogs.html")
-"""
-@app.route('/home')
-def home():
-    return render_template('index.html')  # Or your main search page template
-
-"""
 
 @app.route('/home') #This section updates for database error
 def home_page():
@@ -711,6 +819,8 @@ def home_page():
         total=0,
         query=""
     )
+
+"""
 #-------------------------
 # approute for pagination 
 #---------------------------
@@ -725,12 +835,12 @@ def pubmed_search():
     print("Page:", page)
     print("Per Page:", per_page)
     print("Query received:", query)
-   # return {
-    #    'results': id_list,
-     #   'page': page,
-      #  'per_page': per_page,
-       # 'total': total_count
-   # }
+    return {
+        'results': id_list,
+        'page': page,
+        'per_page': per_page,
+        'total': total_count
+    }
 
     # Call the actual search function (you need to ensure this function exists and accepts these params)
     result = search_pubmed(query, page, per_page)
@@ -739,7 +849,7 @@ def pubmed_search():
 
     return jsonify(result)
 
-
+"""
 @app.route("/history/<int:search_id>")
 def history_results(search_id):
     rows = get_results_by_search_id(search_id)
@@ -766,6 +876,7 @@ def history_results(search_id):
     return render_template("results.html", results=articles, source="History Search")
 
 """
+
 # Pagination and search routes removed as requested
 
 

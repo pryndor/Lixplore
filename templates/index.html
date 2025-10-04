@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 
+
+
 <!-- 🔍 Search Section -->
 <section id="search-section" class="search-box sticky-filters">
     <form method="POST" action="{{ url_for('search_page') }}" class="search-form">
@@ -52,15 +54,71 @@
     </form>
 </section>
 
-	    <!--
-        <button id="loadMoreBtn" 
-                data-source="{{ source }}" 
-                data-query="{{ query }}" 
-                style="padding: 10px 15px; background: #007acc; color: white; border: none; border-radius: 5px; cursor: pointer;">
-            Load More
-        </button>
- -->
+<!-- 🔹 Results Section -->
+<div class="results-container" id="resultsContainer">
+    {% if results %}
+        {% for article in results %}
+            <div class="result-card">
 
+                <!-- Title -->
+                <h3>{{ article.title or "No title available" }}</h3>
+
+                <!-- Abstract Toggle -->
+                {% if article.abstract %}
+                    <p class="abstract-preview" onclick="toggleAbstract(this)">
+                        {{ article.abstract }}
+                        <span class="read-toggle">▼ Read more</span>
+                    </p>
+                {% else %}
+                    <p><em>No abstract available</em></p>
+                {% endif %}
+
+                <!-- Article Details -->
+                <div class="result-details">
+                    <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
+                    
+                    {% if article.pmid %}
+                        <p><strong>PMID:</strong> {{ article.pmid }}</p>
+                    {% endif %}
+
+                    <p><strong>DOI:</strong>
+                        {% if article.doi %}
+                            <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a>
+                        {% else %}
+                            Not available
+                        {% endif %}
+                    </p>
+
+                    <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
+
+                    {% if article.url %}
+                        <p><strong>Full Text:</strong> <a href="{{ article.url }}" target="_blank">Link</a></p>
+                    {% endif %}
+
+                    {% if article.oa_pdf_path %}
+                        <p class="pdf-line">
+                            <strong>PDF:</strong>
+                            <a class="pdf-link" href="{{ article.oa_pdf_path }}" target="_blank" rel="noopener">
+                                <img src="{{ url_for('static', filename='images/pdf.svg') }}?v=1" alt="PDF" class="pdf-icon">
+                                View PDF
+                            </a>
+                        </p>
+                    {% endif %}
+
+                    {% if article.citation %}
+                        <p>
+                            <a href="#" class="citation-link" onclick="openCitationModal('{{ article.citation|escapejs }}', '{{ article.title|escapejs }}', '{{ article.authors|join('; ')|escapejs }}', '{{ article.year or '' }}', '{{ article.doi or '' }}')">Cite this article</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% if query %}
+            <p>⚠ No results found for "{{ query }}"</p>
+        {% endif %}
+    {% endif %}
+</div>
 
 <!-- 📜 Citation Modal -->
 <div id="citationOverlay" class="citation-overlay" onclick="closeCitationModal()"></div>
@@ -75,94 +133,79 @@
     <button style="background:#ccc; color:#000;" onclick="closeCitationModal()">Close</button>
 </div>
 
-
 <!-- 📜 Scripts -->
 <script>
     let currentCitation = "", currentTitle = "", currentAuthors = "", currentYear = "", currentDOI = "";
-    function openCitationModal ( citation, title, authors, year, doi )
-    {
-        currentCitation = citation; currentTitle = title; currentAuthors = authors; currentYear = year; currentDOI = doi;
-        document.getElementById( "citationOverlay" ).style.display = "block";
-        document.getElementById( "citationModal" ).style.display = "block";
+
+    function openCitationModal(citation, title, authors, year, doi) {
+        currentCitation = citation;
+        currentTitle = title;
+        currentAuthors = authors;
+        currentYear = year;
+        currentDOI = doi;
+        document.getElementById("citationOverlay").style.display = "block";
+        document.getElementById("citationModal").style.display = "block";
     }
-    function closeCitationModal ()
-    {
-        document.getElementById( "citationOverlay" ).style.display = "none";
-        document.getElementById( "citationModal" ).style.display = "none";
+
+    function closeCitationModal() {
+        document.getElementById("citationOverlay").style.display = "none";
+        document.getElementById("citationModal").style.display = "none";
     }
-    document.getElementById( "copyCitationBtn" ).onclick = function ()
-    {
-        navigator.clipboard.writeText( currentCitation ).then( () => alert( "Citation copied!" ) ).catch( () => alert( "Failed to copy citation" ) );
+
+    document.getElementById("copyCitationBtn").onclick = function() {
+        navigator.clipboard.writeText(currentCitation)
+            .then(() => alert("Citation copied!"))
+            .catch(() => alert("Failed to copy citation"));
     };
-    function triggerDownload ( format )
-    {
+
+    function triggerDownload(format) {
         let content = "", filename = "";
-        if ( format === "bibtex" ) { content = `@article{${ currentAuthors.split( ' ' )[ 0 ] }_${ currentYear }, title={${ currentTitle }}, author={${ currentAuthors }}, year={${ currentYear }}, doi={${ currentDOI }}}`; filename = "citation.bib"; }
-        else if ( format === "ris" ) { content = `TY  - JOUR\nTI  - ${ currentTitle }\nAU  - ${ currentAuthors }\nPY  - ${ currentYear }\nDO  - ${ currentDOI }\nER  -`; filename = "citation.ris"; }
-        else if ( format === "txt" ) { content = `${ currentAuthors } (${ currentYear }). ${ currentTitle }. DOI: ${ currentDOI }`; filename = "citation.txt"; }
-        else if ( format === "xml_abs" ) { content = `<abstract>\n<title>${ currentTitle }</title>\n<authors>${ currentAuthors }</authors>\n<year>${ currentYear }</year>\n<doi>${ currentDOI }</doi>\n<abstractText>${ currentCitation }</abstractText>\n</abstract>`; filename = "citation_abstract.xml"; }
-        else if ( format === "xml_full" ) { content = `<fulltext>\n<title>${ currentTitle }</title>\n<authors>${ currentAuthors }</authors>\n<year>${ currentYear }</year>\n<doi>${ currentDOI }</doi>\n<fullText>${ currentCitation }</fullText>\n</fulltext>`; filename = "citation_full.xml"; }
-        const blob = new Blob( [ content ], { type: "text/plain" } ); const link = document.createElement( "a" );
-        link.href = URL.createObjectURL( blob ); link.download = filename; link.click(); URL.revokeObjectURL( link.href );
+        if (format === "bibtex") {
+            content = `@article{${currentAuthors.split(' ')[0]}_${currentYear}, title={${currentTitle}}, author={${currentAuthors}}, year={${currentYear}}, doi={${currentDOI}}}`;
+            filename = "citation.bib";
+        } else if (format === "ris") {
+            content = `TY  - JOUR\nTI  - ${currentTitle}\nAU  - ${currentAuthors}\nPY  - ${currentYear}\nDO  - ${currentDOI}\nER  -`;
+            filename = "citation.ris";
+        } else if (format === "txt") {
+            content = `${currentAuthors} (${currentYear}). ${currentTitle}. DOI: ${currentDOI}`;
+            filename = "citation.txt";
+        } else if (format === "xml_abs") {
+            content = `<abstract>\n<title>${currentTitle}</title>\n<authors>${currentAuthors}</authors>\n<year>${currentYear}</year>\n<doi>${currentDOI}</doi>\n<abstractText>${currentCitation}</abstractText>\n</abstract>`;
+            filename = "citation_abstract.xml";
+        } else if (format === "xml_full") {
+            content = `<fulltext>\n<title>${currentTitle}</title>\n<authors>${currentAuthors}</authors>\n<year>${currentYear}</year>\n<doi>${currentDOI}</doi>\n<fullText>${currentCitation}</fullText>\n</fulltext>`;
+            filename = "citation_full.xml";
+        }
+        const blob = new Blob([content], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
     }
-/*
-    // Pagination is now handled server-side with proper page navigation
 
-    // Screening Modal Functions
-    function showCreateScreeningModal ()
-    {
-        document.getElementById( "screeningModal" ).style.display = "block";
+    // Abstract toggle
+    function toggleAbstract(el) {
+        el.classList.toggle('expanded');
+        const toggleText = el.querySelector('.read-toggle');
+        toggleText.textContent = el.classList.contains('expanded') ? '▲ Read less' : '▼ Read more';
     }
 
-    function closeScreeningModal ()
-    {
-        document.getElementById( "screeningModal" ).style.display = "none";
-    }
-*/
-<script>
-/* 
-// Load More Logic
-
-let currentStart = 20;
-const maxResults = 20;
-const loadMoreBtn = document.getElementById("loadMoreBtn");
-if (loadMoreBtn) {
-    loadMoreBtn.addEventListener("click", function () {
-        loadMoreBtn.textContent = "Loading...";
-        const source = this.dataset.source;
-        const query = this.dataset.query;
-        fetch(`/load_more?source=${source}&query=${encodeURIComponent(query)}&start=${currentStart}&max=${maxResults}`)
-            .then(r => r.json())
-            .then(data => {
-                if (data.results && data.results.length > 0) {
-                    const container = document.getElementById("resultsContainer");
-                    data.results.forEach(article => {
-                        const div = document.createElement("div");
-                        div.classList.add("result-card");
-                        div.innerHTML = `
-                            <h3>${article.title}</h3>
-                            ${article.abstract ? `<p><strong>Abstract:</strong> ${article.abstract}</p>` : ""}
-                            ${article.authors ? `<p><strong>Authors:</strong> ${article.authors.join(", ")}</p>` : ""}
-                            ${article.pmid ? `<p><strong>PMID:</strong> ${article.pmid}</p>` : ""}
-                            ${article.doi ? `<p><strong>DOI:</strong> ${article.doi}</p>` : ""}
-                            <div class="link-section">
-                                ${article.url ? `<a href="${article.url}" target="_blank" class="fulltext-link">Full Text</a>` : `<span class="fulltext-link disabled">Full Text N/A</span>`}
-                                ${article.citation ? `<a href="#" class="citation-link" onclick="openCitationModal(\`${article.citation.replace(/`/g, '\\`')}\`,\`${article.title.replace(/`/g, '\\`')}\`,\`${article.authors.join('; ').replace(/`/g, '\\`')}\`,\`${article.year || ''}\`,\`${article.doi || ''}\`)">Cite this article</a>` : `<span class="citation-link disabled">Citation N/A</span>`}
-                            </div>
-                            <hr>`;
-                        container.appendChild(div);
-                    });
-                    currentStart = data.next_start;
-                    loadMoreBtn.textContent = "Load More";
-                } else {
-                    loadMoreBtn.style.display = "none";
-                }
-            })
-            .catch(() => { alert("Failed to load more results."); loadMoreBtn.textContent = "Load More"; });
+    // Show/hide status filter for clinical trials
+    const sourceSelect = document.getElementById("source");
+    const statusDiv = document.getElementById("statusFilter");
+    sourceSelect.addEventListener("change", function() {
+        if (this.value === "clinicaltrials") {
+            statusDiv.style.display = "block";
+        } else {
+            statusDiv.style.display = "none";
+        }
     });
-}
-
-*/
-</script> 
+</script>
 
 {% endblock %}
+
+
+
+
+

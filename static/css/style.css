@@ -463,8 +463,8 @@ footer {
         background: #005ea3;
     }
 
-    .results-box {
-        max-width: 700px;
+    .results-container {
+        max-width: 730px;
         margin: 20px auto;
     }
 
