@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Test Toggle Abstract</title>
+<style>
+.result-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.collapse-content {
+    max-height: 3em; /* collapsed */
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.result-card.expanded .collapse-content {
+    max-height: 500px; /* expanded */
+}
+
+.hidden-details {
+    margin-top: 10px;
+}
+
+.toggle-btn {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.toggle-btn:hover {
+    background: #0056b3;
+}
+</style>
+</head>
+<body>
+
+<div class="results-container">
+    <div class="result-card">
+        <h3>Sample Article Title</h3>
+
+        <div class="collapse-content">
+            <p>This is the abstract. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="hidden-details">
+                <p><strong>Authors:</strong> John Doe, Jane Smith</p>
+                <p><strong>PMID:</strong> 123456</p>
+                <p><strong>DOI:</strong> <a href="https://doi.org/10.1000/example" target="_blank">10.1000/example</a></p>
+                <p><strong>Affiliations:</strong> University of Test</p>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="#" class="action-link">View full text</a> &nbsp;|&nbsp;
+            <a href="#" class="action-link">Cite this article</a>
+        </div>
+
+        <button class="toggle-btn">Show more</button>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const card = btn.closest('.result-card');
+        card.classList.toggle('expanded');
+        btn.textContent = card.classList.contains('expanded') ? 'Show less' : 'Show more';
+    });
+});
+</script>
+
+</body>
+</html>
+

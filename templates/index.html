@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-
 <!-- 🔍 Search Section -->
 <section id="search-section" class="search-box sticky-filters">
     <form method="POST" action="{{ url_for('search_page') }}" class="search-form">
@@ -14,26 +12,21 @@
             <option value="pubmed" {% if source=='pubmed' %}selected{% endif %}>PubMed</option>
             <option value="crossref" {% if source=='crossref' %}selected{% endif %}>CrossRef</option>
             <option value="springer" {% if source=='springer' %}selected{% endif %}>Springer</option>
-            <option value="europepmc_publications" {% if source=='europepmc_publications' %}selected{% endif %}>
-                EuropePMC Publications</option>
-            <option value="europepmc_grants" {% if source=='europepmc_grants' %}selected{% endif %}>EuropePMC Grants
-            </option>
+            <option value="europepmc_publications" {% if source=='europepmc_publications' %}selected{% endif %}>EuropePMC Publications</option>
+            <option value="europepmc_grants" {% if source=='europepmc_grants' %}selected{% endif %}>EuropePMC Grants</option>
             <option value="clinicaltrials" {% if source=='clinicaltrials' %}selected{% endif %}>Clinical Trials</option>
             <option value="doaj" {% if source=='doaj' %}selected{% endif %}>DOAJ</option>
         </select>
 
         <!-- Clinical Trials Status Filter -->
-        <div id="statusFilter"
-            style="display: {% if source=='clinicaltrials' %}block{% else %}none{% endif %}; width:100%;">
+        <div id="statusFilter" style="display: {% if source=='clinicaltrials' %}block{% else %}none{% endif %}; width:100%;">
             <label for="status">Status (optional):</label>
-            <input type="text" id="status" name="status" placeholder="e.g., RECRUITING, COMPLETED"
-                value="{{ status or '' }}">
+            <input type="text" id="status" name="status" placeholder="e.g., RECRUITING, COMPLETED" value="{{ status or '' }}">
         </div>
 
         <!-- Query Input -->
         <label for="query">Search Query:</label>
-        <input type="text" id="query" name="query" placeholder="Enter keyword, DOI, or author" required
-            value="{{ query or '' }}">
+        <input type="text" id="query" name="query" placeholder="Enter keyword, DOI, or author" required value="{{ query or '' }}">
 
         <!-- 📅 Date Range -->
         <div class="date-range">
@@ -55,46 +48,58 @@
 </section>
 
 <!-- 🔹 Results Section -->
-<div class="results-container" id="resultsContainer">
+	<div class="results-container">
     {% if results %}
         {% for article in results %}
             <div class="result-card">
-
-                <!-- Title -->
+                
+                <!-- 📝 Title -->
                 <h3>{{ article.title or "No title available" }}</h3>
 
-                <!-- Abstract Toggle -->
-                {% if article.abstract %}
-                    <p class="abstract-preview" onclick="toggleAbstract(this)">
-                        {{ article.abstract }}
-                        <span class="read-toggle">▼ Read more</span>
-                    </p>
-                {% else %}
-                    <p><em>No abstract available</em></p>
-                {% endif %}
+                <!-- 📄 Collapsible Abstract -->
+                <div class="collapse-content">
+                    {{ article.abstract or "No abstract available" }}
+                </div>
+                <button class="toggle-btn">Show more</button>
 
-                <!-- Article Details -->
+                <!-- 🔍 Details -->
                 <div class="result-details">
                     <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
-                    
+
                     {% if article.pmid %}
                         <p><strong>PMID:</strong> {{ article.pmid }}</p>
                     {% endif %}
 
-                    <p><strong>DOI:</strong>
-                        {% if article.doi %}
+                    {% if article.doi %}
+                        <p><strong>DOI:</strong> 
                             <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a>
-                        {% else %}
-                            Not available
-                        {% endif %}
-                    </p>
-
-                    <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
-
-                    {% if article.url %}
-                        <p><strong>Full Text:</strong> <a href="{{ article.url }}" target="_blank">Link</a></p>
+                        </p>
                     {% endif %}
 
+                    {% if article.affiliations %}
+                        <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') }}</p>
+                    {% endif %}
+
+                    {% if article.url or article.citation %}
+                        <p>
+                            {% if article.url %}
+                                <a href="{{ article.url }}" target="_blank">View full text</a>
+                            {% endif %}
+                            
+                            {% if article.url and article.citation %}
+                                &nbsp;|&nbsp;
+                            {% endif %}
+
+                            {% if article.citation %}
+                                <a href="#" class="citation-link"
+                                   data-citation="{{ article.citation|escapejs }}"
+                                   data-title="{{ article.title|escapejs }}"
+                                   data-authors="{{ article.authors|join('; ')|escapejs }}"
+                                   data-year="{{ article.year or '' }}"
+                                   data-doi="{{ article.doi or '' }}">
+                                   Cite this article
+                                </a>
+                            {% endif %}
                     {% if article.oa_pdf_path %}
                         <p class="pdf-line">
                             <strong>PDF:</strong>
@@ -104,10 +109,6 @@
                             </a>
                         </p>
                     {% endif %}
-
-                    {% if article.citation %}
-                        <p>
-                            <a href="#" class="citation-link" onclick="openCitationModal('{{ article.citation|escapejs }}', '{{ article.title|escapejs }}', '{{ article.authors|join('; ')|escapejs }}', '{{ article.year or '' }}', '{{ article.doi or '' }}')">Cite this article</a>
                         </p>
                     {% endif %}
                 </div>
@@ -116,14 +117,19 @@
     {% else %}
         {% if query %}
             <p>⚠ No results found for "{{ query }}"</p>
+	    {# {% else %}
+	    <p>⚠ No results found.</p> #}
         {% endif %}
     {% endif %}
 </div>
 
 <!-- 📜 Citation Modal -->
 <div id="citationOverlay" class="citation-overlay" onclick="closeCitationModal()"></div>
+
 <div id="citationModal" class="citation-modal">
     <h3>Citation Options</h3>
+    <p id="citationText" style="white-space: pre-wrap; background:#f5f5f5; padding:10px; border-radius:8px;"></p>
+
     <button id="copyCitationBtn">Copy Citation</button>
     <button onclick="triggerDownload('bibtex')">BibTeX</button>
     <button onclick="triggerDownload('ris')">RIS</button>
@@ -133,79 +139,73 @@
     <button style="background:#ccc; color:#000;" onclick="closeCitationModal()">Close</button>
 </div>
 
-<!-- 📜 Scripts -->
+<!-- 📜 JS -->
 <script>
-    let currentCitation = "", currentTitle = "", currentAuthors = "", currentYear = "", currentDOI = "";
+// Open modal and fill citation info
+function openCitationModal(citation, title, authors, year, doi) {
+    const overlay = document.getElementById('citationOverlay');
+    const modal = document.getElementById('citationModal');
+    const citationText = document.getElementById('citationText');
 
-    function openCitationModal(citation, title, authors, year, doi) {
-        currentCitation = citation;
-        currentTitle = title;
-        currentAuthors = authors;
-        currentYear = year;
-        currentDOI = doi;
-        document.getElementById("citationOverlay").style.display = "block";
-        document.getElementById("citationModal").style.display = "block";
+    citationText.textContent = citation || "No citation available.";
+
+    overlay.style.display = 'block';
+    modal.style.display = 'block';
+
+    // Store metadata globally for download/export
+    window.currentCitation = { citation, title, authors, year, doi };
+}
+
+// Close modal
+function closeCitationModal() {
+    document.getElementById('citationOverlay').style.display = 'none';
+    document.getElementById('citationModal').style.display = 'none';
+}
+
+// Copy citation
+document.getElementById('copyCitationBtn').addEventListener('click', () => {
+    const citationText = document.getElementById('citationText').textContent;
+    navigator.clipboard.writeText(citationText);
+    alert('Citation copied to clipboard!');
+});
+
+// Trigger file download (demo behavior)
+function triggerDownload(format) {
+    const { citation, title } = window.currentCitation || {};
+    if (!citation) {
+        alert("No citation available to export.");
+        return;
     }
 
-    function closeCitationModal() {
-        document.getElementById("citationOverlay").style.display = "none";
-        document.getElementById("citationModal").style.display = "none";
-    }
+    let content = citation;
+    let filename = (title ? title.replace(/\s+/g, '_') : 'citation') + '.' + format;
 
-    document.getElementById("copyCitationBtn").onclick = function() {
-        navigator.clipboard.writeText(currentCitation)
-            .then(() => alert("Citation copied!"))
-            .catch(() => alert("Failed to copy citation"));
-    };
+    // Create a blob and trigger a download
+    const blob = new Blob([content], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
-    function triggerDownload(format) {
-        let content = "", filename = "";
-        if (format === "bibtex") {
-            content = `@article{${currentAuthors.split(' ')[0]}_${currentYear}, title={${currentTitle}}, author={${currentAuthors}}, year={${currentYear}}, doi={${currentDOI}}}`;
-            filename = "citation.bib";
-        } else if (format === "ris") {
-            content = `TY  - JOUR\nTI  - ${currentTitle}\nAU  - ${currentAuthors}\nPY  - ${currentYear}\nDO  - ${currentDOI}\nER  -`;
-            filename = "citation.ris";
-        } else if (format === "txt") {
-            content = `${currentAuthors} (${currentYear}). ${currentTitle}. DOI: ${currentDOI}`;
-            filename = "citation.txt";
-        } else if (format === "xml_abs") {
-            content = `<abstract>\n<title>${currentTitle}</title>\n<authors>${currentAuthors}</authors>\n<year>${currentYear}</year>\n<doi>${currentDOI}</doi>\n<abstractText>${currentCitation}</abstractText>\n</abstract>`;
-            filename = "citation_abstract.xml";
-        } else if (format === "xml_full") {
-            content = `<fulltext>\n<title>${currentTitle}</title>\n<authors>${currentAuthors}</authors>\n<year>${currentYear}</year>\n<doi>${currentDOI}</doi>\n<fullText>${currentCitation}</fullText>\n</fulltext>`;
-            filename = "citation_full.xml";
-        }
-        const blob = new Blob([content], { type: "text/plain" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-        link.click();
-        URL.revokeObjectURL(link.href);
-    }
-
-    // Abstract toggle
-    function toggleAbstract(el) {
-        el.classList.toggle('expanded');
-        const toggleText = el.querySelector('.read-toggle');
-        toggleText.textContent = el.classList.contains('expanded') ? '▲ Read less' : '▼ Read more';
-    }
-
-    // Show/hide status filter for clinical trials
-    const sourceSelect = document.getElementById("source");
-    const statusDiv = document.getElementById("statusFilter");
-    sourceSelect.addEventListener("change", function() {
-        if (this.value === "clinicaltrials") {
-            statusDiv.style.display = "block";
-        } else {
-            statusDiv.style.display = "none";
-        }
+// Attach event listeners to "Cite this article" links
+document.querySelectorAll('.citation-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        openCitationModal(
+            this.dataset.citation,
+            this.dataset.title,
+            this.dataset.authors,
+            this.dataset.year,
+            this.dataset.doi
+        );
     });
+});
 </script>
 
+<script src="{{ url_for('static', filename='js/results.js') }}"></script>
+
 {% endblock %}
-
-
-
-
 

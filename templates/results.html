@@ -4,87 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ source or "Search" }} Results</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 <body class="results-page">
 
 <!-- Header / Navigation -->
 <div class="filters">
     <h1>{{ source or "Search" }} Results</h1>
-    <a href="{{ url_for('home') }}">🔙 Back to Search</a>
+    <a href="{{ url_for('home') }}">Back to Search</a>
 </div>
 
-<!-- Results Container -->
+<div class="results-container">
+    {% if results %}
+        {% for article in results %}
+
+<div class="result-card">
+    <h3>{{ article.title or "No title available" }}</h3>
+
+    <div class="collapse-content">
+        <p>{{ article.abstract or "No abstract available" }}</p>
+
+        {% if article.authors %}
+            <p><strong>Authors:</strong> {{ article.authors | join(', ') }}</p>
+        {% endif %}
+        {% if article.pmid %}
+            <p><strong>PMID:</strong> {{ article.pmid }}</p>
+        {% endif %}
+        {% if article.doi %}
+            <p><strong>DOI:</strong> <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a></p>
+        {% endif %}
+        {% if article.affiliations %}
+            <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') }}</p>
+        {% endif %}
+
+        <div class="action-buttons">
+            {% if article.url %}
+                <a href="{{ article.url }}" target="_blank" class="action-link">View full text</a>
+            {% endif %}
+            {% if article.citation %}
+                &nbsp;|&nbsp;
+                <a href="#" class="action-link citation-link"
+                   data-citation="{{ article.citation|escapejs }}"
+                   data-title="{{ article.title|escapejs }}"
+                   data-authors="{{ article.authors|join('; ')|escapejs }}"
+                   data-year="{{ article.year or '' }}"
+                   data-doi="{{ article.doi or '' }}">
+                   Cite this article
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <button class="toggle-btn">Show more</button>
+</div>
+
+
+
+{#
 <div class="results-container">
     {% if results %}
         {% for article in results %}
             <div class="result-card">
-                
-                <!-- Title -->
                 <h3>{{ article.title or "No title available" }}</h3>
 
-                <!-- Abstract (toggle) -->
-                {% if article.abstract %}
-                    <p class="abstract-preview" onclick="toggleAbstract(this)">
-                        {{ article.abstract }}
-                        <span class="read-toggle">▼ Read more</span>
-                    </p>
-                {% else %}
-                    <p><em>No abstract available</em></p>
-                {% endif %}
+                <div class="collapse-content">
+			<div class="abstract">
+                    <p>{{ article.abstract or "No abstract available" }}</p>
 
-                <!-- Details -->
-                <div class="result-details">
-                    <p><strong>Authors:</strong> {{ article.authors | join(', ') if article.authors else 'Not available' }}</p>
-                    
-                    {% if article.pmid %}
-                        <p><strong>PMID:</strong> {{ article.pmid }}</p>
-                    {% endif %}
-                    
-                    <p><strong>DOI:</strong> 
-                        {% if article.doi %}
-                            <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a>
-                        {% else %}
-                            Not available
+                    <div class="hidden-details">
+                        {% if article.authors %}
+                            <p><strong>Authors:</strong> {{ article.authors | join(', ') }}</p>
                         {% endif %}
-                    </p>
+                        {% if article.pmid %}
+                            <p><strong>PMID:</strong> {{ article.pmid }}</p>
+                        {% endif %}
+                        {% if article.doi %}
+                            <p><strong>DOI:</strong> <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a></p>
+                        {% endif %}
+                        {% if article.affiliations %}
+                            <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') }}</p>
+                        {% endif %}
 
-                    <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') if article.affiliations else 'Not available' }}</p>
-                    
-                    {% if article.url %}
-                        <p><strong>Full Text:</strong> 
-                             <a href="{{ article.url }}" target="_blank">PubMed</a>                       </p>
-                    {% endif %}
-	
-		    {% if article.oa_pdf_path %}
-  <p class="pdf-line">
-    <strong>PDF:</strong>
-    <a class="pdf-link" href="{{ article.oa_pdf_path }}" target="_blank" rel="noopener">
-      <img
-        src="{{ url_for('static', filename='images/pdf.svg') }}?v=1"
-        alt="PDF"
-        class="pdf-icon"
-      >
-      View PDF
-    </a>
-		    </p>           
-		    {% endif %}
+                        <!-- Move action buttons here -->
+                        <div class="action-buttons">
+                            {% if article.url %}
+                                <a href="{{ article.url }}" target="_blank" class="action-link">View full text</a>
+                            {% endif %}
+                            {% if article.citation %}
+                                &nbsp;|&nbsp;
+                                <a href="#" class="action-link citation-link"
+                                   data-citation="{{ article.citation|escapejs }}"
+                                   data-title="{{ article.title|escapejs }}"
+                                   data-authors="{{ article.authors|join('; ')|escapejs }}"
+                                   data-year="{{ article.year or '' }}"
+                                   data-doi="{{ article.doi or '' }}">
+                                   Cite this article
+                                </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
                 </div>
+
+                <button class="toggle-btn">Show more</button>
             </div>
         {% endfor %}
     {% else %}
-        <p>⚠ No results found.</p>
+        <p>No results found.</p>
     {% endif %}
-</div>
+	    </div> #}
 
-<!-- Toggle Script -->
-<script>
-function toggleAbstract(el) {
-    el.classList.toggle('expanded');
-    const toggleText = el.querySelector('.read-toggle');
-    toggleText.textContent = el.classList.contains('expanded') ? '▲ Read less' : '▼ Read more';
-}
-</script>
+
+
+<script src="{{ url_for('static', filename='template.js/results.js') }}"></script>
+
 
 </body>
 </html>

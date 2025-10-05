@@ -468,13 +468,13 @@ footer {
         margin: 20px auto;
     }
 
-    .result-card {
+   /* .result-card {
         margin-bottom: 20px;
         padding: 15px;
         background: #f9f9f9;
         border-radius: 12px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+    } */
 
     .link-section {
         display: flex;
@@ -547,7 +547,56 @@ footer {
         border-bottom: 2px solid #e1e8ed;
     }
 
-    .screening-actions {
+/* Card fold */
+
+.result-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.collapse-content {
+    max-height: 2em; /* collapsed */
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.result-card.expanded .collapse-content {
+    max-height: 2000px;
+}
+
+.result-card.expanded .hidden-details {
+    display: block; /* show when expanded */
+}
+
+.hidden-details {
+    display: none;
+}
+
+.toggle-btn {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.toggle-btn:hover {
+    background: #0056b3;
+}
+
+.abstract {
+    max-height: 3em;
+    overflow: hidden;
+}
+
+/* Screening experiment code */
+    
+.screening-actions {
         display: flex;
         gap: 10px;
     }
