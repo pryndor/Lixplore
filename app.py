@@ -21,6 +21,8 @@ from api_clients.clinicaltrial.clinicaltrials_client import search_clinical_tria
 from api_clients.doaj.doaj_client import search_doaj
 from flask_mail import Mail, Message
 
+
+
 from database.database import (
     init_db,
     get_archive,
@@ -57,44 +59,6 @@ def get_db_connection():
 # -------------------------------------------------
 # Helper: API fetcher
 # -------------------------------------------------
-"""
-def fetch_from_api(source, query, filters=None):
-    try:
-        if source == "pubmed":
-            results_dict = search_pubmed(query)
-            print("Query received:", query)
-            if isinstance(results_dict, dict):
-                results = results_dict.get("results", [])
-            else:
-                results = results_dict or []
-
-        elif source == "crossref":
-            results = search_crossref(query)
-        elif source == "springer":
-            results = search_springer(query)
-        elif source == "europepmc_publications":
-            results = search_epmc_publications(query)
-        elif source == "europepmc_grants":
-            grant_data = search_epmc_grants(query)
-            results = grant_data.get("grants", []) if isinstance(grant_data, dict) else []
-        elif source == "clinicaltrials":
-            status = filters.get("status") if filters else None
-            results = search_clinical_trials(query, status)
-        elif source == "doaj":
-            results = search_doaj(query)
-        else:
-            results = []
-
-        # Normalize OA PDF paths
-        results = [normalize_oa_pdf(article) for article in results]
-
-        return results
-
-    except Exception as e:
-        print(f"[API] ⚠ Error fetching from {source}: {e}")
-        return []
-
-"""
 
 def fetch_from_api(source, query, filters):
     try:
@@ -130,6 +94,18 @@ def fetch_from_api(source, query, filters):
         return []
 
 
+
+def get_search_results():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM articles ORDER BY id DESC LIMIT 20")
+    rows = cur.fetchall()
+    results = [dict(row) for row in rows]
+    conn.close()
+    return results
+
+
+
 # -----------------------------
 # Helper: Normalize OA PDF
 # -----------------------------
@@ -143,6 +119,54 @@ def normalize_oa_pdf(article):
     elif isinstance(oa_pdf, list):
         article["oa_pdf_path"] = oa_pdf[0] if oa_pdf else None
     return article
+
+#------------------------
+# Tagging function under implementation: functions under testing
+#------------------------
+
+
+# Add tags to article
+def add_tags_to_article(article_id, tag_names):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    for tag_name in tag_names:
+        cur.execute("INSERT OR IGNORE INTO article_tags (name) VALUES (?)", (tag_name.strip(),))
+        cur.execute("SELECT id FROM article_tags WHERE name = ?", (tag_name.strip(),))
+        tag_id = cur.fetchone()["id"]
+        cur.execute("INSERT OR IGNORE INTO article_tag_map (article_id, tag_id) VALUES (?, ?)", (article_id, tag_id))
+    conn.commit()
+    conn.close()
+
+
+# Get tags for article
+def get_tags_for_article(article_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT t.name
+        FROM article_tags t
+        JOIN article_tag_map m ON t.id = m.tag_id
+        WHERE m.article_id = ?
+    """, (article_id,))
+    tags = [row["name"] for row in cur.fetchall()]
+    conn.close()
+    return tags
+
+
+# Get articles by tag
+def get_articles_by_tag(tag_name):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT a.*
+        FROM articles a
+        JOIN article_tag_map m ON a.id = m.article_id
+        JOIN article_tags t ON m.tag_id = t.id
+        WHERE t.name = ?
+    """, (tag_name,))
+    articles = [dict(row) for row in cur.fetchall()]  # always return dicts
+    conn.close()
+    return articles
 
 
 # -------------------------------------------------
@@ -554,7 +578,6 @@ def blogs_by_tag(tag):
         WHERE tags LIKE ?
         ORDER BY created_at DESC
     """, ('%' + tag + '%',)).fetchall()
-    conn.close()
 
     # Convert sqlite3.Row to dict (optional, depends on how you pass to template)
     posts = [dict(post) for post in posts]
@@ -717,6 +740,110 @@ def search_page():
         query=query,
         status=status_filter
     )
+
+
+
+# -----------------------------
+# Helper function: get tags for an article
+# -----------------------------
+def get_tags_for_article(article_id):
+    conn = sqlite3.connect("database/lixplore.db")
+    conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT t.name
+        FROM article_tags t
+        JOIN article_tag_map m ON t.id = m.tag_id
+        WHERE m.article_id = ?
+    """, (article_id,))
+    tags = [row["name"] for row in cur.fetchall()]
+    conn.close()
+    return tags
+
+# -----------------------------
+# Helper function: add tags to an article
+# -----------------------------
+def add_tags_to_article(article_id, tags):
+    conn = sqlite3.connect("database/lixplore.db")
+    cur = conn.cursor()
+    for tag_name in tags:
+        tag_name = tag_name.strip()
+        if not tag_name:
+            continue
+        # Check if tag already exists in article_tags
+        cur.execute("SELECT id FROM article_tags WHERE name = ?", (tag_name,))
+        tag_row = cur.fetchone()
+        if tag_row:
+            tag_id = tag_row[0]
+        else:
+            # Insert new tag
+            cur.execute("INSERT INTO article_tags (name) VALUES (?)", (tag_name,))
+            tag_id = cur.lastrowid
+        # Map tag to article
+        cur.execute("SELECT * FROM article_tag_map WHERE article_id = ? AND tag_id = ?", (article_id, tag_id))
+        if not cur.fetchone():
+            cur.execute("INSERT INTO article_tag_map (article_id, tag_id) VALUES (?, ?)", (article_id, tag_id))
+    conn.commit()
+    conn.close()
+
+# -----------------------------
+# Route: Search results page
+# -----------------------------
+"""
+@app.route("/search_results")
+def search_results():
+    results = get_search_results()  # replace with your DB query
+    # Ensure each article has id, title, abstract, authors, etc.
+    for article in results:
+        if 'id' not in article:
+            raise ValueError(f"Article missing ID: {article}")
+        article['tags'] = get_tags_for_article(article['id'])
+    return render_template("results.html", results=results, source="Search")
+
+"""
+
+@app.route("/search_results")
+def search_results():
+    results = get_search_results()  # your DB query
+    print("Results returned:", len(results))
+    for article in results:
+        print("Article ID:", article.get("id"), "Title:", article.get("title"))
+        article['tags'] = get_tags_for_article(article['id'])
+    return render_template("results.html", results=results, source="Search")
+
+
+# -----------------------------
+# Route: Add tag to an article
+# -----------------------------
+@app.route("/add_tags/<int:article_id>", methods=["POST"])
+def add_tags(article_id):
+    tags_text = request.form.get("tags", "")
+    tags = [t.strip() for t in tags_text.split(",") if t.strip()]
+    if tags:
+        add_tags_to_article(article_id, tags)
+    # After adding, redirect back to search results
+    return redirect(url_for("search_results"))
+
+
+@app.route("/articles_with_tags")
+def articles_with_tags():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT a.id, a.title, GROUP_CONCAT(t.name, ', ') AS tags
+        FROM articles a
+        LEFT JOIN article_tag_map m ON a.id = m.article_id
+        LEFT JOIN article_tags t ON m.tag_id = t.id
+        GROUP BY a.id
+        ORDER BY a.id DESC
+        LIMIT 20;
+    """)
+    articles = [dict(row) for row in cur.fetchall()]
+    conn.close()
+    return render_template("articles_with_tags.html", articles=articles)
+
+#----------------------
+
 
 @app.route("/history/<int:search_id>")
 def history_results(search_id):

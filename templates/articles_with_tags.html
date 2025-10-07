@@ -1,0 +1,20 @@
+<!-- Article with tags
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Articles with Tags</h2>
+
+<table border="1" cellpadding="6">
+    <tr>
+        <th>Title</th>
+        <th>Tags</th>
+    </tr>
+    {% for a in articles %}
+    <tr>
+        <td>{{ a.title }}</td>
+        <td>{{ a.tags or 'No tags' }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+

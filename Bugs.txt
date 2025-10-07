@@ -1,8 +1,10 @@
 # Task for Sneha
  
- 1.Create folder for Api_clients(crossref.py,pubmed_client.py,
- springer_client.py,europepmc.py,doaj_client.py)------(incomplete,files uploaded but import pending)
+ 1.Create folder for Api_clients(crossref.py,pubmed_client.py, (Error fixed)
+ springer_client.py,europepmc.py,doaj_client.py)------(incomplete,files uploaded but import pending) (fixed)
 
- 2.Change the maximum results as 200 or unlimited-----(completed, maximum limit 200 set)
+ 2.Change the maximum results as 200 or unlimited-----(completed, maximum limit 200 set): (Want to review by implementing pagination: Implementing pagination under progress)
 
  3.gitingore - bak files------(completed) 
+
+ 4. 

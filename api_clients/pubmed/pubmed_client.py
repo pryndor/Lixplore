@@ -1,5 +1,6 @@
 # pubmed_client.py
 
+from typing import AbstractSet
 import requests
 import time
 import xml.etree.ElementTree as ET
@@ -9,14 +10,19 @@ import os
 import pprint
 from Bio import Entrez
 from datetime import datetime
-
+from api_clients.rest_client import fetch_paginated_data
+import xml.etree.ElementTree as ET
 
 # Load .env variables
 load_dotenv()
 
 # Environment variables (ensure these exist in your .env file)
-NCBI_EMAIL = os.getenv("NCBI_EMAIL")    # .env: NCBI_EMAIL=YOUR_Email
-NCBI_API_KEY = os.getenv("NCBI_API_KEY")   # .env: NCBI_API_KEY=YOUR_API
+NCBI_EMAIL = os.getenv("NCBI_EMAIL")    # .env: NCBI_EMAIL
+NCBI_API_KEY = os.getenv("NCBI_API_KEY")   # .env: NCBI_API_KEY
+
+print("EMAIL:", NCBI_EMAIL)
+print("API KEY:", NCBI_API_KEY)
+
 PMC_CONVERTER_URL = "https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/"
 
 # API base URLs
@@ -121,6 +127,131 @@ def search_pubmed(query, page=1, per_page=20):
 # 2) Direct HTTP-based search with filters
 # ------------------------
 
+def search_pubmed(query, page=1, per_page=20, fetch_pmc=True):
+    offset = (page - 1) * per_page
+
+    # Step 1: ESearch - Get PMIDs
+    esearch_url = (
+        f"{ESEARCH_URL}?db=pubmed&term={query}&retstart={offset}&retmax={per_page}&retmode=json"
+        f"&email={NCBI_EMAIL}&api_key={NCBI_API_KEY}"
+    )
+    response = requests.get(esearch_url)
+    response.raise_for_status()
+    data = response.json()
+
+    id_list = data["esearchresult"].get("idlist", [])
+    total_count = int(data["esearchresult"].get("count", 0))
+
+    if not id_list:
+        return {"results": [], "page": page, "per_page": per_page, "total": 0}
+
+    # Step 2: EFetch - Get abstracts and details
+    efetch_params = {
+        "db": "pubmed",
+        "id": ",".join(id_list),
+        "retmode": "xml",
+        "email": NCBI_EMAIL,
+        "api_key": NCBI_API_KEY
+    }
+    efetch_resp = requests.get(EFETCH_URL, params=efetch_params)
+    efetch_resp.raise_for_status()
+
+    # Step 3: Parse XML and extract abstract, title, etc.
+    root = ET.fromstring(efetch_resp.text)
+    articles = []
+    for article in root.findall(".//PubmedArticle"):
+        pmid = article.findtext(".//PMID")
+        title = article.findtext(".//ArticleTitle")
+
+        abstract_elem = article.find(".//Abstract")
+        abstract_text = " ".join(
+            [a.text or "" for a in abstract_elem.findall("AbstractText")]
+        ) if abstract_elem is not None else ""
+
+        journal = article.findtext(".//Journal/Title")
+        year = article.findtext(".//PubDate/Year")
+        doi = article.findtext(".//ArticleId[@IdType='doi']")
+
+        pmc_data = get_pmc_pdf_url(pmid) if fetch_pmc else None
+
+        articles.append({
+            "pmid": pmid,
+            "title": title,
+            "abstract": abstract_text,
+            "journal": journal,
+            "year": year,
+            "doi": doi,
+            "url": f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/",
+            "pmcid": pmc_data["pmcid"] if pmc_data else None,
+            "pmc_pdf_url": pmc_data["pdf_url"] if pmc_data else None,
+            "source": "PubMed"
+        })
+
+    return {
+        "results": articles,
+        "page": page,
+        "per_page": per_page,
+        "total": total_count
+    }
+
+
+'''
+def search_pubmed(query, page=1, per_page=20, fetch_pmc=True):
+    """
+    Search PubMed (JSON) with pagination and optional PMC PDF URLs.
+    """
+    offset = (page - 1) * per_page
+    esearch_url = (
+        f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+        f"?db=pubmed&term={query}&retstart={offset}&retmax={per_page}&retmode=json"
+        f"&email={NCBI_EMAIL}&api_key={NCBI_API_KEY}"
+    )
+    response = requests.get(esearch_url)
+    response.raise_for_status()
+    data = response.json()
+
+    id_list = data['esearchresult'].get('idlist', [])
+    total_count = int(data['esearchresult'].get('count', 0))
+
+    articles = []
+    if id_list:
+        # Fetch summaries
+        summary_url = (
+            f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
+            f"?db=pubmed&id={','.join(id_list)}&retmode=json"
+            f"&email={NCBI_EMAIL}&api_key={NCBI_API_KEY}"
+        )
+        summary_resp = requests.get(summary_url)
+        summary_resp.raise_for_status()
+        summaries = summary_resp.json().get("result", {})
+
+        for uid in id_list:
+            if uid not in summaries:
+                continue
+            summary = summaries[uid]
+            pmc_data = get_pmc_pdf_url(uid) if fetch_pmc else None
+            articles.append({
+                "title": summary.get("title", ""),
+                "authors": [au["name"] for au in summary.get("authors", [])],
+                "abstract": summary.get("summary", ""),
+                "pmid": uid,
+                "doi": summary.get("elocationid", ""),
+                "url": f"https://pubmed.ncbi.nlm.nih.gov/{uid}/",
+                "pmcid": pmc_data["pmcid"] if pmc_data else None,
+                "pmc_pdf_url": pmc_data["pdf_url"] if pmc_data else None,
+                "source": "PubMed"
+            })
+
+    return {
+        "results": articles,
+        "page": page,
+        "per_page": per_page,
+        "total": total_count
+    }
+
+'''
+
+'''
 def search_pubmed(query, author=None, start_year=None, end_year=None, country=None, max_results=20):
     """
     Search PubMed using direct HTTP requests to NCBI E-utilities.
@@ -255,7 +386,7 @@ def search_pubmed(query, author=None, start_year=None, end_year=None, country=No
         "per_page": max_results,
         "total": len(articles)
     }
-
+'''
 
 # ---------- PMID -> PMCID PDF helper ----------
 
@@ -289,10 +420,109 @@ def get_pmc_pdf_url(pmid):
     pdf_url = f"https://www.ncbi.nlm.nih.gov/pmc/articles/{pmcid}/pdf/"
     return {"pmcid": pmcid, "pdf_url": pdf_url}
 
+#-----------------
+ #Implement Abstracts
+#------------------
+
+def fetch_abstracts(pmids):
+    efetch_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+    params = {
+        "db": "pubmed",
+        "id": ",".join(pmids),
+        "retmode": "xml",
+        "email": os.getenv("NCBI_EMAIL"),
+        "api_key": os.getenv("NCBI_API_KEY")
+    }
+    resp = requests.get(efetch_url, params=params)
+    resp.raise_for_status()
+    root = ET.fromstring(resp.text)
+    abstracts = {}
+    for article in root.findall(".//PubmedArticle"):
+        pmid = article.findtext(".//PMID")
+        abstract_elem = article.find(".//Abstract")
+        if abstract_elem is not None:
+            abstract_text = " ".join([a.text or "" for a in abstract_elem.findall("AbstractText")])
+        else:
+            abstract_text = ""
+        abstracts[pmid] = abstract_text
+    return abstracts
+
 #------------------------
     #pagination function--
 #---------------------------
+"""
 
+def search_pubmed(query):
+    base_url = "https://api.ncbi.nlm.nih.gov/lit/ctxp/v1/pubmed/"
+    params = {"term": query, "retmax": 100}
+    results = fetch_paginated_data(base_url, params)
+    return results
+
+"""
+
+
+def search_pubmed_paginated(query, page=1, per_page=20):
+    offset = (page - 1) * per_page
+
+    # Step 1: ESearch - get PMIDs
+    esearch_params = {
+        "db": "pubmed",
+        "term": query,
+        "retstart": offset,
+        "retmax": per_page,
+        "retmode": "json",
+        "email": NCBI_EMAIL,
+        "api_key": NCBI_API_KEY
+    }
+    esearch_resp = requests.get(ESEARCH_URL, params=esearch_params)
+    esearch_data = esearch_resp.json()
+    pmids = esearch_data.get("esearchresult", {}).get("idlist", [])
+
+    if not pmids:
+        return []
+
+    # Step 2: EFetch - get article details (including abstracts)
+    efetch_params = {
+        "db": "pubmed",
+        "id": ",".join(pmids),
+        "retmode": "xml",
+        "email": NCBI_EMAIL,
+        "api_key": NCBI_API_KEY
+    }
+    efetch_resp = requests.get(EFETCH_URL, params=efetch_params)
+    efetch_resp.raise_for_status()
+
+    # Step 3: Parse XML response
+    root = ET.fromstring(efetch_resp.text)
+    articles = []
+    for article in root.findall(".//PubmedArticle"):
+        pmid = article.findtext(".//PMID")
+        title = article.findtext(".//ArticleTitle")
+
+        # Extract abstract text safely
+        abstract_elem = article.find(".//Abstract")
+        abstract_text = " ".join(
+            [a.text or "" for a in abstract_elem.findall("AbstractText")]
+        ) if abstract_elem is not None else ""
+
+        journal = article.findtext(".//Journal/Title")
+        year = article.findtext(".//PubDate/Year")
+        doi = article.findtext(".//ArticleId[@IdType='doi']")
+
+        articles.append({
+            "pmid": pmid,
+            "title": title,
+            "abstract": abstract_text,
+            "journal": journal,
+            "year": year,
+            "doi": doi
+        })
+
+    return articles
+
+
+
+"""
 
 def search_pubmed_paginated(query, page=1, per_page=20):
     offset = (page - 1) * per_page
@@ -325,12 +555,17 @@ def search_pubmed_paginated(query, page=1, per_page=20):
         "per_page": per_page,
         "total": total_count
     }
-
-
+"""
+"""
 if __name__ == "__main__":
     # Test the search_pubmed function with a sample query
     print("Running test search_pubmed...")
     result = search_pubmed("diabetes")  # Example query
     print("Result from PubMed API:")
     print(result)
+"""
+
+if __name__ == "__main__":
+    result = search_pubmed("France")
+    pprint.pprint(result)
 

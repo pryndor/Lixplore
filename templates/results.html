@@ -17,11 +17,33 @@
 
 <div class="results-container">
     {% if results %}
-        {% for article in results %}
+       {% for article in results %}
+<div class="result-card" id="article-{{ article.id }}">
+    <h3>{{ article.title or "No title available" }}</h3> 
 
-<div class="result-card">
-    <h3>{{ article.title or "No title available" }}</h3>
+    <!-- Tags display -->
+    <div class="tags">
+        {% if article.tags %}
+            {% for tag in article.tags %}
+                <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        {% else %}
+            <span class="tag-placeholder">No tags yet</span>
+        {% endif %}
+    </div>
 
+    <!-- Assign Tag Button / Icon -->
+    <button class="assign-tag-btn" onclick="toggleTagInput({{ article.id }})">
+        🏷️ Add Tag
+    </button>
+
+    <!-- Hidden Add Tag Input -->
+    <form class="add-tag-form" id="tag-form-{{ article.id }}" action="{{ url_for('add_tags', article_id=article.id) }}" method="POST" style="display:none;">
+    <input type="text" name="tags" placeholder="Enter tag (comma-separated)" class="tag-input">
+    <button type="submit" class="btn btn-sm">Add</button>
+</form>
+
+    <!-- Article details / abstract -->
     <div class="collapse-content">
         <p>{{ article.abstract or "No abstract available" }}</p>
 
@@ -36,7 +58,7 @@
         {% endif %}
         {% if article.affiliations %}
             <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') }}</p>
-        {% endif %}
+        {% endif>
 
         <div class="action-buttons">
             {% if article.url %}
@@ -58,6 +80,7 @@
 
     <button class="toggle-btn">Show more</button>
 </div>
+{% endfor %}
 
 
 
@@ -115,9 +138,12 @@
     {% endif %}
 	    </div> #}
 
-
-
-<script src="{{ url_for('static', filename='template.js/results.js') }}"></script>
+	   <script>
+function toggleTagInput(articleId) {
+    const form = document.getElementById(`tag-form-${articleId}`);
+    form.style.display = (form.style.display === "none") ? "block" : "none";
+}
+</script>
 
 
 </body>
