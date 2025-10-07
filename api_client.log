@@ -13364,3 +13364,5 @@
 2025-10-05 13:08:28,785 - INFO - 127.0.0.1 - - [05/Oct/2025 13:08:28] "[36mGET /static/images/OpenDataSquare.svg HTTP/1.1[0m" 304 -
 2025-10-05 13:08:28,786 - INFO - 127.0.0.1 - - [05/Oct/2025 13:08:28] "[36mGET /static/images/Pubmed.svg HTTP/1.1[0m" 304 -
 2025-10-05 13:08:28,788 - INFO - 127.0.0.1 - - [05/Oct/2025 13:08:28] "[36mGET /static/images/lixplore_logo.svg HTTP/1.1[0m" 304 -
+2025-10-07 19:33:20,299 - WARNING -  * Debugger is active!
+2025-10-07 19:33:20,302 - INFO -  * Debugger PIN: 864-217-533
