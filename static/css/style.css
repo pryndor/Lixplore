@@ -549,6 +549,7 @@ footer {
 
 /* Card fold */
 
+/* 🎯 Each card box */
 .result-card {
     background: #f9f9f9;
     border-radius: 10px;
@@ -557,24 +558,34 @@ footer {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.collapse-content {
-    max-height: 2em; /* collapsed */
+/* 🎯 Collapsible section inside the card */
+.result-card .collapse-content {
+    max-height: 150px; /* collapsed view */
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.4s ease;
 }
 
+/* 🎯 When expanded, show everything */
 .result-card.expanded .collapse-content {
-    max-height: 2000px;
+    max-height: 2000px; /* large enough for full expansion */
 }
 
-.result-card.expanded .hidden-details {
-    display: block; /* show when expanded */
+/* 🔥 Remove any .abstract limit */
+.abstract {
+    max-height: none;
+    overflow: visible;
 }
 
+/* Optional: hidden section toggle (if used) */
 .hidden-details {
     display: none;
 }
 
+.result-card.expanded .hidden-details {
+    display: block;
+}
+
+/* 🎯 Toggle button style */
 .toggle-btn {
     background: #007BFF;
     color: white;
@@ -587,11 +598,6 @@ footer {
 
 .toggle-btn:hover {
     background: #0056b3;
-}
-
-.abstract {
-    max-height: 3em;
-    overflow: hidden;
 }
 
 /* Screening experiment code */

@@ -12,6 +12,7 @@ from Bio import Entrez
 from datetime import datetime
 from api_clients.rest_client import fetch_paginated_data
 import xml.etree.ElementTree as ET
+import sqlite3
 
 # Load .env variables
 load_dotenv()
@@ -32,6 +33,7 @@ EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
 # Throttle delay per NCBI guidelines (max 8 requests/sec)
 THROTTLE_DELAY = 0.125
+
 
 
 # ------------------------
@@ -447,6 +449,32 @@ def fetch_abstracts(pmids):
         abstracts[pmid] = abstract_text
     return abstracts
 
+
+# Save in database in the loop
+
+def save_articles_to_db(conn, search_id, articles):
+    cursor = conn.cursor()
+    for article in articles:
+        cursor.execute("""
+            INSERT INTO articles 
+                (search_id, title, authors, doi, pmid, url, abstract, affiliations, oa_pdf_path, pmcid, pmc_pdf_url)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            search_id,
+            article["title"],
+            ",".join(article.get("authors", [])),
+            article.get("doi"),
+            article["pmid"],
+            article.get("url"),
+            article.get("abstract"),
+            article.get("affiliations", ""),
+            article.get("oa_pdf_path", ""),
+            article.get("pmcid"),
+            article.get("pmc_pdf_url")
+        ))
+    conn.commit()
+
+
 #------------------------
     #pagination function--
 #---------------------------
@@ -566,6 +594,9 @@ if __name__ == "__main__":
 """
 
 if __name__ == "__main__":
-    result = search_pubmed("France")
-    pprint.pprint(result)
+    conn = sqlite3.connect("lixplore.db")
+    search_id = 1
+    articles_data = search_pubmed("France")["results"]
+    save_articles_to_db(conn, search_id, articles_data)
+    pprint.pprint(articles_data)
 

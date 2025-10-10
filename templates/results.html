@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ source or "Search" }} Results</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 <body class="results-page">
 
@@ -15,136 +14,157 @@
     <a href="{{ url_for('home') }}">Back to Search</a>
 </div>
 
-<div class="results-container">
-    {% if results %}
-       {% for article in results %}
-<div class="result-card" id="article-{{ article.id }}">
-    <h3>{{ article.title or "No title available" }}</h3> 
+<div class="result-card" id="article-{{ article_id }}">
+    <h3>{{ article.get('title', 'No title available') }}</h3>
 
-    <!-- Tags display -->
-    <div class="tags">
-        {% if article.tags %}
-            {% for tag in article.tags %}
-                <span class="tag">{{ tag }}</span>
-            {% endfor %}
-        {% else %}
-            <span class="tag-placeholder">No tags yet</span>
+    <div class="collapse-content">
+        <!-- Everything that should collapse goes inside here -->
+        <div class="tags">
+            {% if article.get('tags') %}
+                {% for tag in article['tags'] %}
+                    <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            {% else %}
+                <span class="tag-placeholder">No tags yet</span>
+            {% endif %}
+        </div>
+
+        <button class="assign-tag-btn" onclick="toggleTagInput('{{ article_id }}')">
+            🏷️ Add Tag
+        </button>
+
+        <form class="add-tag-form" id="tag-form-{{ article_id }}" 
+              action="{{ url_for('add_tags', article_id=article_id) }}" method="POST" style="display:none;">
+            <input type="text" name="tags" placeholder="Enter tag (comma-separated)" class="tag-input">
+            <button type="submit" class="btn btn-sm">Add</button>
+        </form>
+
+        <p>{{ article.get('abstract', 'No abstract available') }}</p>
+
+        {% if article.get('authors') %}
+            <p><strong>Authors:</strong> 
+               {{ article['authors'] if article['authors'] is string else article['authors'] | join(', ') }}
+            </p>
+        {% endif %}
+        {% if article.get('pmid') %}
+            <p><strong>PMID:</strong> {{ article['pmid'] }}</p>
+        {% endif %}
+        {% if article.get('doi') %}
+            <p><strong>DOI:</strong> <a href="https://doi.org/{{ article['doi'] }}" target="_blank">{{ article['doi'] }}</a></p>
+        {% endif %}
+        {% if article.get('affiliations') %}
+            <p><strong>Affiliations:</strong> 
+               {{ article['affiliations'] if article['affiliations'] is string else article['affiliations'] | join(', ') }}
+            </p>
         {% endif %}
     </div>
 
-    <!-- Assign Tag Button / Icon -->
-    <button class="assign-tag-btn" onclick="toggleTagInput({{ article.id }})">
-        🏷️ Add Tag
-    </button>
-
-    <!-- Hidden Add Tag Input -->
-    <form class="add-tag-form" id="tag-form-{{ article.id }}" action="{{ url_for('add_tags', article_id=article.id) }}" method="POST" style="display:none;">
-    <input type="text" name="tags" placeholder="Enter tag (comma-separated)" class="tag-input">
-    <button type="submit" class="btn btn-sm">Add</button>
-</form>
-
-    <!-- Article details / abstract -->
-    <div class="collapse-content">
-        <p>{{ article.abstract or "No abstract available" }}</p>
-
-        {% if article.authors %}
-            <p><strong>Authors:</strong> {{ article.authors | join(', ') }}</p>
+    <div class="action-buttons">
+        {% if article.get('url') %}
+            <a href="{{ article['url'] }}" target="_blank" class="action-link">View full text</a>
         {% endif %}
-        {% if article.pmid %}
-            <p><strong>PMID:</strong> {{ article.pmid }}</p>
+        {% if article.get('citation') %}
+            &nbsp;|&nbsp;
+            <a href="#" class="action-link citation-link"
+               data-citation="{{ article['citation']|escapejs }}"
+               data-title="{{ article.get('title','')|escapejs }}"
+               data-authors="{{ article['authors'] if article['authors'] is string else article['authors'] | join('; ') | escapejs }}"
+               data-year="{{ article.get('year','') }}"
+               data-doi="{{ article.get('doi','') }}">
+               Cite this article
+            </a>
         {% endif %}
-        {% if article.doi %}
-            <p><strong>DOI:</strong> <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a></p>
-        {% endif %}
-        {% if article.affiliations %}
-            <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') }}</p>
-        {% endif>
-
-        <div class="action-buttons">
-            {% if article.url %}
-                <a href="{{ article.url }}" target="_blank" class="action-link">View full text</a>
-            {% endif %}
-            {% if article.citation %}
-                &nbsp;|&nbsp;
-                <a href="#" class="action-link citation-link"
-                   data-citation="{{ article.citation|escapejs }}"
-                   data-title="{{ article.title|escapejs }}"
-                   data-authors="{{ article.authors|join('; ')|escapejs }}"
-                   data-year="{{ article.year or '' }}"
-                   data-doi="{{ article.doi or '' }}">
-                   Cite this article
-                </a>
-            {% endif %}
-        </div>
     </div>
 
     <button class="toggle-btn">Show more</button>
 </div>
-{% endfor %}
-
 
 
 {#
 <div class="results-container">
     {% if results %}
-        {% for article in results %}
-            <div class="result-card">
-                <h3>{{ article.title or "No title available" }}</h3>
+       {% for article in results %}
+          {% set article_id = article.get('id', article.get('pmid')) %}
+          <div class="result-card" id="article-{{ article_id }}">
+              <h3>{{ article.get('title', 'No title available') }}</h3> 
 
-                <div class="collapse-content">
-			<div class="abstract">
-                    <p>{{ article.abstract or "No abstract available" }}</p>
+              <!-- Tags display -->
+              <div class="tags">
+                  {% if article.get('tags') %}
+                      {% for tag in article['tags'] %}
+                          <span class="tag">{{ tag }}</span>
+                      {% endfor %}
+                  {% else %}
+                      <span class="tag-placeholder">No tags yet</span>
+                  {% endif %}
+              </div>
 
-                    <div class="hidden-details">
-                        {% if article.authors %}
-                            <p><strong>Authors:</strong> {{ article.authors | join(', ') }}</p>
-                        {% endif %}
-                        {% if article.pmid %}
-                            <p><strong>PMID:</strong> {{ article.pmid }}</p>
-                        {% endif %}
-                        {% if article.doi %}
-                            <p><strong>DOI:</strong> <a href="https://doi.org/{{ article.doi }}" target="_blank">{{ article.doi }}</a></p>
-                        {% endif %}
-                        {% if article.affiliations %}
-                            <p><strong>Affiliations:</strong> {{ article.affiliations | join(', ') }}</p>
-                        {% endif %}
+              <!-- Assign Tag Button / Icon -->
+              <button class="assign-tag-btn" onclick="toggleTagInput('{{ article_id }}')">
+                  🏷️ Add Tag
+              </button>
 
-                        <!-- Move action buttons here -->
-                        <div class="action-buttons">
-                            {% if article.url %}
-                                <a href="{{ article.url }}" target="_blank" class="action-link">View full text</a>
-                            {% endif %}
-                            {% if article.citation %}
-                                &nbsp;|&nbsp;
-                                <a href="#" class="action-link citation-link"
-                                   data-citation="{{ article.citation|escapejs }}"
-                                   data-title="{{ article.title|escapejs }}"
-                                   data-authors="{{ article.authors|join('; ')|escapejs }}"
-                                   data-year="{{ article.year or '' }}"
-                                   data-doi="{{ article.doi or '' }}">
-                                   Cite this article
-                                </a>
-                            {% endif %}
-                        </div>
+              <!-- Hidden Add Tag Input -->
+              <form class="add-tag-form" id="tag-form-{{ article_id }}" 
+                    action="{{ url_for('add_tags', article_id=article_id) }}" method="POST" style="display:none;">
+                  <input type="text" name="tags" placeholder="Enter tag (comma-separated)" class="tag-input">
+                  <button type="submit" class="btn btn-sm">Add</button>
+              </form>
 
-                    </div>
-                </div>
+              <!-- Article details / abstract -->
+              <div class="collapse-content">
+                  <p>{{ article.get('abstract', 'No abstract available') }}</p>
 
-                <button class="toggle-btn">Show more</button>
-            </div>
-        {% endfor %}
+                  {% if article.get('authors') %}
+                      <p><strong>Authors:</strong> 
+                         {{ article['authors'] if article['authors'] is string else article['authors'] | join(', ') }}
+                      </p>
+                  {% endif %}
+                  {% if article.get('pmid') %}
+                      <p><strong>PMID:</strong> {{ article['pmid'] }}</p>
+                  {% endif %}
+                  {% if article.get('doi') %}
+                      <p><strong>DOI:</strong> <a href="https://doi.org/{{ article['doi'] }}" target="_blank">{{ article['doi'] }}</a></p>
+                  {% endif %}
+                  {% if article.get('affiliations') %}
+                      <p><strong>Affiliations:</strong> 
+                         {{ article['affiliations'] if article['affiliations'] is string else article['affiliations'] | join(', ') }}
+                      </p>
+                  {% endif %}
+
+                  <div class="action-buttons">
+                      {% if article.get('url') %}
+                          <a href="{{ article['url'] }}" target="_blank" class="action-link">View full text</a>
+                      {% endif %}
+                      {% if article.get('citation') %}
+                          &nbsp;|&nbsp;
+                          <a href="#" class="action-link citation-link"
+                             data-citation="{{ article['citation']|escapejs }}"
+                             data-title="{{ article.get('title','')|escapejs }}"
+                             data-authors="{{ article['authors'] if article['authors'] is string else article['authors'] | join('; ') | escapejs }}"
+                             data-year="{{ article.get('year','') }}"
+                             data-doi="{{ article.get('doi','') }}">
+                             Cite this article
+                          </a>
+                      {% endif %}
+                  </div>
+              </div>
+
+              <button class="toggle-btn">Show more</button>
+          </div>
+       {% endfor %}
     {% else %}
-        <p>No results found.</p>
+       <p>No results found.</p>
     {% endif %}
-	    </div> #}
+</div>
+#}
 
-	   <script>
+<script>
 function toggleTagInput(articleId) {
     const form = document.getElementById(`tag-form-${articleId}`);
     form.style.display = (form.style.display === "none") ? "block" : "none";
 }
 </script>
-
 
 </body>
 </html>
